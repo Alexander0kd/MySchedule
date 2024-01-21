@@ -1,9 +1,8 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import okFace from "../../../assets/ok-face-1.png";
 import WideButton from "../../shared/components/WideButton";
-import Schedule from "../Schedule/Schedule";
 
 const WelcomePage = () => {
   const navigation = useNavigation();
@@ -25,7 +24,7 @@ const WelcomePage = () => {
         <WideButton
           label="Продовжити"
           width={230}
-          onPressFunc={() => navigation.navigate("AppNavbar")}
+          onPressFunc={() => navigation.replace("AppNavbar")}
         />
         <View style={styles.pagesNavWrapper}>
           <View style={[styles.pagesNavDot, styles.activeDot]}></View>
