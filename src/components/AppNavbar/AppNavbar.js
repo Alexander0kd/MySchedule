@@ -5,9 +5,9 @@ import NotesList from '../Notes/NotesList';
 import Settings from '../Settings/Settings';
 import Information from '../Information/Information';
 
-const Tab = createBottomTabNavigator();
-
 export default function AppNavbar() {
+  const Tab = createBottomTabNavigator();
+
   return (
     <Tab.Navigator>
       <Tab.Screen name="Розклад" component={Schedule} />
