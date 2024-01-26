@@ -17,9 +17,13 @@ export default function AppNavbar() {
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
 
     useEffect(() => {
-        const updateScreenWidth = () => {setScreenWidth(Dimensions.get('window').width);};
+        const updateScreenWidth = () => {
+            setScreenWidth(Dimensions.get('window').width);
+        };
         Dimensions.addEventListener('change', updateScreenWidth);
-        return () => { Dimensions.removeEventListener('change', updateScreenWidth);};
+        return () => {
+            Dimensions.removeEventListener('change', updateScreenWidth);
+        };
     }, []);
 
     const Tab = createBottomTabNavigator();
@@ -35,13 +39,13 @@ export default function AppNavbar() {
         marginBottom: screenWidth <= 768 ? 7 : 0,
         marginLeft: screenWidth <= 768 ? 0 : 30,
     };
-      
+
     const getTabScreenOptions = (label, icon) => ({
         tabBarLabel: () => <Text style={tabBarLabelStyle}>{label}</Text>,
         tabBarIcon: ({ focused }) => (
-          <View style={tabBarIconStyle(focused)}>
-            <Image source={icon} style={{ width: 20, height: 20 }} />
-          </View>
+            <View style={tabBarIconStyle(focused)}>
+                <Image source={icon} style={{ width: 20, height: 20 }} />
+            </View>
         ),
     });
 
@@ -53,28 +57,11 @@ export default function AppNavbar() {
                     height: 60,
                     borderTopWidth: 0,
                 },
-            }}
-        >
-            <Tab.Screen
-                name="Розклад"
-                component={Schedule}
-                options={getTabScreenOptions('Розклад', ScheduleIcon)}
-            />
-            <Tab.Screen
-                name="Нотатки"
-                component={NotesList}
-                options={getTabScreenOptions('Нотатки', NotesIcon)}
-            />
-            <Tab.Screen
-                name="Налаштування"
-                component={Settings}
-                options={getTabScreenOptions('Налаштування', SettingsIcon)}
-            />
-            <Tab.Screen
-                name="Інформація"
-                component={Information}
-                options={getTabScreenOptions('Інформація', InformationIcon)}
-            />
+            }}>
+            <Tab.Screen name="Розклад" component={Schedule} options={getTabScreenOptions('Розклад', ScheduleIcon)} />
+            <Tab.Screen name="Нотатки" component={NotesList} options={getTabScreenOptions('Нотатки', NotesIcon)} />
+            <Tab.Screen name="Налаштування" component={Settings} options={getTabScreenOptions('Налаштування', SettingsIcon)} />
+            <Tab.Screen name="Інформація" component={Information} options={getTabScreenOptions('Інформація', InformationIcon)} />
         </Tab.Navigator>
     );
 }
@@ -92,5 +79,5 @@ const styles = StyleSheet.create({
     label: {
         color: 'white',
         fontSize: 11,
-    }
+    },
 });

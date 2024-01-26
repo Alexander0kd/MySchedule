@@ -1,294 +1,237 @@
 {
-	"info": {
-		"_postman_id": "36e83009-95a1-4797-886b-60fca494c547",
-		"name": "PNUschedule",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "KN-31 schedule",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b6166176-dd50-436e-9d28-1c12d5ec1c42",
-						"exec": [
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-							"});\r",
-							"pm.test(\"Content-Type is present\", function () {\r",
-							"    pm.response.to.have.header(\"Last-Modified\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"id": "453abdfd-2b04-4403-a337-3a4800f0b670",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://asu.pnu.edu.ua/2023-2024-1/static/groups/1002/008568/index.js?v=202401042047",
-					"protocol": "https",
-					"host": [
-						"asu",
-						"pnu",
-						"edu",
-						"ua"
-					],
-					"path": [
-						"2023-2024-1",
-						"static",
-						"groups",
-						"1002",
-						"008568",
-						"index.js"
-					],
-					"query": [
-						{
-							"key": "v",
-							"value": "202401042047"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "IPZ-23 schedule",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b6166176-dd50-436e-9d28-1c12d5ec1c42",
-						"exec": [
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-							"});\r",
-							"pm.test(\"Content-Type is present\", function () {\r",
-							"    pm.response.to.have.header(\"Last-Modified\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"id": "db4e8d48-f243-4bff-9f8c-70d6adf8f819",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://asu-sto.pnu.edu.ua/2023-2024-1/static/groups/1002/010715/index.js?v=202401111258",
-					"protocol": "https",
-					"host": [
-						"asu-sto",
-						"pnu",
-						"edu",
-						"ua"
-					],
-					"path": [
-						"2023-2024-1",
-						"static",
-						"groups",
-						"1002",
-						"010715",
-						"index.js"
-					],
-					"query": [
-						{
-							"key": "v",
-							"value": "202401111258"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "KN-32 schedule",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "9eaa686e-e080-4a36-b5dc-081265b3e56c",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-							"});\r",
-							"pm.test(\"Content-Type is present \", function () {\r",
-							"    pm.response.to.have.header(\"Last-Modified\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"id": "161a561f-d5a1-44e2-a732-c8af19a96c6b",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://asu-sto.pnu.edu.ua/2023-2024-1/static/groups/1002/008568/index.js?v=202401042047",
-					"protocol": "https",
-					"host": [
-						"asu-sto",
-						"pnu",
-						"edu",
-						"ua"
-					],
-					"path": [
-						"2023-2024-1",
-						"static",
-						"groups",
-						"1002",
-						"008568",
-						"index.js"
-					],
-					"query": [
-						{
-							"key": "v",
-							"value": "202401042047"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Group List",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "296ae267-ebcb-4e83-bd4e-0d8b60f1c508",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Content-Type is present\", function () {\r",
-							"    pm.response.to.have.header(\"Last-Modified\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"id": "9d938ca3-5e4b-421f-8993-70117df3ebf9",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://asu.pnu.edu.ua/2023-2024-1/data/groups-list.js?v=202401042047",
-					"protocol": "https",
-					"host": [
-						"asu",
-						"pnu",
-						"edu",
-						"ua"
-					],
-					"path": [
-						"2023-2024-1",
-						"data",
-						"groups-list.js"
-					],
-					"query": [
-						{
-							"key": "v",
-							"value": "202401042047"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MK-41 schedule",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7787879a-c0c7-48cd-bf8f-93d0bba27dc1",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-							"});\r",
-							"pm.test(\"Content-Type is present\", function () {\r",
-							"    pm.response.to.have.header(\"Last-Modified\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"id": "5484a22a-e109-4c67-96a8-5150e7d6311a",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://asu-sto.pnu.edu.ua/2023-2024-1/static/groups/1003/006903/index.js?v=202401042047",
-					"protocol": "https",
-					"host": [
-						"asu-sto",
-						"pnu",
-						"edu",
-						"ua"
-					],
-					"path": [
-						"2023-2024-1",
-						"static",
-						"groups",
-						"1003",
-						"006903",
-						"index.js"
-					],
-					"query": [
-						{
-							"key": "v",
-							"value": "202401042047"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	]
+    "info": {
+        "_postman_id": "36e83009-95a1-4797-886b-60fca494c547",
+        "name": "PNUschedule",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "KN-31 schedule",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "b6166176-dd50-436e-9d28-1c12d5ec1c42",
+                        "exec": [
+                            "\r",
+                            "pm.test(\"Status code is 200\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "pm.test(\"Response time is less than 500ms\", function () {\r",
+                            "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                            "});\r",
+                            "pm.test(\"Content-Type is present\", function () {\r",
+                            "    pm.response.to.have.header(\"Last-Modified\");\r",
+                            "});\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "id": "453abdfd-2b04-4403-a337-3a4800f0b670",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://asu.pnu.edu.ua/2023-2024-1/static/groups/1002/008568/index.js?v=202401042047",
+                    "protocol": "https",
+                    "host": ["asu", "pnu", "edu", "ua"],
+                    "path": ["2023-2024-1", "static", "groups", "1002", "008568", "index.js"],
+                    "query": [
+                        {
+                            "key": "v",
+                            "value": "202401042047"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "IPZ-23 schedule",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "b6166176-dd50-436e-9d28-1c12d5ec1c42",
+                        "exec": [
+                            "\r",
+                            "pm.test(\"Status code is 200\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "pm.test(\"Response time is less than 500ms\", function () {\r",
+                            "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                            "});\r",
+                            "pm.test(\"Content-Type is present\", function () {\r",
+                            "    pm.response.to.have.header(\"Last-Modified\");\r",
+                            "});\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "id": "db4e8d48-f243-4bff-9f8c-70d6adf8f819",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://asu-sto.pnu.edu.ua/2023-2024-1/static/groups/1002/010715/index.js?v=202401111258",
+                    "protocol": "https",
+                    "host": ["asu-sto", "pnu", "edu", "ua"],
+                    "path": ["2023-2024-1", "static", "groups", "1002", "010715", "index.js"],
+                    "query": [
+                        {
+                            "key": "v",
+                            "value": "202401111258"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "KN-32 schedule",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "9eaa686e-e080-4a36-b5dc-081265b3e56c",
+                        "exec": [
+                            "pm.test(\"Status code is 200\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "pm.test(\"Response time is less than 500ms\", function () {\r",
+                            "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                            "});\r",
+                            "pm.test(\"Content-Type is present \", function () {\r",
+                            "    pm.response.to.have.header(\"Last-Modified\");\r",
+                            "});\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "id": "161a561f-d5a1-44e2-a732-c8af19a96c6b",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://asu-sto.pnu.edu.ua/2023-2024-1/static/groups/1002/008568/index.js?v=202401042047",
+                    "protocol": "https",
+                    "host": ["asu-sto", "pnu", "edu", "ua"],
+                    "path": ["2023-2024-1", "static", "groups", "1002", "008568", "index.js"],
+                    "query": [
+                        {
+                            "key": "v",
+                            "value": "202401042047"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Group List",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "296ae267-ebcb-4e83-bd4e-0d8b60f1c508",
+                        "exec": [
+                            "pm.test(\"Status code is 200\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "pm.test(\"Response time is less than 500ms\", function () {\r",
+                            "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                            "});\r",
+                            "\r",
+                            "pm.test(\"Content-Type is present\", function () {\r",
+                            "    pm.response.to.have.header(\"Last-Modified\");\r",
+                            "});\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "id": "9d938ca3-5e4b-421f-8993-70117df3ebf9",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://asu.pnu.edu.ua/2023-2024-1/data/groups-list.js?v=202401042047",
+                    "protocol": "https",
+                    "host": ["asu", "pnu", "edu", "ua"],
+                    "path": ["2023-2024-1", "data", "groups-list.js"],
+                    "query": [
+                        {
+                            "key": "v",
+                            "value": "202401042047"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "MK-41 schedule",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "7787879a-c0c7-48cd-bf8f-93d0bba27dc1",
+                        "exec": [
+                            "pm.test(\"Status code is 200\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "pm.test(\"Response time is less than 500ms\", function () {\r",
+                            "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                            "});\r",
+                            "pm.test(\"Content-Type is present\", function () {\r",
+                            "    pm.response.to.have.header(\"Last-Modified\");\r",
+                            "});\r",
+                            ""
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "id": "5484a22a-e109-4c67-96a8-5150e7d6311a",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://asu-sto.pnu.edu.ua/2023-2024-1/static/groups/1003/006903/index.js?v=202401042047",
+                    "protocol": "https",
+                    "host": ["asu-sto", "pnu", "edu", "ua"],
+                    "path": ["2023-2024-1", "static", "groups", "1003", "006903", "index.js"],
+                    "query": [
+                        {
+                            "key": "v",
+                            "value": "202401042047"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
 }
