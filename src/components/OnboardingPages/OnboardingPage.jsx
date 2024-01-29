@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import okFace from "../../../assets/ok-face-1.png";
+import happyFace from "../../../assets/happy-face-1.png";
 import WideButton from "../../shared/components/WideButton";
 
 const WelcomePage = () => {
@@ -13,23 +13,28 @@ const WelcomePage = () => {
         <View style={[styles.Circle, styles.leftCircle]}></View>
         <View style={[styles.Circle, styles.rightCircle]}></View>
         <View style={styles.contentWrapper}>
-          <Image source={okFace} style={{ width: 185, height: 185 }} />
-          <Text style={styles.Title}>вітаю</Text>
+          <Image
+            source={happyFace}
+            style={{ width: 185, height: 185, marginBottom: 24 }}
+          />
+          <Text style={styles.Title}>Вітаємо!</Text>
           <Text style={styles.subTitle}>
-            у нашому додатку ти зможеш швидко та зручно переглянути розклад
+            У нашому додатку ти зможеш швидко та зручно переглянути розклад
             занять свого університету
           </Text>
         </View>
 
-        <WideButton
-          label="Продовжити"
-          width={230}
-          onPressFunc={() => navigation.replace("AppNavbar")}
-        />
-        <View style={styles.pagesNavWrapper}>
-          <View style={[styles.pagesNavDot, styles.activeDot]}></View>
-          <View style={styles.pagesNavDot}></View>
-          <View style={styles.pagesNavDot}></View>
+        <View>
+          <WideButton
+            label="Продовжити"
+            width={277}
+            onPressFunc={() => navigation.replace("RegistrationPage")}
+          />
+          <View style={styles.pagesNavWrapper}>
+            <View style={[styles.pagesNavDot, styles.activeDot]}></View>
+            <View style={styles.pagesNavDot}></View>
+            <View style={styles.pagesNavDot}></View>
+          </View>
         </View>
       </View>
     </View>
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
 
-    padding: 28,
+    padding: 24,
 
     backgroundColor: "#141218",
 
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
 
     paddingTop: 200,
-    paddingBottom: 55,
+    paddingBottom: 36,
   },
   Circle: {
     width: 233,
@@ -65,37 +70,42 @@ const styles = StyleSheet.create({
     borderRadius: 116.5,
   },
   leftCircle: { position: "absolute", top: -116.5, left: -116.5 },
-  rightCircle: { position: "absolute", top: 0, right: -116.5 },
+  rightCircle: {
+    position: "absolute",
+    top: 48,
+    right: -146,
+    backgroundColor: "#D0BCFF",
+  },
 
   contentWrapper: {
     height: "auto",
     alignItems: "center",
     justifyContent: "center",
-
-    gap: 16,
   },
 
   Title: {
     color: "#FFF",
-    fontSize: 48,
-    textTransform: "uppercase",
+    fontSize: 45,
+
+    lineHeight: 52,
+    marginBottom: 16,
   },
   subTitle: {
     color: "#FFF",
-    fontSize: 24,
-    lineHeight: 32,
+    fontSize: 16,
+    lineHeight: 24,
+    letterSpacing: 0.5,
 
     textAlign: "center",
   },
 
   pagesNavWrapper: {
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    gap: 16,
+    gap: 12,
 
-    marginTop: 10,
+    marginTop: 24,
   },
   pagesNavDot: {
     width: 12,

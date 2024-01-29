@@ -16,7 +16,7 @@ const WideButton = ({ label, width, onPressFunc }) => {
 
 const styles = StyleSheet.create({
   WideButton: {
-    height: 50,
+    height: 40,
     alignItems: "center",
     justifyContent: "center",
     padding: "10px 24px",

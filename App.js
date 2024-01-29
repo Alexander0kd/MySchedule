@@ -7,6 +7,7 @@ import "react-native-gesture-handler";
 import AppNavbar from "./src/components/AppNavbar/AppNavbar";
 import WelcomePage from "./src/components/OnboardingPages/OnboardingPage";
 import Schedule from "./src/components/Schedule/Schedule";
+import RegistrationPage from "./src/components/OnboardingPages/RegistrationPage";
 
 export default function App() {
   const MainStack = createStackNavigator();
@@ -20,10 +21,11 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <MainStack.Screen
-          name="Schedule"
-          component={Schedule}
+          name="RegistrationPage"
+          component={RegistrationPage}
           options={{ headerShown: false }}
         />
+
         <MainStack.Screen
           name="AppNavbar"
           component={AppNavbar}
