@@ -1,19 +1,16 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-
 import coolFace from '../../../assets/cool-face-1.png';
 import WideButton from '../../shared/components/WideButton';
 
-const SuccessfulRegistrationPage = () => {
-    const navigation = useNavigation();
-
+export default function SuccessfulRegistrationPage({buttonFunction}) {
     return (
         <View style={styles.section}>
             <View style={styles.container}>
                 <View style={[styles.Circle, styles.leftCircle]}></View>
                 <View style={[styles.Circle, styles.rightCircle]}></View>
 
+                {/* // TODO: Винеси все у StyleSheet */}
                 <View style={{ width: '100%' }}>
                     <View style={styles.contentWrapper}>
                         <Image source={coolFace} style={{ width: 202, height: 185, marginBottom: 24 }} />
@@ -36,15 +33,9 @@ const SuccessfulRegistrationPage = () => {
                         </View>
                     </View>
                 </View>
-
-                <View>
-                    <WideButton label="Продовжити" width={277} onPressFunc={() => navigation.replace('AppNavbar')} />
-                    <View style={styles.pagesNavWrapper}>
-                        <View style={styles.pagesNavDot}></View>
-                        <View style={styles.pagesNavDot}></View>
-                        <View style={[styles.pagesNavDot, styles.activeDot]}></View>
-                    </View>
-                </View>
+            </View>
+            <View>
+                <WideButton label="Продовжити" width={277} onPressFunc={buttonFunction} />
             </View>
         </View>
     );
@@ -131,25 +122,4 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         letterSpacing: 0.25,
     },
-
-    pagesNavWrapper: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 12,
-
-        marginTop: 24,
-    },
-    pagesNavDot: {
-        width: 12,
-        height: 12,
-        backgroundColor: '#332D41',
-        borderRadius: 6,
-    },
-
-    activeDot: {
-        backgroundColor: '#4F378B',
-    },
 });
-
-export default SuccessfulRegistrationPage;

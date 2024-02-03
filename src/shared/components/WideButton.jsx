@@ -1,13 +1,11 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const WideButton = ({ label, width, onPressFunc }) => {
+export default function WideButton({ label, width, onPressFunc }) {
     return (
         <TouchableOpacity
             style={[styles.WideButton, { width }]}
-            onPress={() => {
-                onPressFunc();
-            }}>
+            onPress={onPressFunc}>
             <Text style={styles.ButtonText}>{label}</Text>
         </TouchableOpacity>
     );
@@ -30,5 +28,3 @@ const styles = StyleSheet.create({
         letterSpacing: 0.1,
     },
 });
-
-export default WideButton;

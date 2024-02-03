@@ -1,21 +1,18 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 
-import okFace from '../../../assets/ok-face-1.png';
-import ProfileForm from '../../shared/components/ProfileForm';
+import happyFace from '../../../assets/happy-face-1.png';
 import WideButton from '../../shared/components/WideButton';
 
-export default function RegistrationPage({buttonFunction}) {
+export default function WelcomePage({buttonFunction}) {
     return (
         <View style={styles.section}>
             <View style={styles.container}>
                 <View style={[styles.Circle, styles.leftCircle]}></View>
                 <View style={[styles.Circle, styles.rightCircle]}></View>
                 <View style={styles.contentWrapper}>
-                    <Image source={okFace} style={{ width: 185, height: 185, marginBottom: 24 }} />
-                    <Text style={styles.Title}>Почнемо!</Text>
-                    <Text style={styles.subTitle}>Для початку розкажи трохи про себе, тим самим створи свій перший профіль</Text>
-
-                    <ProfileForm />
+                    <Image source={happyFace} style={{ width: 185, height: 185, marginBottom: 24 }} />
+                    <Text style={styles.Title}>Вітаємо!</Text>
+                    <Text style={styles.subTitle}>У нашому додатку ти зможеш швидко та зручно переглянути розклад занять свого університету</Text>
                 </View>
             </View>
             <View>
@@ -26,15 +23,15 @@ export default function RegistrationPage({buttonFunction}) {
 };
 
 const windowHeight = Dimensions.get('window').height;
-const paddingContainerTop = windowHeight < 800 ? windowHeight * 0.06 : windowHeight * 0.1;
+const paddingContainerTop = windowHeight * 0.236;
 
 const styles = StyleSheet.create({
     section: {
-        flex: 1,
         backgroundColor: '#141218',
         alignItems: 'center',
         justifyContent: 'center',
     },
+
     container: {
         height: '100%',
         width: '100%',
@@ -68,6 +65,7 @@ const styles = StyleSheet.create({
     Title: {
         color: '#FFF',
         fontSize: 45,
+
         lineHeight: 52,
         marginBottom: 16,
     },
@@ -76,7 +74,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
         letterSpacing: 0.5,
-        marginBottom: 16,
 
         textAlign: 'center',
     },

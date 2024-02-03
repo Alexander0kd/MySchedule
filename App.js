@@ -2,24 +2,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import React from 'react';
-import 'react-native-gesture-handler';
 
 import AppNavbar from './src/components/AppNavbar/AppNavbar';
-import WelcomePage from './src/components/OnboardingPages/OnboardingPage';
-import RegistrationPage from './src/components/OnboardingPages/RegistrationPage';
-import SuccessfulRegistrationPage from './src/components/OnboardingPages/SuccessfulRegistrationScreen';
+import OnboardingPage from './src/components/OnboardingPages/OnboardingPage';
 
 export default function App() {
-    const MainStack = createStackNavigator();
+    const Stack = createStackNavigator();
 
     return (
         <NavigationContainer>
-            <MainStack.Navigator initialRouteName="WelcomePage">
-                <MainStack.Screen name="WelcomePage" component={WelcomePage} options={{ headerShown: false }} />
-                <MainStack.Screen name="RegistrationPage" component={RegistrationPage} options={{ headerShown: false }} />
-                <MainStack.Screen name="SuccessfulRegistrationPage" component={SuccessfulRegistrationPage} options={{ headerShown: false }} />
-                <MainStack.Screen name="AppNavbar" component={AppNavbar} options={{ headerShown: false }} />
-            </MainStack.Navigator>
+            <Stack.Navigator initialRouteName="OnboardingPage">
+                {/* // TODO: Добавити перевірку чи варто запускати користувача на Онбординг */}
+                <Stack.Screen name="OnboardingPage" component={OnboardingPage} options={{ headerShown: false }} />
+                <Stack.Screen name="AppNavbar" component={AppNavbar} options={{ headerShown: false }} />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }
