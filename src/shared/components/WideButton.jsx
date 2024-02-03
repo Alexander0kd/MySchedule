@@ -5,9 +5,7 @@ const WideButton = ({ label, width, onPressFunc }) => {
     return (
         <TouchableOpacity
             style={[styles.WideButton, { width }]}
-            onPress={() => {
-                onPressFunc();
-            }}>
+            onPress={onPressFunc}>
             <Text style={styles.ButtonText}>{label}</Text>
         </TouchableOpacity>
     );
