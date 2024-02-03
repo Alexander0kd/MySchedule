@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { View, StatusBar, StyleSheet } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import SettingsButton from '../../shared/components/SettingsButton';
+import IconButton from '../../shared/components/IconButton';
 
 export default function SettingsButtons() {
     const navigation = useNavigation();
+
     return (
         <View style={styles.buttonsContainer}>
-            <SettingsButton icon="person" label="Налаштування профілів" onPressFunc={() => navigation.navigate('SettingsProfile')} />
-            <SettingsButton icon="email" label="Налаштування сповіщень" onPressFunc={() => navigation.navigate('SettingsNotification')} />
-            <SettingsButton icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsSche')} />
-            <StatusBar style="auto" />
+            <IconButton icon="person" label="Налаштування профілів" onPressFunc={() => navigation.navigate('SettingsProfile')} />
+            <IconButton icon="email" label="Налаштування сповіщень" onPressFunc={() => navigation.navigate('SettingsNotification')} />
+            <IconButton icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsSche')} />
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     buttonsContainer: {
         marginTop: 16,
@@ -23,9 +23,5 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
-    },
-    background: {
-        flex: 1,
-        backgroundColor: '#141218',
-    },
+    }
 });

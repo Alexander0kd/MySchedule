@@ -1,20 +1,17 @@
 import * as React from 'react';
-import { Text, View, StatusBar, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function SettingsButton({ icon, label, onPressFunc }) {
+export default function IconButton({ icon, label, onPressFunc }) {
     return (
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity
-                onPress={() => {
-                    onPressFunc();
-                }}>
-                <View style={styles.content}>
-                    <MaterialIcons name={icon} size={24} color="#CAC4D0" />
-                    <Text style={styles.text}>{label}</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={onPressFunc}>
+            <View style={styles.content}>
+                <MaterialIcons name={icon} size={24} color="#CAC4D0" />
+                <Text style={styles.text}>{label}</Text>
+            </View>
+        </TouchableOpacity>
     );
 }
 
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
     content: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'left',
+        justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },
 });
