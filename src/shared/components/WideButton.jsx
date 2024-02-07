@@ -3,9 +3,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const WideButton = ({ label, width, onPressFunc }) => {
     return (
-        <TouchableOpacity
-            style={[styles.WideButton, { width }]}
-            onPress={onPressFunc}>
+        <TouchableOpacity style={[styles.WideButton, { width }]} onPress={onPressFunc}>
             <Text style={styles.ButtonText}>{label}</Text>
         </TouchableOpacity>
     );
