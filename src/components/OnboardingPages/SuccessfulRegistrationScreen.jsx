@@ -11,7 +11,7 @@ export default function SuccessfulRegistrationPage({ buttonFunction }) {
                 <View style={[styles.Circle, styles.rightCircle]}></View>
                 <View style={{ width: '100%' }}>
                     <View style={styles.contentWrapper}>
-                        <Image source={coolFace} style={{ width: 202, height: 185, marginBottom: 24 }} />
+                        <Image source={coolFace} style={styles.image} />
                         <Text style={styles.Title}>Чудово!</Text>
                     </View>
 
@@ -41,7 +41,7 @@ export default function SuccessfulRegistrationPage({ buttonFunction }) {
 
 const windowHeight = Dimensions.get('window').height;
 const paddingContainerTop = windowHeight < 800 ? windowHeight * 0.06 : windowHeight * 0.1;
-const marginTitleBot = windowHeight < 800 ? windowHeight * 0.04 : windowHeight * 0.066;
+const marginTitleBot = windowHeight < 800 ? windowHeight * 0.05 : windowHeight * 0.066;
 
 const styles = StyleSheet.create({
     section: {
@@ -50,7 +50,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
+    image: {
+        width: 185,
+        height: 185,
+        marginBottom: 24,
+    },
     container: {
         height: '100%',
         width: '100%',
@@ -80,6 +84,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
+        marginTop: 40,
         marginBottom: marginTitleBot,
     },
 

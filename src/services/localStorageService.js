@@ -13,10 +13,7 @@ export const isLocalStorageEmpty = async () => {
 
 export const setLocalProfile = async (profileData) => {
     try {
-        let users = JSON.parse(await AsyncStorage.getItem('users'));
-        if (!users) {
-            users = [];
-        }
+        let users = JSON.parse(await AsyncStorage.getItem('users')) || [];
 
         const existingUser = users.find(
             (user) =>
@@ -29,13 +26,13 @@ export const setLocalProfile = async (profileData) => {
         if (existingUser) {
             console.error('Duplicate user data detected. Not adding the duplicate.');
             return false;
-        } else {
-            users.push(profileData);
-            await AsyncStorage.setItem('users', JSON.stringify(users));
-            console.log('Profile data saved locally:', profileData);
-            console.log('All user profiles:', users);
-            return true;
         }
+
+        users.push(profileData);
+        await AsyncStorage.setItem('users', JSON.stringify(users));
+        console.log('Profile data saved locally:', profileData);
+        console.log('All user profiles:', users);
+        return true;
     } catch (error) {
         console.error('Error setting local profile:', error);
         throw error;
@@ -45,10 +42,13 @@ export const setLocalProfile = async (profileData) => {
 // --------DEV TOOLS------------
 
 export const clearLocalStorage = async () => {
+    if (!__DEV__) return;
+
     try {
         await AsyncStorage.removeItem('users');
         console.log('Local storage cleared successfully.');
     } catch (error) {
         console.error('Error clearing local storage:', error);
+        throw error;
     }
 };

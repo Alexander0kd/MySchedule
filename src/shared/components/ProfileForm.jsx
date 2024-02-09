@@ -1,13 +1,16 @@
 import { React, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import Dropdown from 'react-native-input-select';
+import uuid from 'react-native-uuid';
 
 const arrowDropDownSvg = `
 <svg width="24" height="24" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
     <path d="M7 10L12 15L17 10H7Z"  />
 </svg>
 `;
+
+const { width } = Dimensions.get('window');
 
 const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, disabled }) => {
     return (
@@ -18,7 +21,7 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
             onValueChange={onValueChange}
             disabled={disabled}
             dropdownStyle={{
-                width: 364,
+                width: width - 32,
                 minHeight: 56,
                 backgroundColor: !selectedValue || disabled ? '#141218' : '#381E72',
                 borderWidth: 1,
@@ -28,6 +31,7 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
                 justifyContent: 'center',
                 paddingHorizontal: 16,
                 paddingVertical: 16,
+                paddingRight: 48,
             }}
             placeholderStyle={{
                 color: disabled ? 'rgba(202, 196, 208, 0.38) ' : '#CAC4D0',
@@ -39,14 +43,18 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
             }}
             dropdownIconStyle={{ top: 16, right: 16 }}
             dropdownIcon={<SvgXml xml={arrowDropDownSvg} width="24" height="24" fill={disabled ? 'rgba(202, 196, 208, 0.38) ' : 'white'} />}
-            checkboxComponent={<View style={{ width: 20, height: 20, borderRadius: 20 / 2, borderWidth: 3, borderColor: 'white' }} />}
             checkboxComponentStyles={{
                 checkboxStyle: {
                     backgroundColor: '#381E72',
                     borderRadius: 30,
-                    borderColor: '#000',
+                    padding: 6,
+                    borderColor: 'transparent',
                 },
-                checkboxLabelStyle: { color: '#FFF', fontSize: 16 },
+                checkboxLabelStyle: {
+                    color: '#FFF',
+                    fontSize: 16,
+                    paddingLeft: 8,
+                },
             }}
             modalOptionsContainerStyle={{
                 padding: 10,
@@ -57,7 +65,11 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
     );
 };
 
-const UniversityOptions = [{ label: 'Прикарпатський', value: 'Прикарпатський' }];
+const UniversityOptions = [
+    { label: 'Прикарпатський Національний Університет імені Василя Стефаника', value: 'Прикарпатський' },
+    { label: 'Прикарпатський Національний Університет імені Василя Стефаника', value: 'Прикарпатський2' },
+    { label: 'Прикарпатський Національний Університет імені Василя Стефаника', value: 'Прикарпатський3' },
+];
 
 const FacultyOptions = [
     { label: 'Фізико-технічний', value: 'Фізико-технічний' },
@@ -97,7 +109,7 @@ export default function ProfileForm({ setIsFormFilled, setProfileData }) {
         if (university && faculty && year && group) {
             setIsFormFilled(true);
             Profile = {
-                profileID: Math.random().toString(16).slice(2),
+                profileID: uuid.v4(),
                 university: university,
                 faculty: faculty,
                 year: year,

@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-// TODO: Перевірити вплив на продуктивність
 import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 
 import WelcomePage from './WelcomePage';
@@ -34,7 +32,6 @@ export default function OnboardingPage() {
 
     return (
         <View style={styles.container}>
-            {/* // TODO: Добавити можливість скролити назад */}
             <Carousel
                 ref={carouselRef}
                 data={slides}

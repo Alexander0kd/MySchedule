@@ -1,11 +1,10 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
-
-import okFace from '../../../assets/ok-face-1.png';
+import React, { useState } from 'react';
 import ProfileForm from '../../shared/components/ProfileForm';
 import WideButton from '../../shared/components/WideButton';
-import { useState } from 'react';
-
 import { setLocalProfile } from '../../services/localStorageService';
+
+import okFace from '../../../assets/ok-face-1.png';
 
 export default function RegistrationPage({ buttonFunction }) {
     const [isFormFilled, setIsFormFilled] = useState(false);
@@ -16,12 +15,10 @@ export default function RegistrationPage({ buttonFunction }) {
             const profileAdded = await setLocalProfile(profileData);
             if (profileAdded) {
                 buttonFunction();
-            } else {
-                // Вивести повідомлення про дублювання профілю
-                console.error('Duplicate user data.');
             }
         } catch (error) {
             console.error('Error setting local profile:', error);
+            throw error;
         }
     };
 
@@ -31,7 +28,7 @@ export default function RegistrationPage({ buttonFunction }) {
                 <View style={[styles.Circle, styles.leftCircle]}></View>
                 <View style={[styles.Circle, styles.rightCircle]}></View>
                 <View style={styles.contentWrapper}>
-                    <Image source={okFace} style={{ width: 185, height: 185, marginBottom: 24 }} />
+                    <Image source={okFace} style={styles.image} />
                     <Text style={styles.Title}>Почнемо!</Text>
                     <Text style={styles.subTitle}>Для початку розкажи трохи про себе, тим самим створи свій перший профіль</Text>
 
@@ -85,7 +82,11 @@ const styles = StyleSheet.create({
         right: -146,
         backgroundColor: '#D0BCFF',
     },
-
+    image: {
+        width: 185,
+        height: 185,
+        marginBottom: 24,
+    },
     contentWrapper: {
         height: 'auto',
         alignItems: 'center',
