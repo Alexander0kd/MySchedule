@@ -1,6 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import React, { useEffect, useState } from 'react';
+
 import AppNavbar from './src/components/AppNavbar/AppNavbar';
 import OnboardingPage from './src/components/OnboardingPages/OnboardingPage';
 import { isLocalStorageEmpty, clearLocalStorage } from './src/services/localStorageService';

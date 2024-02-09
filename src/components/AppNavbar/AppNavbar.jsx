@@ -52,6 +52,8 @@ export default function AppNavbar() {
     return (
         <Tab.Navigator
             screenOptions={{
+                headerStyle: { backgroundColor: '#4F378B' },
+                headerTintColor: 'white',
                 tabBarStyle: {
                     backgroundColor: '#332D41',
                     height: 60,
@@ -60,7 +62,14 @@ export default function AppNavbar() {
             }}>
             <Tab.Screen name="Розклад" component={Schedule} options={getTabScreenOptions('Розклад', ScheduleIcon)} />
             <Tab.Screen name="Нотатки" component={NotesList} options={getTabScreenOptions('Нотатки', NotesIcon)} />
-            <Tab.Screen name="Налаштування" component={Settings} options={getTabScreenOptions('Налаштування', SettingsIcon)} />
+            <Tab.Screen
+                name="Налаштування"
+                component={Settings}
+                options={{
+                    headerShown: false,
+                    ...getTabScreenOptions('Налаштування', SettingsIcon),
+                }}
+            />
             <Tab.Screen name="Інформація" component={Information} options={getTabScreenOptions('Інформація', InformationIcon)} />
         </Tab.Navigator>
     );
