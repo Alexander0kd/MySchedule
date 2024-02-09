@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import coolFace from '../../../assets/cool-face-1.png';
 import WideButton from '../../shared/components/WideButton';
 
-export default function SuccessfulRegistrationPage({buttonFunction}) {
+export default function SuccessfulRegistrationPage({ buttonFunction }) {
     return (
         <View style={styles.section}>
             <View style={styles.container}>
@@ -37,7 +37,7 @@ export default function SuccessfulRegistrationPage({buttonFunction}) {
             </View>
         </View>
     );
-};
+}
 
 const windowHeight = Dimensions.get('window').height;
 const paddingContainerTop = windowHeight < 800 ? windowHeight * 0.06 : windowHeight * 0.1;

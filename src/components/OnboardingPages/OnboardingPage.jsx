@@ -17,9 +17,9 @@ export default function OnboardingPage() {
     const carouselRef = React.useRef(null);
 
     const goNext = () => {
-      if (carouselRef.current) {
-        carouselRef.current.snapToNext();
-      }
+        if (carouselRef.current) {
+            carouselRef.current.snapToNext();
+        }
     };
 
     const finishSetting = () => {
@@ -35,7 +35,7 @@ export default function OnboardingPage() {
     return (
         <View style={styles.container}>
             {/* // TODO: Добавити можливість скролити назад */}
-            <Carousel 
+            <Carousel
                 ref={carouselRef}
                 data={slides}
                 renderItem={({ item }) => React.cloneElement(item.component, { buttonFunction: item.action })}
@@ -56,8 +56,7 @@ export default function OnboardingPage() {
             />
         </View>
     );
-};
-
+}
 
 const styles = StyleSheet.create({
     container: {
