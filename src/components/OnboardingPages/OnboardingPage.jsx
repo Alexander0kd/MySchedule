@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     carouselContentContainer: {
-        paddingBottom: 50,
+        paddingBottom: 40,
     },
     paginationDot: {
         width: 12,

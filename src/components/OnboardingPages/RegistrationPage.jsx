@@ -3,8 +3,28 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import okFace from '../../../assets/ok-face-1.png';
 import ProfileForm from '../../shared/components/ProfileForm';
 import WideButton from '../../shared/components/WideButton';
+import { useState } from 'react';
 
-export default function RegistrationPage({buttonFunction}) {
+import { setLocalProfile } from '../../services/localStorageService';
+
+export default function RegistrationPage({ buttonFunction }) {
+    const [isFormFilled, setIsFormFilled] = useState(false);
+    const [profileData, setProfileData] = useState([]);
+
+    const handleWideBtnClick = async (profileData) => {
+        try {
+            const profileAdded = await setLocalProfile(profileData);
+            if (profileAdded) {
+                buttonFunction();
+            } else {
+                // Вивести повідомлення про дублювання профілю
+                console.error('Duplicate user data.');
+            }
+        } catch (error) {
+            console.error('Error setting local profile:', error);
+        }
+    };
+
     return (
         <View style={styles.section}>
             <View style={styles.container}>
@@ -15,15 +35,22 @@ export default function RegistrationPage({buttonFunction}) {
                     <Text style={styles.Title}>Почнемо!</Text>
                     <Text style={styles.subTitle}>Для початку розкажи трохи про себе, тим самим створи свій перший профіль</Text>
 
-                    <ProfileForm />
+                    <ProfileForm setIsFormFilled={setIsFormFilled} setProfileData={setProfileData} />
                 </View>
             </View>
             <View>
-                <WideButton label="Продовжити" width={277} onPressFunc={buttonFunction} />
+                <WideButton
+                    label="Продовжити"
+                    width={277}
+                    onPressFunc={() => {
+                        handleWideBtnClick(profileData);
+                    }}
+                    isDisabled={!isFormFilled}
+                />
             </View>
         </View>
     );
-};
+}
 
 const windowHeight = Dimensions.get('window').height;
 const paddingContainerTop = windowHeight < 800 ? windowHeight * 0.06 : windowHeight * 0.1;
@@ -33,7 +60,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#141218',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     container: {
         height: '100%',

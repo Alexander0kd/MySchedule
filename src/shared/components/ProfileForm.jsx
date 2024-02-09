@@ -1,7 +1,13 @@
-import React from 'react';
-import { View } from 'react-native';
-import { StyleSheet } from 'react-native';
+import { React, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 import Dropdown from 'react-native-input-select';
+
+const arrowDropDownSvg = `
+<svg width="24" height="24" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
+    <path d="M7 10L12 15L17 10H7Z"  />
+</svg>
+`;
 
 const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, disabled }) => {
     return (
@@ -11,23 +17,47 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
             selectedValue={selectedValue}
             onValueChange={onValueChange}
             disabled={disabled}
-
-            // TODO: Оформити інпути
+            dropdownStyle={{
+                width: 364,
+                minHeight: 56,
+                backgroundColor: !selectedValue || disabled ? '#141218' : '#381E72',
+                borderWidth: 1,
+                borderColor: disabled ? 'rgba(202, 196, 208, 0.38) ' : '#FFF',
+                borderRadius: 4,
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                paddingHorizontal: 16,
+                paddingVertical: 16,
+            }}
+            placeholderStyle={{
+                color: disabled ? 'rgba(202, 196, 208, 0.38) ' : '#CAC4D0',
+                fontSize: 16,
+            }}
+            selectedItemStyle={{
+                color: disabled ? 'rgba(202, 196, 208, 0.38) ' : '#FFF',
+                fontSize: 16,
+            }}
+            dropdownIconStyle={{ top: 16, right: 16 }}
+            dropdownIcon={<SvgXml xml={arrowDropDownSvg} width="24" height="24" fill={disabled ? 'rgba(202, 196, 208, 0.38) ' : 'white'} />}
+            checkboxComponent={<View style={{ width: 20, height: 20, borderRadius: 20 / 2, borderWidth: 3, borderColor: 'white' }} />}
             checkboxComponentStyles={{
                 checkboxStyle: {
+                    backgroundColor: '#381E72',
                     borderRadius: 30,
-                }
+                    borderColor: '#000',
+                },
+                checkboxLabelStyle: { color: '#FFF', fontSize: 16 },
             }}
-
-            // ! Документація:
-            // * https://github.com/azeezat/react-native-select
+            modalOptionsContainerStyle={{
+                padding: 10,
+                paddingBottom: 20,
+                backgroundColor: '#49454F',
+            }}
         />
     );
-}
+};
 
-const UniversityOptions = [
-    { label: 'Прикарпатський', value: 'Прикарпатський' },
-];
+const UniversityOptions = [{ label: 'Прикарпатський', value: 'Прикарпатський' }];
 
 const FacultyOptions = [
     { label: 'Фізико-технічний', value: 'Фізико-технічний' },
@@ -55,13 +85,32 @@ const GroupOptions = [
     { label: '4', value: '4' },
 ];
 
+export default function ProfileForm({ setIsFormFilled, setProfileData }) {
+    const [university, setUniversity] = useState();
+    const [faculty, setFaculty] = useState();
+    const [year, setYear] = useState();
+    const [group, setGroup] = useState();
 
-export default function ProfileForm() {
-    const [university, setUniversity] = React.useState();
-    const [faculty, setFaculty] = React.useState();
-    const [year, setYear] = React.useState();
-    const [group, setGroup] = React.useState();
-    
+    useEffect(() => {
+        let Profile = {};
+
+        if (university && faculty && year && group) {
+            setIsFormFilled(true);
+            Profile = {
+                profileID: Math.random().toString(16).slice(2),
+                university: university,
+                faculty: faculty,
+                year: year,
+                group: group,
+            };
+        } else {
+            setIsFormFilled(false);
+            Profile = {};
+        }
+
+        setProfileData(Profile);
+    }, [university, faculty, year, group]);
+
     return (
         <View style={styles.pickersWrapper}>
             <CustomDropdown
@@ -85,7 +134,7 @@ export default function ProfileForm() {
                 options={YearOptions}
                 selectedValue={year}
                 onValueChange={(value) => setYear(value)}
-                disabled={!faculty}
+                disabled={!faculty || !university}
             />
 
             <CustomDropdown
@@ -93,15 +142,14 @@ export default function ProfileForm() {
                 options={GroupOptions}
                 selectedValue={group}
                 onValueChange={(value) => setGroup(value)}
-                disabled={!year}
+                disabled={!faculty || !university || !year}
             />
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     pickersWrapper: {
-        gap: 16,
-        marginBottom: 24,
+        marginBottom: 16,
     },
 });

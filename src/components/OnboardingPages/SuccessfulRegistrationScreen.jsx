@@ -9,8 +9,6 @@ export default function SuccessfulRegistrationPage({buttonFunction}) {
             <View style={styles.container}>
                 <View style={[styles.Circle, styles.leftCircle]}></View>
                 <View style={[styles.Circle, styles.rightCircle]}></View>
-
-                {/* // TODO: Винеси все у StyleSheet */}
                 <View style={{ width: '100%' }}>
                     <View style={styles.contentWrapper}>
                         <Image source={coolFace} style={{ width: 202, height: 185, marginBottom: 24 }} />

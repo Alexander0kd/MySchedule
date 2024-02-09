@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import happyFace from '../../../assets/happy-face-1.png';
 import WideButton from '../../shared/components/WideButton';
 
-export default function WelcomePage({buttonFunction}) {
+export default function WelcomePage({ buttonFunction }) {
     return (
         <View style={styles.section}>
             <View style={styles.container}>
@@ -16,11 +16,11 @@ export default function WelcomePage({buttonFunction}) {
                 </View>
             </View>
             <View>
-                <WideButton label="Продовжити" width={277} onPressFunc={buttonFunction} />
+                <WideButton label="Продовжити" width={277} onPressFunc={buttonFunction} isDisabled={false} />
             </View>
         </View>
     );
-};
+}
 
 const windowHeight = Dimensions.get('window').height;
 const paddingContainerTop = windowHeight * 0.236;
