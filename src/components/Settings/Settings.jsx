@@ -9,13 +9,13 @@ import SettingsShedule from './Schedule/SettingsShedule';
 
 export default function Settings() {
     const Stack = createStackNavigator();
-    
+
     const screenOptions = {
         headerStyle: { backgroundColor: '#4F378B' },
         headerTintColor: 'white',
         cardStyle: { backgroundColor: '#141218' },
     };
-    
+
     const modalScreenOptions = {
         presentation: 'modal',
         gestureEnabled: true,

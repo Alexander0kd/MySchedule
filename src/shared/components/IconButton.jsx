@@ -4,9 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 export default function IconButton({ icon, label, onPressFunc }) {
     return (
-        <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={onPressFunc}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onPressFunc}>
             <View style={styles.content}>
                 <MaterialIcons name={icon} size={24} color="#CAC4D0" />
                 <Text style={styles.text}>{label}</Text>
