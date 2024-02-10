@@ -70,7 +70,11 @@ export default function AppNavbar() {
                     ...getTabScreenOptions('Налаштування', SettingsIcon),
                 }}
             />
-            <Tab.Screen name="Інформація" component={Information} options={getTabScreenOptions('Інформація', InformationIcon)} />
+            <Tab.Screen
+                name="Інформація"
+                component={Information}
+                options={{ headerShown: false, ...getTabScreenOptions('Інформація', InformationIcon) }}
+            />
         </Tab.Navigator>
     );
 }
