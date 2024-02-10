@@ -1,15 +1,12 @@
-import * as React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function IconButton({ icon, label, iconPosition, onPressFunc }) {
-    const iconStyle = iconPosition === 'right' ? styles.icon : null;
+    const iconStyle = iconPosition === 'right' ? styles.contentRight : styles.contentLeft;
     return (
         <TouchableOpacity style={styles.buttonContainer} onPress={onPressFunc}>
-            <View style={styles.content}>
-                <View style={iconStyle}>
-                    <MaterialIcons name={icon} size={24} color="#CAC4D0" />
-                </View>
+            <View style={[styles.buttonContent, iconStyle]}>
+                <MaterialIcons name={icon} size={24} color="#CAC4D0" />
                 <Text style={styles.text}>{label}</Text>
             </View>
         </TouchableOpacity>
@@ -19,17 +16,10 @@ export default function IconButton({ icon, label, iconPosition, onPressFunc }) {
 const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: '#332D41',
-        marginLeft: 24,
-        marginRight: 24,
+        marginHorizontal: 24,
         borderRadius: 16,
-        paddingLeft: 24,
-        paddingRight: 24,
-        paddingTop: 16,
-        paddingBottom: 16,
-    },
-    icon: {
-        position: 'absolute',
-        right: 0,
+        paddingVertical: 16,
+        paddingHorizontal: 24,
     },
     text: {
         color: '#FFFFFF',
@@ -37,12 +27,18 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 20,
         letterSpacing: 0.1,
-        marginLeft: 16,
     },
-    content: {
+    buttonContent: {
         display: 'flex',
+        alignItems: 'flex-start',
+        gap: 16,
+    },
+    contentLeft: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'flex-start',
     },
+    contentRight: {        
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-between',
+    }
 });
