@@ -2,11 +2,14 @@ import * as React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function IconButton({ icon, label, onPressFunc }) {
+export default function IconButton({ icon, label, iconPosition, onPressFunc }) {
+    const iconStyle = iconPosition === 'right' ? styles.icon : null;
     return (
         <TouchableOpacity style={styles.buttonContainer} onPress={onPressFunc}>
             <View style={styles.content}>
-                <MaterialIcons name={icon} size={24} color="#CAC4D0" />
+                <View style={iconStyle}>
+                    <MaterialIcons name={icon} size={24} color="#CAC4D0" />
+                </View>
                 <Text style={styles.text}>{label}</Text>
             </View>
         </TouchableOpacity>
@@ -23,6 +26,10 @@ const styles = StyleSheet.create({
         paddingRight: 24,
         paddingTop: 16,
         paddingBottom: 16,
+    },
+    icon: {
+        position: 'absolute',
+        right: 0,
     },
     text: {
         color: '#FFFFFF',
