@@ -26,7 +26,7 @@ const DATA = [
         time: '1 пара | 10:35-11:55',
     },
     {
-        id: 'A4',
+        id: 'A3',
         date: '2024-02-10',
         title: 'Системне програмування1',
         typeOfLesson: 'Лекція',
@@ -36,7 +36,7 @@ const DATA = [
         time: '1 пара | 10:35-11:55',
     },
     {
-        id: 'A3',
+        id: 'A4',
         date: '2024-02-09',
         title: 'Системне програмування2',
         typeOfLesson: 'Лекція',
@@ -46,7 +46,7 @@ const DATA = [
         time: '1 пара | 10:35-11:55',
     },
     {
-        id: 'A4',
+        id: 'A5',
         date: '2024-02-08',
         title: 'Системне програмування3',
         typeOfLesson: 'Лекція',
@@ -61,6 +61,7 @@ export default function Schedule() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const lastUpdateDate = '8 лютого';
     const lastUpdateTime = '7:00';
+
     const handleBackward = () => {
         const newDate = new Date(currentDate);
         newDate.setDate(currentDate.getDate() - 1);
@@ -73,7 +74,7 @@ export default function Schedule() {
         setCurrentDate(newDate);
     };
 
-    const filteredLessons = DATA.filter((lesson) => lesson.data === currentDate.toISOString().split('T')[0]);
+    const filteredLessons = DATA.filter((lesson) => lesson.date === currentDate.toISOString().split('T')[0]);
 
     return (
         <View style={styles.container}>

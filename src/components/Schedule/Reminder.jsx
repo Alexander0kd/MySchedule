@@ -7,7 +7,6 @@ export default function Reminder({ onHide, onDismissed }) {
     const [mode] = useState('time');
 
     const onChange = (event, selectedDate) => {
-
         if (event.type === 'set' || event.type === 'confirm') {
             const currentDate = selectedDate || date;
             onHide();
@@ -19,17 +18,17 @@ export default function Reminder({ onHide, onDismissed }) {
         }
     };
     return (
-      <View>
-          <RNDateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-            themeVariant="dark"
-          />
-          <StatusBar style="auto" />
-      </View>
+        <View>
+            <RNDateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+                themeVariant="dark"
+            />
+            <StatusBar style="auto" />
+        </View>
     );
 }

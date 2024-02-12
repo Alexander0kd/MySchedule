@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const DateBlock = ({ title, date, onBackward, onForward }) => {
+const DateBlock = ({ date, onBackward, onForward }) => {
     const formattedDate = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
