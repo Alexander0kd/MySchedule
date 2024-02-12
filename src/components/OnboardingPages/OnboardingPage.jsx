@@ -1,112 +1,81 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 
-import okFace from "../../../assets/ok-face-1.png";
-import WideButton from "../../shared/components/WideButton";
+import WelcomePage from './WelcomePage';
+import RegistrationPage from './RegistrationPage';
+import SuccessfulRegistrationScreen from './SuccessfulRegistrationScreen';
 
-const WelcomePage = () => {
-  const navigation = useNavigation();
+const { width } = Dimensions.get('window');
 
-  return (
-    <View style={styles.section}>
-      <View style={styles.container}>
-        <View style={[styles.Circle, styles.leftCircle]}></View>
-        <View style={[styles.Circle, styles.rightCircle]}></View>
-        <View style={styles.contentWrapper}>
-          <Image source={okFace} style={{ width: 185, height: 185 }} />
-          <Text style={styles.Title}>вітаю</Text>
-          <Text style={styles.subTitle}>
-            у нашому додатку ти зможеш швидко та зручно переглянути розклад
-            занять свого університету
-          </Text>
+export default function OnboardingPage() {
+    const navigation = useNavigation();
+    const [activeSlide, setActiveSlide] = React.useState(0);
+    const carouselRef = React.useRef(null);
+
+    const goNext = () => {
+        if (carouselRef.current) {
+            carouselRef.current.snapToNext();
+        }
+    };
+
+    const finishSetting = () => {
+        navigation.replace('AppNavbar');
+    };
+
+    const slides = [
+        { component: <WelcomePage />, action: goNext },
+        { component: <RegistrationPage />, action: goNext },
+        { component: <SuccessfulRegistrationScreen />, action: finishSetting },
+    ];
+
+    return (
+        <View style={styles.container}>
+            <Carousel
+                ref={carouselRef}
+                data={slides}
+                renderItem={({ item }) => React.cloneElement(item.component, { buttonFunction: item.action })}
+                sliderWidth={width}
+                itemWidth={width}
+                pagingEnabled={true}
+                onSnapToItem={(index) => setActiveSlide(index)}
+                contentContainerCustomStyle={styles.carouselContentContainer}
+                scrollEnabled={false}
+            />
+            <Pagination
+                dotsLength={slides.length}
+                activeDotIndex={activeSlide}
+                dotStyle={styles.paginationDot}
+                inactiveDotStyle={styles.paginationInactiveDot}
+                inactiveDotOpacity={0.75}
+                inactiveDotScale={1}
+            />
         </View>
-
-        <WideButton
-          label="Продовжити"
-          width={230}
-          onPressFunc={() => navigation.replace("AppNavbar")}
-        />
-        <View style={styles.pagesNavWrapper}>
-          <View style={[styles.pagesNavDot, styles.activeDot]}></View>
-          <View style={styles.pagesNavDot}></View>
-          <View style={styles.pagesNavDot}></View>
-        </View>
-      </View>
-    </View>
-  );
-};
+    );
+}
 
 const styles = StyleSheet.create({
-  section: {
-    flex: 1,
-    backgroundColor: "#141218",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  container: {
-    height: "100%",
-    width: "100%",
-
-    padding: 28,
-
-    backgroundColor: "#141218",
-
-    alignItems: "center",
-    justifyContent: "space-between",
-
-    paddingTop: 200,
-    paddingBottom: 55,
-  },
-  Circle: {
-    width: 233,
-    height: 233,
-    backgroundColor: "#381E72",
-    borderRadius: 116.5,
-  },
-  leftCircle: { position: "absolute", top: -116.5, left: -116.5 },
-  rightCircle: { position: "absolute", top: 0, right: -116.5 },
-
-  contentWrapper: {
-    height: "auto",
-    alignItems: "center",
-    justifyContent: "center",
-
-    gap: 16,
-  },
-
-  Title: {
-    color: "#FFF",
-    fontSize: 48,
-    textTransform: "uppercase",
-  },
-  subTitle: {
-    color: "#FFF",
-    fontSize: 24,
-    lineHeight: 32,
-
-    textAlign: "center",
-  },
-
-  pagesNavWrapper: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    gap: 16,
-
-    marginTop: 10,
-  },
-  pagesNavDot: {
-    width: 12,
-    height: 12,
-    backgroundColor: "#332D41",
-    borderRadius: 6,
-  },
-
-  activeDot: {
-    backgroundColor: "#4F378B",
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#141218',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    carouselContentContainer: {
+        paddingBottom: 40,
+    },
+    paginationDot: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        backgroundColor: '#4F378B',
+    },
+    paginationInactiveDot: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        backgroundColor: '#332D41',
+    },
 });
-
-export default WelcomePage;
