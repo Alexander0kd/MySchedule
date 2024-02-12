@@ -17,7 +17,7 @@ export default function AppNavbar() {
 
     const tabBarIconStyle = (focused) => ({
         ...styles.icon,
-        backgroundColor: focused ? '#4A4458' : '#201f25',
+        backgroundColor: focused ? '#4A4458' : '#332D41',
         marginTop: window.width <= 768 ? 7 : 0,
     });
 
@@ -39,16 +39,40 @@ export default function AppNavbar() {
     return (
         <Tab.Navigator
             screenOptions={{
+                headerStyle: { backgroundColor: '#4F378B' },
+                headerTintColor: 'white',
                 tabBarStyle: {
-                    backgroundColor: '#201f25',
+                    backgroundColor: '#332D41',
                     height: 60,
                     borderTopWidth: 0,
                 },
             }}>
-            <Tab.Screen name="Розклад" component={Schedule} options={getTabScreenOptions('Розклад', ScheduleIcon)} />
-            <Tab.Screen name="Нотатки" component={NotesList} options={getTabScreenOptions('Нотатки', NotesIcon)} />
-            <Tab.Screen name="Налаштування" component={Settings} options={getTabScreenOptions('Налаштування', SettingsIcon)}/>
-            <Tab.Screen name="Інформація" component={Information} options={getTabScreenOptions('Інформація', InformationIcon)} />
+            <Tab.Screen
+                name="Розклад"
+                component={Schedule}
+                options={getTabScreenOptions('Розклад', ScheduleIcon)}
+            />
+            <Tab.Screen
+                name="Нотатки"
+                component={NotesList}
+                options={getTabScreenOptions('Нотатки', NotesIcon)}
+            />
+            <Tab.Screen
+                name="Налаштування"
+                component={Settings}
+                options={{
+                    headerShown: false,
+                    ...getTabScreenOptions('Налаштування', SettingsIcon),
+                }}
+            />
+            <Tab.Screen
+                name="Інформація"
+                component={Information}
+                options={{
+                    headerShown: false,
+                    ...getTabScreenOptions('Інформація', InformationIcon)
+                }}
+            />
         </Tab.Navigator>
     );
 }
