@@ -7,7 +7,7 @@ import { useState } from 'react';
 const DATA = [
     {
         id: 'A1',
-        data: '2024-02-10',
+        date: '2024-02-10',
         title: 'Архітектоніка інформаційних систем та технологій',
         typeOfLesson: 'Лекція',
         group: 'ІСТ-31',
@@ -17,7 +17,7 @@ const DATA = [
     },
     {
         id: 'A2',
-        data: '2024-02-10',
+        date: '2024-02-10',
         title: 'Системне програмування1',
         typeOfLesson: 'Лекція',
         group: 'ІСТ-31',
@@ -27,7 +27,7 @@ const DATA = [
     },
     {
         id: 'A4',
-        data: '2024-02-10',
+        date: '2024-02-10',
         title: 'Системне програмування1',
         typeOfLesson: 'Лекція',
         group: 'ІСТ-31',
@@ -37,7 +37,7 @@ const DATA = [
     },
     {
         id: 'A3',
-        data: '2024-02-09',
+        date: '2024-02-09',
         title: 'Системне програмування2',
         typeOfLesson: 'Лекція',
         group: 'ІСТ-31',
@@ -47,7 +47,7 @@ const DATA = [
     },
     {
         id: 'A4',
-        data: '2024-02-08',
+        date: '2024-02-08',
         title: 'Системне програмування3',
         typeOfLesson: 'Лекція',
         group: 'ІСТ-31',
