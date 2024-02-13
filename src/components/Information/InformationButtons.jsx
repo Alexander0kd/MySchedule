@@ -18,7 +18,7 @@ export default function InformationButtons() {
                     iconPosition="right"
                     onPressFunc={() => Linking.openURL(`mailto:a96075066@gmail.com?subject=${subject}&body=${message}`)}
                 />
-                <IconButton icon="link" label="Оновити застосунок" iconPosition="right" onPressFunc={() => Linking.openURL('googlegmail://')} />
+                <IconButton icon="link" label="Оновити застосунок" iconPosition="right" />
                 <IconButton
                     icon="arrow-forward"
                     iconPosition="right"
