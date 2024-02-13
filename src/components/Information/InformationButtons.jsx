@@ -6,12 +6,19 @@ import IconButton from '../../shared/components/IconButton';
 
 export default function InformationButtons() {
     const navigation = useNavigation();
-
+    const subject = 'Повідомлення про проблеми';
+    const message =
+        'Шановна команда підтримки, звертаюся до вас щодо проблеми, з якою я зіткнувся(-лася) під час використання вашого мобільного застосунку. Описую проблему нижче:';
     return (
         <ScrollView>
             <View style={styles.buttonsContainer}>
-                <IconButton icon="link" label="Технічна підтримка" iconPosition="right" />
-                <IconButton icon="link" label="Оновити застосунок" iconPosition="right" />
+                <IconButton
+                    icon="link"
+                    label="Технічна підтримка"
+                    iconPosition="right"
+                    onPressFunc={() => Linking.openURL(`mailto:a96075066@gmail.com?subject=${subject}&body=${message}`)}
+                />
+                <IconButton icon="link" label="Оновити застосунок" iconPosition="right" onPressFunc={() => Linking.openURL('googlegmail://')} />
                 <IconButton
                     icon="arrow-forward"
                     iconPosition="right"
@@ -36,7 +43,16 @@ export default function InformationButtons() {
                 />
                 <IconButton icon="link" label="Булавський Олег" iconPosition="right" />
                 <IconButton icon="link" label="Гречин Ірина" iconPosition="right" />
-                <IconButton icon="link" label="Данюк Владислав" iconPosition="right" />
+                <IconButton
+                    icon="link"
+                    label="Данюк Владислав"
+                    iconPosition="right"
+                    onPressFunc={() =>
+                        Linking.openURL(
+                            'https://www.linkedin.com/in/vladdaniuk?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
+                        )
+                    }
+                />
                 <IconButton
                     icon="link"
                     label="Запухляк Олег"

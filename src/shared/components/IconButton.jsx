@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
-    contentRight: {        
+    contentRight: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
-    }
+    },
 });
