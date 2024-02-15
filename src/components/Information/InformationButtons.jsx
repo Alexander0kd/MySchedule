@@ -16,7 +16,7 @@ export default function InformationButtons() {
                     icon="link"
                     label="Технічна підтримка"
                     iconPosition="right"
-                    onPressFunc={() => Linking.openURL(`mailto:test.myschedule.help@gmail.com?subject=${subject}&body=${message}`)}
+                    onPressFunc={() => Linking.openURL(`mailto:autodot222@gmail.com?subject=${subject}&body=${message}`)}
                 />
                 <IconButton icon="link" label="Оновити застосунок" iconPosition="right" />
                 <IconButton
