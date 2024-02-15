@@ -16,7 +16,7 @@ export default function InformationButtons() {
                     icon="link"
                     label="Технічна підтримка"
                     iconPosition="right"
-                    onPressFunc={() => Linking.openURL(`mailto:a96075066@gmail.com?subject=${subject}&body=${message}`)}
+                    onPressFunc={() => Linking.openURL(`mailto:test.myschedule.help@gmail.com?subject=${subject}&body=${message}`)}
                 />
                 <IconButton icon="link" label="Оновити застосунок" iconPosition="right" />
                 <IconButton
@@ -59,7 +59,12 @@ export default function InformationButtons() {
                     iconPosition="right"
                     onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/oleh-zapukhliak/')}
                 />
-                <IconButton icon="link" label="Кадемський Олександр" iconPosition="right" />
+                <IconButton
+                    icon="link"
+                    label="Кадемський Олександр"
+                    iconPosition="right"
+                    onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/alexander-kademskyi-8939522b4/')}
+                />
                 <IconButton icon="link" label="Семків Константин" iconPosition="right" />
             </View>
         </ScrollView>
