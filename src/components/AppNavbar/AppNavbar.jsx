@@ -17,7 +17,7 @@ export default function AppNavbar() {
 
     const tabBarIconStyle = (focused) => ({
         ...styles.icon,
-        backgroundColor: focused ? '#4A4458' : '#332D41',
+        backgroundColor: focused ? '#4A4458' : '#211F26',
         marginTop: window.width <= 768 ? 7 : 0,
     });
 
@@ -42,7 +42,7 @@ export default function AppNavbar() {
                 headerStyle: { backgroundColor: '#4F378B' },
                 headerTintColor: 'white',
                 tabBarStyle: {
-                    backgroundColor: '#332D41',
+                    backgroundColor: '#211F26',
                     height: 60,
                     borderTopWidth: 0,
                 },
