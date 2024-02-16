@@ -2,9 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const isLocalStorageEmpty = async () => {
     try {
-        const users = await AsyncStorage.getItem('users');
+        let users = JSON.parse(await AsyncStorage.getItem('users'));
         console.log('Profiles : ', users);
-        return !users || users.length === 0;
+        return !users || users.length < 1;
     } catch (error) {
         console.error('Error check local storage:', error);
         return true;
@@ -39,6 +39,78 @@ export const setLocalProfile = async (profileData) => {
     }
 };
 
+export const getUserById = async (userId) => {
+    try {
+        userId = await getFirstUserId(); // USING FOR TEST !!!
+
+        let users = JSON.parse(await AsyncStorage.getItem('users')) || [];
+
+        const userIndex = users.findIndex((user) => user.profileID === userId);
+        if (userIndex < 0) {
+            console.log('User with this id not found');
+            return null;
+        } else {
+            const user = users[userIndex];
+            console.log('Received user:', user);
+            return user;
+        }
+    } catch (error) {
+        console.log('GET_USER_BY_ID_ERROR : ', error);
+        throw error;
+    }
+};
+
+export const deleteLocalProfileById = async (userId, navigation) => {
+    try {
+        userId = await getFirstUserId(); // USING FOR TEST !!!
+
+        let users = JSON.parse(await AsyncStorage.getItem('users')) || [];
+
+        const userIndex = users.findIndex((user) => user.profileID === userId);
+
+        if (userIndex === -1) {
+            console.error('User with provided id not found.');
+            return false;
+        }
+
+        users.splice(userIndex, 1);
+        if (users.length < 1) {
+            console.log(users.length);
+            navigation.replace('OnboardingPage');
+        }
+        await AsyncStorage.setItem('users', JSON.stringify(users));
+        console.log('User with id', userId, 'deleted successfully.');
+        console.log('Remaining user profiles:', users);
+        return true;
+    } catch (error) {
+        console.error('Error deleting local profile:', error);
+        throw error;
+    }
+};
+
+export const editUserProfile = async (userId, editedProfileData) => {
+    try {
+        userId = await getFirstUserId(); // USING FOR TEST !!!
+
+        let users = JSON.parse(await AsyncStorage.getItem('users')) || [];
+        const userProfileIndex = users.findIndex((user) => user.profileID === userId);
+
+        if (userProfileIndex !== -1) {
+            users[userProfileIndex] = {
+                ...users[userProfileIndex],
+                ...editedProfileData,
+            };
+            console.log('EDITED_PROFILE :', users[userProfileIndex]);
+            await AsyncStorage.setItem('users', JSON.stringify(users));
+        } else {
+            throw new Error('Користувача з таким ID не знайдено');
+        }
+    } catch (error) {
+        console.log('EDIT_USER_PROFILE_ERROR : ', error);
+        throw error;
+    }
+};
+
 // --------DEV TOOLS------------
 
 export const clearLocalStorage = async () => {
@@ -49,6 +121,22 @@ export const clearLocalStorage = async () => {
         console.log('Local storage cleared successfully.');
     } catch (error) {
         console.error('Error clearing local storage:', error);
+        throw error;
+    }
+};
+
+export const getFirstUserId = async () => {
+    try {
+        let users = JSON.parse(await AsyncStorage.getItem('users'));
+
+        if (users.length > 0) {
+            return users[0].profileID;
+        } else {
+            console.log('Масив користувачів порожній.');
+            return null;
+        }
+    } catch (error) {
+        console.log('GET_FIRST_USER_ERROR : ', error);
         throw error;
     }
 };

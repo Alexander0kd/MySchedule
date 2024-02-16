@@ -12,7 +12,7 @@ import Information from '../Information/Information';
 
 export default function AppNavbar() {
     const window = useWindowDimensions();
-    
+
     const Tab = createBottomTabNavigator();
 
     const tabBarIconStyle = (focused) => ({
@@ -47,16 +47,8 @@ export default function AppNavbar() {
                     borderTopWidth: 0,
                 },
             }}>
-            <Tab.Screen
-                name="Розклад"
-                component={Schedule}
-                options={getTabScreenOptions('Розклад', ScheduleIcon)}
-            />
-            <Tab.Screen
-                name="Нотатки"
-                component={NotesList}
-                options={getTabScreenOptions('Нотатки', NotesIcon)}
-            />
+            <Tab.Screen name="Розклад" component={Schedule} options={getTabScreenOptions('Розклад', ScheduleIcon)} />
+            <Tab.Screen name="Нотатки" component={NotesList} options={getTabScreenOptions('Нотатки', NotesIcon)} />
             <Tab.Screen
                 name="Налаштування"
                 component={Settings}
@@ -70,7 +62,7 @@ export default function AppNavbar() {
                 component={Information}
                 options={{
                     headerShown: false,
-                    ...getTabScreenOptions('Інформація', InformationIcon)
+                    ...getTabScreenOptions('Інформація', InformationIcon),
                 }}
             />
         </Tab.Navigator>
