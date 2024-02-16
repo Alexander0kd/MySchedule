@@ -21,7 +21,7 @@ export default function App() {
                 // IF YOU WANT ALWAYS SHOW ONBOARDING PAGE UNCOMMENT THIS FUNC \/ !!!!!!!!
                 // IF YOU WANT OPEN ONBOARDING PAGE ONCE UNCOMMENT -> RELOAD APP -> COMMENT -> RELOAD PAGE !!!!!!!
 
-                await clearLocalStorage();
+                // await clearLocalStorage();
                 if (!isInitialized) {
                     const isEmpty = await isLocalStorageEmpty();
                     setIsLocalStorageAvailable(!isEmpty);
