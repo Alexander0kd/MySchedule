@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { Svg } from 'react-native-svg';
+import { SvgXml } from 'react-native-svg';
 import Dropdown from 'react-native-input-select';
 import uuid from 'react-native-uuid';
 
@@ -42,7 +42,7 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
                 fontSize: 16,
             }}
             dropdownIconStyle={{ top: 16, right: 16 }}
-            dropdownIcon={<Svg xml={arrowDropDownSvg} width="24" height="24" fill={disabled ? 'rgba(202, 196, 208, 0.38) ' : 'white'} />}
+            dropdownIcon={<SvgXml xml={arrowDropDownSvg} width="24" height="24" fill={disabled ? 'rgba(202, 196, 208, 0.38) ' : 'white'} />}
             checkboxComponentStyles={{
                 checkboxStyle: {
                     backgroundColor: '#381E72',
