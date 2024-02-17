@@ -7,6 +7,7 @@ const Dropdown = ({ note }) => {
     const [notes, setNotes] = useState();
     const [arrowRotation, setArrowRotation] = useState(0);
     const [selectedNote, setSelectedNote] = useState(null);
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
@@ -14,7 +15,7 @@ const Dropdown = ({ note }) => {
 
     return (
         <View style={styles.container}>
-            <Pressable>
+            <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
                     <View>
                         <Text style={{ ...styles.buttonText, fontWeight: '500' }}>
@@ -24,6 +25,15 @@ const Dropdown = ({ note }) => {
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
             </Pressable>
+            {isDropdownVisible && (
+                <View style={styles.dropdownContent}>
+                    <View style={styles.info}>
+                        <View style={styles.rowContainer}>
+                            <Text style={styles.titleText}>{note.text}</Text>
+                        </View>
+                    </View>
+                </View>
+            )}
         </View>
     );
 };

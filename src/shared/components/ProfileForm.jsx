@@ -42,7 +42,6 @@ const CustomDropdown = ({ placeholder, options, selectedValue, onValueChange, di
                 fontSize: 16,
             }}
             dropdownIconStyle={{ top: 16, right: 16 }}
-            dropdownIcon={<SvgXml xml={arrowDropDownSvg} width="24" height="24" fill={disabled ? 'rgba(202, 196, 208, 0.38) ' : 'white'} />}
             checkboxComponentStyles={{
                 checkboxStyle: {
                     backgroundColor: '#381E72',
