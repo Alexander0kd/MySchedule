@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import ProfileForm from '../../shared/components/ProfileForm';
 import WideButton from '../../shared/components/WideButton';
-import { setLocalProfile } from '../../services/localStorageService';
+import { addProfile } from '../../services/local-storage.service';
 
 import okFace from '../../../assets/ok-face-1.png';
 
@@ -12,7 +12,7 @@ export default function RegistrationPage({ buttonFunction }) {
 
     const handleWideBtnClick = async (profileData) => {
         try {
-            const profileAdded = await setLocalProfile(profileData);
+            const profileAdded = await addProfile(profileData);
             if (profileAdded) {
                 buttonFunction();
             }
