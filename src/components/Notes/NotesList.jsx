@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert, Pressable } from 'react-native';
+import Dropdown from './Dropdowne';
 
 const initialNotes = [
     {
+        id: 1,
         subject: 'Subject1',
         text: 'Study something',
     },
     {
+        id: 3,
         subject: 'Subject2',
         text: 'Study something',
     },
     {
+        id: 4,
         subject: 'Subject3',
         text: 'Study something',
     },
     {
+        id: 2,
         subject: 'Subject4',
         text: 'Study something',
     },
@@ -24,20 +29,16 @@ const NotesPage = () => {
     const [notes, setNotes] = useState(initialNotes);
     const [selectedNote, setSelectedNote] = useState(null);
 
+    const notesMap = new Map();
+
+    initialNotes.forEach((note) => {
+        notesMap.set(note.id, note);
+    });
     return (
         <View style={styles.container}>
-            <ScrollView style={styles.notesContainer}>
-                {notes.map((note, index) => (
-                    <TouchableOpacity key={index} onPress={() => setSelectedNote(note)}>
-                        <Text style={styles.noteSubject}>{note.subject}</Text>
-                        {selectedNote === note && (
-                            <View style={styles.noteDetails}>
-                                <Text style={styles.noteText}>{note.text}</Text>
-                            </View>
-                        )}
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
+            {Array.from(notesMap.values()).map((note) => (
+                <Dropdown key={note.id} note={note} />
+            ))}
         </View>
     );
 };
@@ -47,27 +48,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#141218',
         borderBottomWidth: 0,
-    },
-    notesContainer: {
-        flex: 1,
-    },
-    noteSubject: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    noteDetails: {
-        backgroundColor: '#EFEFEF',
-        padding: 10,
-        borderRadius: 8,
-        marginTop: 5,
-    },
-    noteText: {
-        fontSize: 14,
-    },
-    label: {
-        color: 'white',
-        fontSize: 11,
     },
 });
 
