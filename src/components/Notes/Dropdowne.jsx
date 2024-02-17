@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Arrow from '../../../assets/arrow_drop_down.png';
+import Bell from '../../../assets/bell.png';
+import More from '../../../assets/more_vert.png';
+import Plus from  '../../../assets/plus-icon.png';
 
 const Dropdown = ({ note }) => {
     const [notes, setNotes] = useState();
@@ -27,10 +30,24 @@ const Dropdown = ({ note }) => {
             </Pressable>
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
-                    <View style={styles.info}>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.titleText}>{note.text}</Text>
+                    <View style={styles.rowContainer}>
+                        <View style={styles.dataSettingContainer}>
+                            <Text style={styles.infoText}>Data</Text>
+                            <TouchableOpacity>
+                                <Image source={More} style={styles.icon}></Image>
+                            </TouchableOpacity>
                         </View>
+                    </View>
+                    <View style={styles.rowContainer}>
+                        <Text style={styles.infoText}>{note.text}</Text>
+                    </View>
+                    <View style={styles.actions}>
+                        <TouchableOpacity style={[styles.button, styles.buttonSecond]}>
+                            <View style={styles.buttonContent}>
+                                <Image source={Plus} style={styles.icon} />
+                                <Text style={styles.buttonText}>Додати нотатку</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             )}
@@ -86,7 +103,7 @@ const styles = StyleSheet.create({
         borderTopStartRadius: 0,
         borderTopEndRadius: 0,
         borderRadius: 10,
-        flex: 1,
+        flex: 0,
         paddingBottom: 32,
     },
 
@@ -148,6 +165,11 @@ const styles = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         gap: 14,
+    },
+    dataSettingContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
     },
 });
 

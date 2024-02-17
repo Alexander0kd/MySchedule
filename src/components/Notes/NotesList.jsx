@@ -10,8 +10,8 @@ const initialNotes = [
     },
     {
         id: 3,
-        subject: 'Subject2',
-        text: 'Study something',
+        subject: 'Subject2Subject2Subject2Subject2',
+        text: 'Nisi sunt in laboris in elit est sunt. Ut sint cillum veniam ea Lorem in est deserunt. Voluptate nisi nulla qui consequat eu culpa excepteur ad occaecat incididunt anim aute. Tempor elit esse duis id. Mollit irure pariatur cupidatat duis laboris et quis adipisicing labore fugiat.',
     },
     {
         id: 4,
