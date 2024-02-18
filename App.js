@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 
 import AppNavbar from './src/components/AppNavbar/AppNavbar';
 import OnboardingPage from './src/components/OnboardingPages/OnboardingPage';
-import { isLocalStorageEmpty, clearLocalStorage } from './src/services/localStorageService';
+import { isLocalStorageEmpty, clearLocalStorage } from './src/services/local-storage.service';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
@@ -19,7 +19,6 @@ export default function App() {
         const initializeApp = async () => {
             try {
                 // IF YOU WANT ALWAYS SHOW ONBOARDING PAGE UNCOMMENT THIS FUNC \/ !!!!!!!!
-                // IF YOU WANT OPEN ONBOARDING PAGE ONCE UNCOMMENT -> RELOAD APP -> COMMENT -> RELOAD PAGE !!!!!!!
 
                 // await clearLocalStorage();
                 if (!isInitialized) {
@@ -40,7 +39,7 @@ export default function App() {
     }
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#381E72" />
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={isLocalStorageAvailable ? 'AppNavbar' : 'OnboardingPage'}>

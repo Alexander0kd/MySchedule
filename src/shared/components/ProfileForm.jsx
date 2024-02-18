@@ -3,6 +3,7 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import Dropdown from 'react-native-input-select';
 import uuid from 'react-native-uuid';
+import { IProfile } from '../classes/profile.class';
 
 const arrowDropDownSvg = `
 <svg width="24" height="24" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
@@ -104,23 +105,19 @@ export default function ProfileForm({ setIsFormFilled, setProfileData }) {
     const [group, setGroup] = useState();
 
     useEffect(() => {
-        let Profile = {};
+        setIsFormFilled(false);
 
         if (university && faculty && year && group) {
             setIsFormFilled(true);
-            Profile = {
-                profileID: uuid.v4(),
+            const profile = new IProfile({
+                id: uuid.v4(),
                 university: university,
                 faculty: faculty,
                 year: year,
                 group: group,
-            };
-        } else {
-            setIsFormFilled(false);
-            Profile = {};
+            });
+            setProfileData(profile);
         }
-
-        setProfileData(Profile);
     }, [university, faculty, year, group]);
 
     return (
