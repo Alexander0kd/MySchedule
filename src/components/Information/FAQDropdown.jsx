@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
 import Arrow from '../../../assets/arrow_drop_down.png';
 
 const FAQDropdown = ({ question }) => {
@@ -76,8 +76,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0.1,
     },
     infoText: {
-        // fontSize: 14,
-        // color: 'white',
         paddingBottom: 8,
         paddingTop: 8,
         color: 'white',
