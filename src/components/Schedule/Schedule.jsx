@@ -29,9 +29,10 @@ export default function Schedule() {
   const fetchSchedule = async() => {
     try {
       const formattedDate = currentDate.toISOString().split('T')[0];
+      const paddedGroupId = String(data.groupId).padStart(6, '0');
       const scheduleData = await getGroupSchedule(
           AvailableUni.PNU,
-          data.groupId,
+          paddedGroupId,
           data.year,
           data.facultyId,
       );
