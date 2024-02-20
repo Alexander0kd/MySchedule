@@ -1,112 +1,106 @@
 import * as React from 'react';
-import { View, StatusBar, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StatusBar, StyleSheet, ScrollView, Text, RefreshControl } from 'react-native';
 import Dropdown from './Dropdown.jsx';
 import DateBlock from './DateBlock.jsx';
-import { useState } from 'react';
-
-const DATA = [
-    {
-        id: 'A1',
-        date: '2024-02-10',
-        title: 'Архітектоніка інформаційних систем та технологій',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A2',
-        date: '2024-02-10',
-        title: 'Системне програмування1',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A3',
-        date: '2024-02-10',
-        title: 'Системне програмування1',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A4',
-        date: '2024-02-09',
-        title: 'Системне програмування2',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A5',
-        date: '2024-02-08',
-        title: 'Системне програмування3',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-];
+import React, { useState, useEffect } from 'react';
+import { getGroupSchedule } from "../../services/general-data.service";
+import { AvailableUni } from '../../services/available-univer.enum.js';
+import GeneralModel from "../../services/general-model";
 
 export default function Schedule() {
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const lastUpdateDate = '8 лютого';
-    const lastUpdateTime = '7:00';
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [lastUpdateDate, setLastUpdateDate] = useState('');
+  const [lastUpdateTime, setLastUpdateTime] = useState('');
+  const [schedule, setSchedule] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-    const handleBackward = () => {
-        const newDate = new Date(currentDate);
-        newDate.setDate(currentDate.getDate() - 1);
-        setCurrentDate(newDate);
-    };
+  const { setFacultyId,
+          setYear,
+          setGroupId,
+          data} = GeneralModel();
 
-    const handleForward = () => {
-        const newDate = new Date(currentDate);
-        newDate.setDate(currentDate.getDate() + 1);
-        setCurrentDate(newDate);
-    };
+  useEffect(() => {
+    setFacultyId(1002);
+    setYear('2023-2024-2');
+    setGroupId(8567);
+    fetchSchedule().then( );
+  }, [currentDate]);
 
-    const filteredLessons = DATA.filter((lesson) => lesson.date === currentDate.toISOString().split('T')[0]);
+  const fetchSchedule = async() => {
+    try {
+      const formattedDate = currentDate.toISOString().split('T')[0];
+      const scheduleData = await getGroupSchedule(
+          AvailableUni.PNU,
+          data.groupId,
+          data.year,
+          data.facultyId,
+      );
+      const filteredSchedule = scheduleData.filter(lesson => lesson.d === formattedDate);
 
-    return (
-        <View style={styles.container}>
-            <ScrollView>
-                <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} />
-                <View style={styles.container}>
-                    <StatusBar style="auto" />
-                    {filteredLessons.map((lesson) => (
-                        <Dropdown key={lesson.id} lesson={lesson} />
-                    ))}
-                </View>
-            </ScrollView>
-            <View>
-                <Text style={styles.update}>
-                    Останнє оновлення: {lastUpdateDate} | {lastUpdateTime}
-                </Text>
-            </View>
+      setSchedule(filteredSchedule);
+      
+      const updateDateTime = new Date();
+      const updateDate = updateDateTime.toLocaleDateString('uk-UA');
+      const updateTime = updateDateTime.toLocaleTimeString('uk-UA');
+
+      setLastUpdateDate(updateDate);
+      setLastUpdateTime(updateTime);
+      
+    } catch (error) {
+      console.error('Error fetching schedule:', error);
+    }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchSchedule();
+    setRefreshing(false);
+  };
+
+  const handleBackward = () => {
+    const newDate = new Date(currentDate);
+    newDate.setDate(currentDate.getDate() - 1);
+    setCurrentDate(newDate);
+  };
+
+  const handleForward = () => {
+    const newDate = new Date(currentDate);
+    newDate.setDate(currentDate.getDate() + 1);
+    setCurrentDate(newDate);
+  };
+
+  return (
+      <View style={styles.container}>
+        <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward}/>
+        <ScrollView  contentContainerStyle={{ flexGrow: 1}}
+                     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+          <View style={{ ...styles.container, marginTop: 60}}>
+            <StatusBar style="auto" />
+              {schedule.map((lesson) => (
+                  <Dropdown key={lesson.id} lesson={lesson} />
+              ))}
+          </View>
+        </ScrollView>
+        <View>
+          <Text style={styles.update}>
+            Останнє оновлення: {lastUpdateDate } | { lastUpdateTime}
+          </Text>
         </View>
-    );
+      </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#141218',
-        borderBottomWidth: 0,
-    },
-    update: {
-        color: '#CAC4D0',
-        fontSize: 12,
-        margin: 10,
-        textAlign: 'center',
-        alignItems: 'flex-end',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#141218',
+    borderBottomWidth: 0,
+  },
+  update: {
+    color: '#CAC4D0',
+    fontSize: 12,
+    margin: 10,
+    textAlign: 'center',
+    alignItems: 'flex-end',
+  },
 });
