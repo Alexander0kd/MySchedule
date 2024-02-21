@@ -5,6 +5,7 @@ import Arrow from '../../../assets/arrow_drop_down.png';
 const FAQDropdown = ({ question }) => {
     const [arrowRotation, setArrowRotation] = useState(0);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
@@ -22,9 +23,7 @@ const FAQDropdown = ({ question }) => {
             </Pressable>
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
-                    <View style={styles.rowContainer}>
-                        <Text style={styles.infoText}>{question.description.split('<br/>').join('\n')}</Text>
-                    </View>
+                    <Text style={styles.infoText}>{question.description.split('<br/>').join('\n')}</Text>
                 </View>
             )}
         </View>
@@ -33,39 +32,34 @@ const FAQDropdown = ({ question }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 16,
-        marginRight: 24,
-        marginLeft: 24,
+        marginHorizontal: 24,
+        marginBottom: 16,
         borderRadius: 16,
 
         backgroundColor: '#332D41',
         border: 0,
     },
-
     title: {
         padding: 16,
         paddingLeft: 24,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-
     arrow: {
         width: 10,
         height: 5,
         justifyContent: 'flex-end',
-        marginTop: 12,
-        marginRight: 12,
+        margin: 8
     },
-
     dropdownContent: {
         padding: 24,
-        paddingTop: 8,
+        paddingTop: 16,
+
         backgroundColor: '#1D192B',
+
+        borderRadius: 10,
         borderTopStartRadius: 0,
         borderTopEndRadius: 0,
-        borderRadius: 10,
-        flex: 0,
-        paddingBottom: 32,
     },
     buttonText: {
         color: 'white',
@@ -76,18 +70,10 @@ const styles = StyleSheet.create({
         letterSpacing: 0.1,
     },
     infoText: {
-        paddingBottom: 8,
-        paddingTop: 8,
-        color: 'white',
         color: '#FFFFFF',
         fontSize: 16,
         lineHeight: 20,
         letterSpacing: 0.1,
-    },
-
-    rowContainer: {
-        flexDirection: 'row',
-        gap: 14,
     },
 });
 
