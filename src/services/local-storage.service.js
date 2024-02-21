@@ -76,7 +76,6 @@ export const deleteProfileById = async (id, navigation) => {
         if (profiles.length < 1) {
             navigation.replace('OnboardingPage');
         }
-
     } catch (error) {
         console.error('Error deleting local profile:', error);
         throw error;
@@ -144,7 +143,6 @@ export const setActiveProfile = async (id, navigation) => {
         if (navigation) {
             navigation.replace('AppNavbar');
         }
-
     } catch (error) {
         console.error('Cant change active profile: ', error);
         throw error;
