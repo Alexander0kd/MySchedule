@@ -66,8 +66,8 @@ export default function Schedule() {
             <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} />
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
                 <View style={{ ...styles.container, marginTop: 60 }}>
-                    {schedule.map((lesson) => (
-                        <Dropdown key={lesson.id} lesson={lesson} />
+                    {schedule.map((lesson, index) => (
+                        <Dropdown key={index} lesson={lesson} />
                     ))}
                 </View>
             </ScrollView>
