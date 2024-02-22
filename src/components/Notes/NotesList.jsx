@@ -6,29 +6,71 @@ const initialNotes = [
     {
         id: 1,
         subject: 'Subject1',
-        text: 'Study something',
+        notes: [
+            {
+                id: 1,
+                data: '2024-02-22',
+                text: 'Dolore est voluptate culpa tempor velit cupidatat cillum dolor ea ullamco dolor amet. Occaecat adipisicing excepteur velit quis id. Id dolore est eu laborum nulla et irure mollit sint. Excepteur reprehenderit reprehenderit laboris elit aute tempor. Consectetur sit ipsum in dolor. Cillum aliqua consequat duis reprehenderit non amet pariatur in ea ex nulla eu voluptate amet. Magna elit ad adipisicing do aliquip elit. Proident reprehenderit nostrud aute cupidatat dolore ipsum in. Veniam aliqua incididunt est ut voluptate ex exercitation tempor ipsum aliqua eu adipisicing pariatur esse. Ex laborum id anim qui proident culpa duis aliquip tempor officia occaecat. Aliquip esse cupidatat minim occaecat. Qui est duis ad adipisicing ipsum labore laborum dolore est voluptate. Eu irure eiusmod laborum ullamco sit. Sint proident duis aliquip velit pariatur quis velit nisi consequat nostrud ipsum.',
+            },
+            {
+                id: 2,
+                data: '2024-02-22',
+                text: 'Proident id dolore ullamco exercitation dolor amet aute tempor occaecat cillum anim. Aliquip eu fugiat nisi aliqua cillum eu laboris ut adipisicing ex non adipisicing excepteur. Nulla veniam anim est occaecat elit dolor elit sint Lorem nostrud adipisicing nulla. Ipsum incididunt sint amet ad officia qui irure culpa id id aute. Id anim fugiat veniam dolor consectetur ea nostrud.',
+            },
+        ],
     },
     {
         id: 3,
         subject: 'Subject2Subject2Subject2Subject2',
-        text: 'Nisi sunt in laboris in elit est sunt. Ut sint cillum veniam ea Lorem in est deserunt. Voluptate nisi nulla qui consequat eu culpa excepteur ad occaecat incididunt anim aute. Tempor elit esse duis id. Mollit irure pariatur cupidatat duis laboris et quis adipisicing labore fugiat.',
+        notes: [
+            {
+                id: 1,
+                data: '2024-02-22',
+                text: 'Study something',
+            },
+            {
+                id: 2,
+                data: '2024-02-22',
+                text: 'Study something2',
+            },
+        ],
     },
     {
         id: 4,
         subject: 'Subject3',
-        text: 'Study something',
+        notes: [
+            {
+                id: 1,
+                data: '2024-02-22',
+                text: 'Sit aliquip aliquip consectetur sit. Proident adipisicing aliquip tempor sunt aliqua velit elit id anim eiusmod Lorem veniam. Ea tempor minim et et aute proident adipisicing deserunt velit irure.',
+            },
+            {
+                id: 2,
+                data: '2024-02-22',
+                text: 'Sint tempor sint aliquip laborum ipsum minim laboris ex tempor deserunt irure nisi Lorem. Proident amet culpa aliqua duis ea cillum anim ea occaecat deserunt laboris labore. Lorem officia minim excepteur nostrud do eiusmod. Dolore pariatur duis ea irure. Deserunt ad nulla dolore ullamco ipsum aliqua fugiat Lorem eu laborum quis. Adipisicing nulla quis aute incididunt enim quis excepteur ullamco veniam.',
+            },
+        ],
     },
     {
         id: 2,
         subject: 'Subject4',
-        text: 'Study something',
+        notes: [
+            {
+                id: 1,
+                data: '2024-02-22',
+                text: 'Study something',
+            },
+            {
+                id: 2,
+                data: '2024-02-22',
+                text: 'Study something2',
+            },
+        ],
     },
 ];
 
 const NotesPage = () => {
-    const [notes, setNotes] = useState(initialNotes);
     const [selectedNote, setSelectedNote] = useState(null);
-
     const notesMap = new Map();
 
     initialNotes.forEach((note) => {
@@ -36,9 +78,11 @@ const NotesPage = () => {
     });
     return (
         <View style={styles.container}>
-            {Array.from(notesMap.values()).map((note) => (
-                <Dropdown key={note.id} note={note} />
-            ))}
+            <ScrollView>
+                {Array.from(notesMap.values()).map((note) => (
+                    <Dropdown key={note.id} note={note} />
+                ))}
+            </ScrollView>
         </View>
     );
 };

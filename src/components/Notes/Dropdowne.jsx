@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Arrow from '../../../assets/arrow_drop_down.png';
 import Bell from '../../../assets/bell.png';
 import More from '../../../assets/more_vert.png';
-import Plus from  '../../../assets/plus-icon.png';
+import Plus from '../../../assets/plus-icon.png';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Dropdown = ({ note }) => {
-    const [notes, setNotes] = useState();
     const [arrowRotation, setArrowRotation] = useState(0);
     const [selectedNote, setSelectedNote] = useState(null);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -15,7 +15,11 @@ const Dropdown = ({ note }) => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
     };
-
+    const [notes, setNotes] = useState([]);
+    useEffect(() => {
+        // Ensure that note.notes is an array, and if not, set it to an empty array
+        setNotes(Array.isArray(note.notes) ? note.notes : []);
+    }, [note.notes]);
     return (
         <View style={styles.container}>
             <Pressable onPress={toggleDropdown}>
@@ -30,17 +34,19 @@ const Dropdown = ({ note }) => {
             </Pressable>
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
-                    <View style={styles.rowContainer}>
-                        <View style={styles.dataSettingContainer}>
-                            <Text style={styles.infoText}>Data</Text>
-                            <TouchableOpacity>
-                                <Image source={More} style={styles.icon}></Image>
-                            </TouchableOpacity>
+                     {notes.map((singleNote) => (
+                        <View key={singleNote.id}>
+                            <View style={styles.dataSettingContainer}>
+                                <Text style={styles.infoText}>{singleNote.data}</Text>
+                                <TouchableOpacity>
+                                    <Image source={More} style={styles.icon} />
+                                </TouchableOpacity>
+                            </View>
+                            <ScrollView style={{maxHeight:128}}>
+                                <Text style={styles.infoText}>{singleNote.text}</Text>
+                            </ScrollView>
                         </View>
-                    </View>
-                    <View style={styles.rowContainer}>
-                        <Text style={styles.infoText}>{note.text}</Text>
-                    </View>
+                    ))}
                     <View style={styles.actions}>
                         <TouchableOpacity style={[styles.button, styles.buttonSecond]}>
                             <View style={styles.buttonContent}>
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
         color: 'white',
         paddingBottom: 8,
         paddingTop: 8,
-        flex: 0.7,
+        flex: 1, // Змінено на 1, щоб розтягувати на всю висоту
     },
 
     actions: {
@@ -162,14 +168,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
-    rowContainer: {
-        flexDirection: 'row',
-        gap: 14,
-    },
     dataSettingContainer: {
-        flex: 1,
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'flex-end',
+    },
+    textContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        gap: 14,
     },
 });
 
