@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { View, StatusBar, StyleSheet, ScrollView, Text } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import Dropdown from './Dropdown.jsx';
 import DateBlock from './DateBlock.jsx';
+import DatePicker from './DatePicker.jsx';
 import { useState } from 'react';
 
 const DATA = [
@@ -59,39 +61,70 @@ const DATA = [
 
 export default function Schedule() {
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [swipeEnabled, setSwipeEnabled] = useState(true);
     const lastUpdateDate = '8 лютого';
     const lastUpdateTime = '7:00';
+
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
+    const handleDataPickerOpen = (status) => {
+        setIsDatePickerOpen(status);
+    };
+
+    const handleSetDate = (receivedDate) => {
+        setCurrentDate(receivedDate);
+    };
 
     const handleBackward = () => {
         const newDate = new Date(currentDate);
         newDate.setDate(currentDate.getDate() - 1);
         setCurrentDate(newDate);
+        setSwipeEnabled(false);
     };
 
     const handleForward = () => {
         const newDate = new Date(currentDate);
         newDate.setDate(currentDate.getDate() + 1);
         setCurrentDate(newDate);
+        setSwipeEnabled(false);
     };
 
     const filteredLessons = DATA.filter((lesson) => lesson.date === currentDate.toISOString().split('T')[0]);
 
+    const onSwipeEvent = (event) => {
+        if (swipeEnabled) {
+            const { translationX } = event.nativeEvent;
+            if (translationX > 0) {
+                handleBackward();
+            } else if (translationX < 0) {
+                handleForward();
+            }
+        }
+    };
+
+    const onSwipeEnd = () => {
+        setSwipeEnabled(true);
+    };
+
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} />
-                <View style={styles.container}>
-                    <StatusBar style="auto" />
-                    {filteredLessons.map((lesson) => (
-                        <Dropdown key={lesson.id} lesson={lesson} />
-                    ))}
-                </View>
-            </ScrollView>
+            <PanGestureHandler onGestureEvent={onSwipeEvent} onHandlerStateChange={onSwipeEnd} maxPointers={1} activeOffsetX={[-20, 20]}>
+                <ScrollView>
+                    <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} handleDataPickerOpen={handleDataPickerOpen} />
+
+                    <View style={styles.container}>
+                        {filteredLessons.map((lesson) => (
+                            <Dropdown key={lesson.id} lesson={lesson} />
+                        ))}
+                    </View>
+                </ScrollView>
+            </PanGestureHandler>
             <View>
                 <Text style={styles.update}>
                     Останнє оновлення: {lastUpdateDate} | {lastUpdateTime}
                 </Text>
             </View>
+            {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}
         </View>
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const DateBlock = ({ date, onBackward, onForward }) => {
+const DateBlock = ({ date, onBackward, onForward, handleDataPickerOpen }) => {
     const formattedDate = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
@@ -13,7 +13,12 @@ const DateBlock = ({ date, onBackward, onForward }) => {
             <TouchableOpacity onPress={onBackward}>
                 <Text style={styles.arrowText}>{'<'}</Text>
             </TouchableOpacity>
-            <Text style={styles.dateText}>{formattedDate}</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    handleDataPickerOpen(true);
+                }}>
+                <Text style={styles.dateText}>{formattedDate}</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={onForward}>
                 <Text style={styles.arrowText}>{'>'}</Text>
             </TouchableOpacity>
