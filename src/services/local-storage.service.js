@@ -163,3 +163,30 @@ export const clearLocalStorage = async () => {
         throw error;
     }
 };
+
+export const SetSchedule = async (url, selectedGroupId, year, facultyId) => {
+
+    const setSchedule = await getGroupSchedule(url, selectedGroupId, year, facultyId);
+    try {
+        await AsyncStorage.setItem(`schedule_${selectedGroupId}`, JSON.stringify(setSchedule));
+        console.log('Розклад для вибраної групи успішно збережено в LocalStorage.');
+    } catch (error) {
+        console.error('Помилка при збереженні розкладу в LocalStorage:', error);
+    }
+}
+export const GetSchedule = async(selectedGroupId) => {
+    try {
+        IProfile.schedule = await AsyncStorage.getItem(`schedule_${selectedGroupId}`);
+        if (!IProfile.schedule) {
+            console.log(`Розклад для обраної групи з ID ${selectedGroupId} не знайдено в локальному сховищі.`);
+            return null;
+        }
+        const scheduleData =  JSON.parse(IProfile.schedule);
+        return  scheduleData;
+
+    } catch (error) {
+        console.error('Помилка при поверненні розкладу в LocalStorage:', error);
+        throw error;
+    }
+}
+
