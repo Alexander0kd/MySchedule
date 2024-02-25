@@ -32,7 +32,6 @@ export async function getGroupList(url, facultyId, year) {
  */
 export async function getGroupSchedule(url, groupId, year, facultyId) {
     const fullURL = `https://${url}/${year}/static/groups/${facultyId}/${groupId}/index.js`;
-
     try {
         const response = await axios.get(fullURL);
         let data = response.data;
@@ -41,22 +40,27 @@ export async function getGroupSchedule(url, groupId, year, facultyId) {
         data = data.replace(/{(\w+):/g, '{"$1":');
 
         const scheduleItems = JSON.parse(data);
-        const formattedScheduleItems = scheduleItems.map((item) => new ISchedule(item));
+
+        const formattedScheduleItems = scheduleItems.map((item) => {
+            const schedule = new ISchedule(item);
+            schedule.lastUpdate.dateDay = new Date().toLocaleDateString('uk-UA');
+            schedule.lastUpdate.dateTime = new Date().toLocaleTimeString('uk-UA');
+            return schedule;
+        });
         return formattedScheduleItems;
     } catch (error) {
         console.error('Error fetching group schedule:', error);
         return [];
     }
 }
-
 /**
  * @function getFacultyList | Отримати список факультетів ПНУ.
  * @deprecated TODO: Переписати функцію під всі факультети
  */
-export function getFacultyList() {
-    const faculties = Object.keys(PnuFaculty).map((key) => ({
+export function getFacultyList(faculty) {
+    const faculties = Object.keys(faculty).map((key) => ({
         key: key,
-        name: PnuFaculty[key],
+        name: faculty[key],
     }));
     return faculties;
 }
