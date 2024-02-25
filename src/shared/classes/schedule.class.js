@@ -26,5 +26,9 @@ export class ISchedule {
         this.lt = data.lt;
         this.g = data.g;
         this.link = data.link;
+        this.lastUpdate = {
+            dateDay: data.dateDay,
+            dateTime: data.dateTime
+        };
     }
 }
