@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Arrow from '../../../assets/arrow-left.png';
 
-const DateBlock = ({ title, date, onBackward, onForward }) => {
+const DateBlock = ({ title, date, onBackward, onForward, handleDataPickerOpen }) => {
     const formattedDate = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
@@ -14,7 +14,12 @@ const DateBlock = ({ title, date, onBackward, onForward }) => {
             <TouchableOpacity onPress={onBackward}>
                 <Image source={Arrow} style={styles.arrowImage} />
             </TouchableOpacity>
-            <Text style={styles.dateText}>{formattedDate}</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    handleDataPickerOpen(true);
+                }}>
+                <Text style={styles.dateText}>{formattedDate}</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={onForward}>
                 <Image source={Arrow} style={[styles.arrowImage, { transform: [{ rotate: '180deg' }] }]} />
             </TouchableOpacity>

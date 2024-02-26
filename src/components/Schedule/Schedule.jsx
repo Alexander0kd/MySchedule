@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, StatusBar, StyleSheet, ScrollView, Text, RefreshControl } from 'react-native';
+import * as React from 'react';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import { View, StyleSheet, ScrollView, Text, StatusBar, RefreshControl } from 'react-native';
 import Dropdown from './Dropdown.jsx';
-import DateBlock from "./DateBlock";
+import DateBlock from './DateBlock.jsx';
+import DatePicker from './DatePicker.jsx';
+import { useState } from 'react';
 import CreateDefaultModel from "../../services/create-default-model";
 import { GetSchedule } from "../../services/local-storage.service";
 
 
 export default function Schedule() {
+    const [swipeEnabled, setSwipeEnabled] = useState(true);
     const [ currentDate, setCurrentDate ] = useState(new Date());
     const [ lastUpdateDate, setLastUpdateDate ] = useState('');
     const [ lastUpdateTime, setLastUpdateTime ] = useState('');
@@ -62,27 +66,54 @@ export default function Schedule() {
         setRefreshing(false);
     };
 
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
+    const handleDataPickerOpen = (status) => {
+        setIsDatePickerOpen(status);
+    };
+
+    const handleSetDate = (receivedDate) => {
+        setCurrentDate(receivedDate);
+    };
+
     const handleBackward = () => {
         const newDate = new Date(currentDate);
         newDate.setDate(currentDate.getDate() - 1);
         setCurrentDate(newDate);
+        setSwipeEnabled(false);
     };
 
     const handleForward = () => {
         const newDate = new Date(currentDate);
         newDate.setDate(currentDate.getDate() + 1);
         setCurrentDate(newDate);
+        setSwipeEnabled(false);
+    };
+
+    const onSwipeEvent = (event) => {
+        if (swipeEnabled) {
+            const { translationX } = event.nativeEvent;
+            if (translationX > 0) {
+                handleBackward();
+            } else if (translationX < 0) {
+                handleForward();
+            }
+        }
+    };
+
+    const onSwipeEnd = () => {
+        setSwipeEnabled(true);
     };
 
     return (
         <View style={styles.container}>
+          <PanGestureHandler onGestureEvent={onSwipeEvent} onHandlerStateChange={onSwipeEnd} maxPointers={1} activeOffsetX={[-20, 20]}>
             <ScrollView
                 contentContainerStyle={{ flexGrow: 1 }}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
             >
-                <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward}/>
+                <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} handleDataPickerOpen={handleDataPickerOpen} />
                 <View style={{ ...styles.container, marginTop: 60 }}>
-                    <StatusBar style="auto"/>
                     {schedule.length === 0 ? (
                         <Text style={styles.noClassesText}>Сьогодні немає пар:)</Text>
                     ) : (
@@ -92,11 +123,13 @@ export default function Schedule() {
                     )}
                 </View>
             </ScrollView>
-            <View>
-                <Text style={styles.update}>
-                    Останнє оновлення: {lastUpdateDate} | {lastUpdateTime}
-                </Text>
-            </View>
+          </PanGestureHandler>
+          <View>
+              <Text style={styles.update}>
+                  Останнє оновлення: {lastUpdateDate} | {lastUpdateTime}
+              </Text>
+          </View>
+          {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}
         </View>
     );
 }
