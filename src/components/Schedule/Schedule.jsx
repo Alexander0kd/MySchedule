@@ -1,13 +1,10 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import { View, StyleSheet, ScrollView, Text, StatusBar, RefreshControl } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, RefreshControl } from 'react-native';
 import Dropdown from './Dropdown.jsx';
 import DateBlock from './DateBlock.jsx';
 import DatePicker from './DatePicker.jsx';
-import { useState } from 'react';
 import CreateDefaultModel from "../../services/create-default-model";
-import { GetSchedule } from "../../services/local-storage.service";
-
 
 export default function Schedule() {
     const [swipeEnabled, setSwipeEnabled] = useState(true);
@@ -42,14 +39,14 @@ export default function Schedule() {
             //     data.facultyId,
             // );
 
-            const schedule = await GetSchedule(paddedGroupId);
-
+            // const schedule = await GetSchedule(paddedGroupId);
+            const schedule = [];
 
             const filteredSchedule = schedule.filter(lesson => lesson.d === formattedDate);
             setSchedule(filteredSchedule);
             
-            const dateDay = schedule[0].lastUpdate.dateDay;
-            const dateTime = schedule[0].lastUpdate.dateTime;
+            const dateDay = schedule.length > 0 ? schedule[0].lastUpdate.dateDay : '';
+            const dateTime = schedule.length > 0 ? schedule[0].lastUpdate.dateTime : '';
 
             setLastUpdateDate(dateDay);
             setLastUpdateTime(dateTime);
