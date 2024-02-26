@@ -1,69 +1,70 @@
 import * as React from 'react';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, StatusBar, RefreshControl } from 'react-native';
 import Dropdown from './Dropdown.jsx';
 import DateBlock from './DateBlock.jsx';
 import DatePicker from './DatePicker.jsx';
 import { useState } from 'react';
+import CreateDefaultModel from "../../services/create-default-model";
+import { GetSchedule } from "../../services/local-storage.service";
 
-const DATA = [
-    {
-        id: 'A1',
-        date: '2024-02-10',
-        title: 'Архітектоніка інформаційних систем та технологій',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A2',
-        date: '2024-02-10',
-        title: 'Системне програмування1',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A3',
-        date: '2024-02-10',
-        title: 'Системне програмування1',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A4',
-        date: '2024-02-09',
-        title: 'Системне програмування2',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-    {
-        id: 'A5',
-        date: '2024-02-08',
-        title: 'Системне програмування3',
-        typeOfLesson: 'Лекція',
-        group: 'ІСТ-31',
-        audience: '316',
-        teacher: 'Махней',
-        time: '1 пара | 10:35-11:55',
-    },
-];
 
 export default function Schedule() {
-    const [currentDate, setCurrentDate] = useState(new Date());
     const [swipeEnabled, setSwipeEnabled] = useState(true);
-    const lastUpdateDate = '8 лютого';
-    const lastUpdateTime = '7:00';
+    const [ currentDate, setCurrentDate ] = useState(new Date());
+    const [ lastUpdateDate, setLastUpdateDate ] = useState('');
+    const [ lastUpdateTime, setLastUpdateTime ] = useState('');
+    const [ schedule, setSchedule ] = useState([]);
+    const [ refreshing, setRefreshing ] = useState(false);
+
+    const {
+        setFacultyId,
+        setYear,
+        setGroupId,
+        data
+    } = CreateDefaultModel();
+
+    useEffect(() => {
+        setFacultyId(1002);
+        setYear('2023-2024-2');
+        setGroupId(8567);
+        fetchSchedule().then();
+    }, [ currentDate ]);
+
+    const fetchSchedule = async () => {
+        try {
+            const formattedDate = currentDate.toISOString().split('T')[0];
+            const paddedGroupId = String(data.groupId).padStart(6, '0');
+            // await SetSchedule(
+            //     AvailableUni.PNU,
+            //     paddedGroupId,
+            //     data.year,
+            //     data.facultyId,
+            // );
+
+            const schedule = await GetSchedule(paddedGroupId);
+
+
+            const filteredSchedule = schedule.filter(lesson => lesson.d === formattedDate);
+            setSchedule(filteredSchedule);
+            
+            const dateDay = schedule[0].lastUpdate.dateDay;
+            const dateTime = schedule[0].lastUpdate.dateTime;
+
+            setLastUpdateDate(dateDay);
+            setLastUpdateTime(dateTime);
+
+
+        } catch (error) {
+            console.error('Error fetching schedule:', error);
+        }
+    };
+
+    const onRefresh = async () => {
+        setRefreshing(true);
+        await fetchSchedule();
+        setRefreshing(false);
+    };
 
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
@@ -89,8 +90,6 @@ export default function Schedule() {
         setSwipeEnabled(false);
     };
 
-    const filteredLessons = DATA.filter((lesson) => lesson.date === currentDate.toISOString().split('T')[0]);
-
     const onSwipeEvent = (event) => {
         if (swipeEnabled) {
             const { translationX } = event.nativeEvent;
@@ -108,27 +107,32 @@ export default function Schedule() {
 
     return (
         <View style={styles.container}>
-            <PanGestureHandler onGestureEvent={onSwipeEvent} onHandlerStateChange={onSwipeEnd} maxPointers={1} activeOffsetX={[-20, 20]}>
-                <ScrollView>
-                    <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} handleDataPickerOpen={handleDataPickerOpen} />
-
-                    <View style={styles.container}>
-                        {filteredLessons.map((lesson) => (
-                            <Dropdown key={lesson.id} lesson={lesson} />
-                        ))}
-                    </View>
-                </ScrollView>
-            </PanGestureHandler>
-            <View>
-                <Text style={styles.update}>
-                    Останнє оновлення: {lastUpdateDate} | {lastUpdateTime}
-                </Text>
-            </View>
-            {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}
+          <PanGestureHandler onGestureEvent={onSwipeEvent} onHandlerStateChange={onSwipeEnd} maxPointers={1} activeOffsetX={[-20, 20]}>
+            <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
+            >
+                <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} handleDataPickerOpen={handleDataPickerOpen} />
+                <View style={{ ...styles.container, marginTop: 60 }}>
+                    {schedule.length === 0 ? (
+                        <Text style={styles.noClassesText}>Сьогодні немає пар:)</Text>
+                    ) : (
+                        schedule.map((lesson) => (
+                            <Dropdown key={lesson.id} lesson={lesson}/>
+                        ))
+                    )}
+                </View>
+            </ScrollView>
+          </PanGestureHandler>
+          <View>
+              <Text style={styles.update}>
+                  Останнє оновлення: {lastUpdateDate} | {lastUpdateTime}
+              </Text>
+          </View>
+          {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}
         </View>
     );
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -142,4 +146,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignItems: 'flex-end',
     },
+    noClassesText:{
+        fontSize: 16,
+        margin: 10,
+        textAlign: 'center',
+        color: "white",
+    }
 });
