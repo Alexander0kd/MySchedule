@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import Arrow from '../../../assets/arrow-left.png';
 
-const DateBlock = ({ date, onBackward, onForward }) => {
+const DateBlock = ({ title, date, onBackward, onForward }) => {
     const formattedDate = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
@@ -11,11 +12,11 @@ const DateBlock = ({ date, onBackward, onForward }) => {
     return (
         <View style={styles.panelContainer}>
             <TouchableOpacity onPress={onBackward}>
-                <Text style={styles.arrowText}>{'<'}</Text>
+                <Image source={Arrow} style={styles.arrowImage} />
             </TouchableOpacity>
             <Text style={styles.dateText}>{formattedDate}</Text>
             <TouchableOpacity onPress={onForward}>
-                <Text style={styles.arrowText}>{'>'}</Text>
+                <Image source={Arrow} style={[styles.arrowImage, { transform: [{ rotate: '180deg' }] }]} />
             </TouchableOpacity>
         </View>
     );
@@ -27,11 +28,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#201f25',
+        top: 0,
+        left: 0,
+        right: 0,
+        position: 'absolute',
+        zIndex: 1,
     },
-    arrowText: {
-        color: 'white',
-        fontSize: 20,
-        padding: 16,
+    arrowImage: {
+        width: 13,
+        height: 13,
+        resizeMode: 'contain',
+        tintColor: 'white',
+        margin: 16,
     },
     dateText: {
         color: 'white',
