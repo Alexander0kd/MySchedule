@@ -7,4 +7,4 @@ export const Notification = () => {
             <Text>Налаштування Сповіщень</Text>
         </View>
     );
-}
+};

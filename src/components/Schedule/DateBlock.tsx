@@ -4,10 +4,10 @@ import Arrow from '../../../assets/arrow-left.png';
 import { formateDate } from '../../services/utility.service';
 
 export const DateBlock: FunctionComponent<{
-    date: Date,
-    onBackward: () => void,
-    onForward: () => void,
-    handleDataPickerOpen: (status: boolean) => void
+    date: Date;
+    onBackward: () => void;
+    onForward: () => void;
+    handleDataPickerOpen: (status: boolean) => void;
 }> = (props) => {
     return (
         <View style={styles.panelContainer}>
@@ -18,9 +18,7 @@ export const DateBlock: FunctionComponent<{
                 onPress={() => {
                     props.handleDataPickerOpen(true);
                 }}>
-                <Text style={styles.dateText}>
-                    {formateDate(props.date)}
-                </Text>
+                <Text style={styles.dateText}>{formateDate(props.date)}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={props.onForward}>
                 <Image source={Arrow} style={[styles.arrowImage, { transform: [{ rotate: '180deg' }] }]} />

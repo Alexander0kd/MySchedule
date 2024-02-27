@@ -13,7 +13,7 @@ const { width } = Dimensions.get('window');
 
 export const OnboardingPage = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
-    
+
     const [activeSlide, setActiveSlide] = useState<number>(0);
     const carouselRef = useRef<Carousel<React.JSX.Element>>(null);
 
@@ -56,7 +56,7 @@ export const OnboardingPage = () => {
             />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {

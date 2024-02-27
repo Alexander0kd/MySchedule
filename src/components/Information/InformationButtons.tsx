@@ -10,8 +10,9 @@ export const InformationButtons = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
     const subject = 'Повідомлення про проблеми';
-    const message ='Шановна команда підтримки, звертаюся до вас щодо проблеми, з якою я зіткнувся(-лася) під час використання вашого мобільного застосунку. Описую проблему нижче:';
-    
+    const message =
+        'Шановна команда підтримки, звертаюся до вас щодо проблеми, з якою я зіткнувся(-лася) під час використання вашого мобільного застосунку. Описую проблему нижче:';
+
     return (
         <ScrollView>
             <View style={styles.buttonsContainer}>
@@ -21,12 +22,7 @@ export const InformationButtons = () => {
                     label="Технічна підтримка"
                     onPressFunc={() => Linking.openURL(`mailto:autodot222@gmail.com?subject=${subject}&body=${message}`)}
                 />
-                <IconButton
-                    icon="link"
-                    iconPosition="right"
-                    label="Оновити застосунок"
-                    onPressFunc={() => Linking.openURL('#')}
-                />
+                <IconButton icon="link" iconPosition="right" label="Оновити застосунок" onPressFunc={() => Linking.openURL('#')} />
                 <IconButton
                     icon="arrow-forward"
                     iconPosition="right"
@@ -37,34 +33,14 @@ export const InformationButtons = () => {
 
             <Text style={styles.text}>Поділитися застосунком</Text>
             <View style={styles.buttonsContainer}>
-                <IconButton
-                    icon="share"
-                    iconPosition="right"
-                    label="Android"
-                    onPressFunc={() => Linking.openURL('#')}
-                />
-                <IconButton
-                    icon="share"
-                    iconPosition="right"
-                    label="IOS"
-                    onPressFunc={() => Linking.openURL('#')}
-                />
+                <IconButton icon="share" iconPosition="right" label="Android" onPressFunc={() => Linking.openURL('#')} />
+                <IconButton icon="share" iconPosition="right" label="IOS" onPressFunc={() => Linking.openURL('#')} />
             </View>
 
             <Text style={styles.text}>Розробники</Text>
             <View style={styles.buttonsContainer}>
-                <IconButton 
-                    icon="link"
-                    iconPosition="right"
-                    label="PNU" 
-                    onPressFunc={() => Linking.openURL('https://pnu.edu.ua')}
-                />
-                <IconButton 
-                    icon="link"
-                    iconPosition="right"
-                    label="KNIS" 
-                    onPressFunc={() => Linking.openURL('https://comp-sc.pnu.edu.ua/')}
-                />
+                <IconButton icon="link" iconPosition="right" label="PNU" onPressFunc={() => Linking.openURL('https://pnu.edu.ua')} />
+                <IconButton icon="link" iconPosition="right" label="KNIS" onPressFunc={() => Linking.openURL('https://comp-sc.pnu.edu.ua/')} />
                 <IconButton
                     icon="link"
                     iconPosition="right"
@@ -105,7 +81,7 @@ export const InformationButtons = () => {
             </View>
         </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     buttonsContainer: {

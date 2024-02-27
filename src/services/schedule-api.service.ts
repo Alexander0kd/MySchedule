@@ -53,7 +53,7 @@ export async function getGroupList(uni: UniEndpoints, facultyId: number, year: n
         });
     } catch (error) {
         handleError(error);
-        return [];  
+        return [];
     }
 }
 

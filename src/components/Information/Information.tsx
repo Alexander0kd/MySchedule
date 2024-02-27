@@ -39,4 +39,4 @@ export const Information = () => {
             />
         </Stack.Navigator>
     );
-}
+};

@@ -16,7 +16,7 @@ export const SettingsButtons = () => {
             <IconButton icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsSche')} />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     buttonsContainer: {

@@ -3,8 +3,8 @@ import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
 import Arrow from '../../../assets/arrow_drop_down.png';
 
 export const FAQDropdown: FunctionComponent<{
-    title: string,
-    description: string
+    title: string;
+    description: string;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);

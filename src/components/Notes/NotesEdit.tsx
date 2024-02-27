@@ -7,4 +7,4 @@ export const NotesEdit = () => {
             <Text>Редагування/Додавання нотаток</Text>
         </View>
     );
-}
+};

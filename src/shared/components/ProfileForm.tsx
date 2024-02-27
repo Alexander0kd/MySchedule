@@ -11,11 +11,11 @@ import { UniEndpoints } from '../universities/uni-endpoints.enum';
 import { IGroup } from '../interfaces/group.interface';
 
 const CustomDropdown: FunctionComponent<{
-    placeholder: string,
-    options: TFlatList,
-    selectedValue: string,
-    onValueChange: (value: string) => void,
-    disabled: boolean
+    placeholder: string;
+    options: TFlatList;
+    selectedValue: string;
+    onValueChange: (value: string) => void;
+    disabled: boolean;
 }> = (props) => {
     const arrowDropDownSvg = `
         <svg width="24" height="24" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
@@ -78,8 +78,8 @@ const CustomDropdown: FunctionComponent<{
 };
 
 export const ProfileForm: FunctionComponent<{
-    setIsFormFilled: (value: boolean) => void,
-    setProfileData: (value: IProfile) => void
+    setIsFormFilled: (value: boolean) => void;
+    setProfileData: (value: IProfile) => void;
 }> = (props) => {
     const [university, setUniversity] = useState<AvailableUni>(null);
     const [faculty, setFaculty] = useState<string>(null);
@@ -210,4 +210,4 @@ export const ProfileForm: FunctionComponent<{
             />
         </View>
     );
-}
+};

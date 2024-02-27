@@ -10,20 +10,15 @@ export const FAQ = () => {
             {faqData.map((group: IFAQ, index: number) => (
                 <View key={index}>
                     <Text style={styles.text}>{group.title}</Text>
-                    
-                    {group.children.map((question: IFAQChild, _index: number) => (
-                        <FAQDropdown
-                            key={_index}
-                            title={question.title}
-                            description={question.description}
-                        />
-                    ))}
 
+                    {group.children.map((question: IFAQChild, _index: number) => (
+                        <FAQDropdown key={_index} title={question.title} description={question.description} />
+                    ))}
                 </View>
             ))}
         </ScrollView>
     );
-}
+};
 const styles = StyleSheet.create({
     text: {
         marginHorizontal: 24,

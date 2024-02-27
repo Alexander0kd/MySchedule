@@ -5,7 +5,7 @@ import { WideButton } from '../../shared/components/WideButton';
 import { FunctionComponent } from 'react';
 
 export const WelcomePage: FunctionComponent<{
-    buttonFunction: () => void
+    buttonFunction: () => void;
 }> = (props) => {
     return (
         <View style={styles.section}>
@@ -23,7 +23,7 @@ export const WelcomePage: FunctionComponent<{
             </View>
         </View>
     );
-}
+};
 
 const windowHeight = Dimensions.get('window').height;
 const paddingContainerTop = windowHeight * 0.236;

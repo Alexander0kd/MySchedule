@@ -7,4 +7,4 @@ export const NotesList = () => {
             <Text>Список нотаток</Text>
         </View>
     );
-}
+};

@@ -65,4 +65,4 @@ export const ProfileList = () => {
             </View>
         </View>
     );
-}
+};

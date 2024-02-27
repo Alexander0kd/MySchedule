@@ -7,4 +7,4 @@ export const ProfileEdit = () => {
             <Text>Налаштування Профілів</Text>
         </View>
     );
-}
+};

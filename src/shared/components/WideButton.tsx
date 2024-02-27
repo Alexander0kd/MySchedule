@@ -2,9 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 
 export const WideButton: FunctionComponent<{
-    label: string,
-    onPressFunc: () => void,
-    isDisabled?: boolean
+    label: string;
+    onPressFunc: () => void;
+    isDisabled?: boolean;
 }> = (props) => {
     const { width } = Dimensions.get('window');
 

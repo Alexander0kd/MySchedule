@@ -35,7 +35,7 @@ export const Schedule = () => {
     const loadData = async () => {
         try {
             setIsLoading(true);
-            
+
             await getActiveProfile().then(async (profile) => {
                 const schedule: ISchedule[] = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
 
@@ -43,11 +43,11 @@ export const Schedule = () => {
                     profile.schedule = schedule;
                 }
                 profile.lastUpdate = new Date();
-                
+
                 setActiveProfile(profile);
-                
+
                 await updateProfileById(profile.id, profile).then(() => {
-                    setFilteredSchedule(filterShedule(currentDate, profile));    
+                    setFilteredSchedule(filterShedule(currentDate, profile));
                     setIsLoading(false);
                 });
             });
@@ -128,7 +128,7 @@ export const Schedule = () => {
             {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}
         </View>
     );
-}
+};
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

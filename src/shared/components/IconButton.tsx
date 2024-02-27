@@ -3,10 +3,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FunctionComponent } from 'react';
 
 export const IconButton: FunctionComponent<{
-    icon: any,
-    label: string,
-    onPressFunc: () => void,
-    iconPosition?: 'left' | 'right'
+    icon: any;
+    label: string;
+    onPressFunc: () => void;
+    iconPosition?: 'left' | 'right';
 }> = (props) => {
     const iconStyle = props.iconPosition === 'right' ? styles.contentRight : styles.contentLeft;
 

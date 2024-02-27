@@ -12,7 +12,7 @@ const { height } = Dimensions.get('window');
 const paddingContainerTop = height < 800 ? height * 0.06 : height * 0.1;
 
 export const RegistrationPage: FunctionComponent<{
-    buttonFunction: () => void
+    buttonFunction: () => void;
 }> = (props) => {
     const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
     const [profileData, setProfileData] = useState<IProfile>(null);
@@ -52,7 +52,7 @@ export const RegistrationPage: FunctionComponent<{
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     section: {

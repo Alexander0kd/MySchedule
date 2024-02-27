@@ -13,7 +13,7 @@ import { Information } from '../Information/Information';
 export const AppNavbar = () => {
     const window = useWindowDimensions();
     const Tab = createBottomTabNavigator();
-    
+
     const tabBarIconStyle = (focused: boolean) => ({
         ...styles.icon,
         backgroundColor: focused ? '#4A4458' : '#211F26',
@@ -82,7 +82,7 @@ export const AppNavbar = () => {
             />
         </Tab.Navigator>
     );
-}
+};
 
 const styles = StyleSheet.create({
     icon: {

@@ -7,4 +7,4 @@ export const SettingsShedule = () => {
             <Text>Налаштування занять</Text>
         </View>
     );
-}
+};

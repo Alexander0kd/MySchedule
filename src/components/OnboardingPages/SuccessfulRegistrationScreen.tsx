@@ -9,7 +9,7 @@ const paddingContainerTop = height < 800 ? height * 0.06 : height * 0.1;
 const marginTitleBot = height < 800 ? height * 0.05 : height * 0.066;
 
 export const SuccessfulRegistrationPage: FunctionComponent<{
-    buttonFunction: () => void
+    buttonFunction: () => void;
 }> = (props) => {
     return (
         <View style={styles.section}>
@@ -44,7 +44,7 @@ export const SuccessfulRegistrationPage: FunctionComponent<{
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     section: {

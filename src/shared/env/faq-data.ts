@@ -1,4 +1,4 @@
-import { IFAQ } from "../interfaces/faq.interface";
+import { IFAQ } from '../interfaces/faq.interface';
 
 export const faqData: IFAQ[] = [
     {

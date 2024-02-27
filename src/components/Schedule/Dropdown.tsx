@@ -11,7 +11,7 @@ import { getLessonType, truncateString } from '../../services/utility.service';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
 
 export const DropDown: FunctionComponent<{
-    lesson: ISchedule
+    lesson: ISchedule;
 }> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
     const window = useWindowDimensions();
@@ -55,13 +55,9 @@ export const DropDown: FunctionComponent<{
                     <View>
                         <View style={{ borderColor: 'transparent', flexDirection: 'row' }}>
                             <Text style={{ color: 'white', fontWeight: '500' }}>{props.lesson.li}. </Text>
-                            <Text style={{ color: 'white', fontWeight: '500' }}>
-                                {truncateString(props.lesson.l, maxCharacters)}
-                            </Text>
+                            <Text style={{ color: 'white', fontWeight: '500' }}>{truncateString(props.lesson.l, maxCharacters)}</Text>
                         </View>
-                        <Text style={{ color: '#CAC4D0', fontSize: 12 }}>
-                            {getLessonType(props.lesson.lt)}
-                        </Text>
+                        <Text style={{ color: '#CAC4D0', fontSize: 12 }}>{getLessonType(props.lesson.lt)}</Text>
                     </View>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
@@ -75,23 +71,21 @@ export const DropDown: FunctionComponent<{
                             <Text style={styles.infoText}>{props.lesson.g}</Text>
                         </View>
                         <View style={styles.rowContainer}>
-                            {props.lesson.vr && 
+                            {props.lesson.vr && (
                                 <>
                                     <Text style={styles.titleText}>Аудиторія:</Text>
                                     <Text style={styles.infoText}>{props.lesson.vr}</Text>
                                 </>
-                            }
+                            )}
 
-                            {props.lesson.link && 
+                            {props.lesson.link && (
                                 <>
                                     <Text style={styles.titleText}>Посилання:</Text>
                                     <TouchableOpacity style={{ flex: 0.7 }} onPress={() => Linking.openURL(props.lesson.link)}>
-                                        <Text style={{ color: 'lightblue', textDecorationLine: 'underline' }}>
-                                            {props.lesson.link}
-                                        </Text>
+                                        <Text style={{ color: 'lightblue', textDecorationLine: 'underline' }}>{props.lesson.link}</Text>
                                     </TouchableOpacity>
                                 </>
-                            }
+                            )}
                         </View>
 
                         <View style={styles.rowContainer}>

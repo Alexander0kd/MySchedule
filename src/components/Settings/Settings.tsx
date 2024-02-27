@@ -7,10 +7,9 @@ import { ProfileList } from './Profile/ProfileList';
 import { Notification } from './Notification/Notification';
 import { SettingsShedule } from './Schedule/SettingsShedule';
 
-
 export const Settings = () => {
     const Stack = createStackNavigator();
-    
+
     const screenOptions = {
         headerStyle: { backgroundColor: '#4F378B' },
         headerTintColor: 'white',
@@ -60,4 +59,4 @@ export const Settings = () => {
             />
         </Stack.Navigator>
     );
-}
+};

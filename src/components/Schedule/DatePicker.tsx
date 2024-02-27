@@ -2,8 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 export const DatePicker: FunctionComponent<{
-    handleDataPickerOpen: (value: boolean) => void,
-    handleSetDate: (value: Date) => void
+    handleDataPickerOpen: (value: boolean) => void;
+    handleSetDate: (value: Date) => void;
 }> = (props) => {
     const [date, setDate] = useState(new Date());
 
@@ -14,13 +14,11 @@ export const DatePicker: FunctionComponent<{
             setDate(currentDate);
             props.handleSetDate(currentDate);
         }
-        
+
         if (event.type === 'dismissed' || event.type === 'neutralButtonPressed') {
             props.handleDataPickerOpen(false);
         }
     };
 
-    return (
-        <DateTimePicker value={date} mode="date" display="calendar" onChange={onChange} />
-    );
+    return <DateTimePicker value={date} mode="date" display="calendar" onChange={onChange} />;
 };
