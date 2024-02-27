@@ -5,6 +5,7 @@ import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
 import { IGroup } from '../shared/interfaces/group.interface';
 import { AvailableUni } from '../shared/universities/available-uni.enum';
 import { IFaculty } from '../shared/interfaces/faculty.interface';
+import { handleError } from './utility.service';
 
 /**
  * @function getFacultyList | Отримати список факультетів Університету.
@@ -51,8 +52,8 @@ export async function getGroupList(uni: UniEndpoints, facultyId: number, year: n
             return group.f === facultyId && year == groupFirstChar[0];
         });
     } catch (error) {
-        console.error('Error fetching group list:', error);
-        return [];
+        handleError(error);
+        return [];  
     }
 }
 
@@ -77,7 +78,7 @@ export async function getGroupSchedule(url: UniEndpoints, facultyId: string, gro
 
         return JSON.parse(data);
     } catch (error) {
-        console.error('Error fetching group schedule:', error);
+        handleError(error);
         return [];
     }
 }

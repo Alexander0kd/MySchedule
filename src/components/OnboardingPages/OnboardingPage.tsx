@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 
-import WelcomePage from './WelcomePage';
-import RegistrationPage from './RegistrationPage';
-import SuccessfulRegistrationScreen from './SuccessfulRegistrationScreen';
+import { WelcomePage } from './WelcomePage';
+import { RegistrationPage } from './RegistrationPage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
+import { SuccessfulRegistrationPage } from './SuccessfulRegistrationScreen';
 
-export default function OnboardingPage() {
-    const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
+export const OnboardingPage = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
-    const [activeSlide, setActiveSlide] = React.useState(0);
-    const carouselRef = React.useRef(null);
+    
+    const [activeSlide, setActiveSlide] = useState<number>(0);
+    const carouselRef = useRef<Carousel<React.JSX.Element>>(null);
 
     const goNext = () => {
         if (carouselRef.current) {
@@ -29,7 +30,7 @@ export default function OnboardingPage() {
     const slides = [
         <WelcomePage buttonFunction={goNext} />,
         <RegistrationPage buttonFunction={goNext} />,
-        <SuccessfulRegistrationScreen buttonFunction={finishSetting} />,
+        <SuccessfulRegistrationPage buttonFunction={finishSetting} />,
     ];
 
     return (

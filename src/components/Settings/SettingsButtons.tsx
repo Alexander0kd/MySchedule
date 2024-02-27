@@ -6,7 +6,7 @@ import { IconButton } from '../../shared/components/IconButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 
-export default function SettingsButtons() {
+export const SettingsButtons = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
     return (

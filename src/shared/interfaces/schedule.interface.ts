@@ -23,5 +23,5 @@ export interface ISchedule {
     l: string;
     lt: string;
     g: string;
-    link: string;
+    link?: string;
 }

@@ -3,12 +3,16 @@ import { Text, View, Button, ActivityIndicator } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { setActiveProfile, deleteProfileById, getAllProfiles, getActiveProfile } from '../../../services/local-storage.service';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AvailableRoutes } from '../../../shared/env/available-routes';
+import { IProfile } from '../../../shared/interfaces/profile.interface';
 
-export default function ProfileList() {
-    const navigation = useNavigation();
-    const [allProfiles, setAllProfiles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [activeProfileId, setActiveProfileId] = useState(null);
+export const ProfileList = () => {
+    const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
+
+    const [allProfiles, setAllProfiles] = useState<IProfile[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [activeProfileId, setActiveProfileId] = useState<string>(null);
 
     const loadProfiles = async () => {
         const profiles = await getAllProfiles();
@@ -24,12 +28,12 @@ export default function ProfileList() {
         loadProfiles();
     }, []);
 
-    const deleteProfile = async (id) => {
+    const deleteProfile = async (id: string) => {
         await deleteProfileById(id, navigation);
         loadProfiles();
     };
 
-    const activeProfile = async (id) => {
+    const activeProfile = async (id: string) => {
         await setActiveProfile(id, navigation);
     };
 

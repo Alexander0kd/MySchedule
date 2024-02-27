@@ -10,15 +10,13 @@ import { getFacultyList, getGroupList } from '../../services/schedule-api.servic
 import { UniEndpoints } from '../universities/uni-endpoints.enum';
 import { IGroup } from '../interfaces/group.interface';
 
-type DropdownProps = {
-    placeholder: string;
-    options: TFlatList;
-    selectedValue: string;
-    onValueChange: (value: string) => void;
-    disabled: boolean;
-};
-
-const CustomDropdown: FunctionComponent<DropdownProps> = (props) => {
+const CustomDropdown: FunctionComponent<{
+    placeholder: string,
+    options: TFlatList,
+    selectedValue: string,
+    onValueChange: (value: string) => void,
+    disabled: boolean
+}> = (props) => {
     const arrowDropDownSvg = `
         <svg width="24" height="24" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
             <path d="M7 10L12 15L17 10H7Z"  />
@@ -79,7 +77,10 @@ const CustomDropdown: FunctionComponent<DropdownProps> = (props) => {
     );
 };
 
-export default function ProfileForm({ setIsFormFilled, setProfileData }) {
+export const ProfileForm: FunctionComponent<{
+    setIsFormFilled: (value: boolean) => void,
+    setProfileData: (value: IProfile) => void
+}> = (props) => {
     const [university, setUniversity] = useState<AvailableUni>(null);
     const [faculty, setFaculty] = useState<string>(null);
     const [year, setYear] = useState<string>(null);
@@ -92,7 +93,7 @@ export default function ProfileForm({ setIsFormFilled, setProfileData }) {
 
     useEffect(() => {
         // Erase Values
-        setIsFormFilled(false);
+        props.setIsFormFilled(false);
 
         // Set University List
         const uniList: TFlatList = [];
@@ -144,7 +145,7 @@ export default function ProfileForm({ setIsFormFilled, setProfileData }) {
 
         // If Form filled
         if (university && faculty && year && group) {
-            setIsFormFilled(true);
+            props.setIsFormFilled(true);
 
             const profile: IProfile = {
                 id: uuid.v4().toString(),
@@ -158,7 +159,7 @@ export default function ProfileForm({ setIsFormFilled, setProfileData }) {
                 lastUpdate: new Date(),
             };
 
-            setProfileData(profile);
+            props.setProfileData(profile);
         }
     }, [university, faculty, year, group]);
 

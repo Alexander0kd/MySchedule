@@ -2,8 +2,15 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import coolFace from '../../../assets/cool-face-1.png';
 import { WideButton } from '../../shared/components/WideButton';
+import { FunctionComponent } from 'react';
 
-export default function SuccessfulRegistrationPage({ buttonFunction }) {
+const { height } = Dimensions.get('window');
+const paddingContainerTop = height < 800 ? height * 0.06 : height * 0.1;
+const marginTitleBot = height < 800 ? height * 0.05 : height * 0.066;
+
+export const SuccessfulRegistrationPage: FunctionComponent<{
+    buttonFunction: () => void
+}> = (props) => {
     return (
         <View style={styles.section}>
             <View style={styles.container}>
@@ -33,15 +40,11 @@ export default function SuccessfulRegistrationPage({ buttonFunction }) {
                 </View>
             </View>
             <View>
-                <WideButton label="Продовжити" onPressFunc={buttonFunction} />
+                <WideButton label="Продовжити" onPressFunc={props.buttonFunction} />
             </View>
         </View>
     );
 }
-
-const windowHeight = Dimensions.get('window').height;
-const paddingContainerTop = windowHeight < 800 ? windowHeight * 0.06 : windowHeight * 0.1;
-const marginTitleBot = windowHeight < 800 ? windowHeight * 0.05 : windowHeight * 0.066;
 
 const styles = StyleSheet.create({
     section: {

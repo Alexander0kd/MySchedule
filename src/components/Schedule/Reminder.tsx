@@ -1,34 +1,33 @@
-import React, { useState } from 'react';
-import { StatusBar, View } from 'react-native';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
+import React, { FunctionComponent, useState } from 'react';
+import RNDateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
-export default function Reminder({ onHide, onDismissed }) {
-    const [date, setDate] = useState(new Date());
-    const [mode] = useState('time');
-
-    const onChange = (event, selectedDate) => {
-        if (event.type === 'set' || event.type === 'confirm') {
+export const Reminder: FunctionComponent<{
+    onHide: () => void, 
+    onDismissed: (value: boolean) => void 
+}> = (props) => {
+    const [date, setDate] = useState<Date>(new Date());
+    
+    const onChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+        if (event.type === 'set') {
             const currentDate = selectedDate || date;
-            onHide();
-            onDismissed(true);
+            props.onHide();
+            props.onDismissed(true);
             setDate(currentDate);
         }
+        
         if (event.type === 'dismissed' || event.type === 'neutralButtonPressed') {
-            onHide();
+            props.onHide();
         }
     };
     return (
-        <View>
-            <RNDateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={mode}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-                themeVariant="dark"
-            />
-            <StatusBar style="auto" />
-        </View>
+        <RNDateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode='time'
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+            themeVariant="dark"
+        />
     );
 }

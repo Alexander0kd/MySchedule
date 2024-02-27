@@ -2,14 +2,12 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FunctionComponent } from 'react';
 
-type ButtonProps = {
-    icon: any;
-    label: string;
-    onPressFunc: () => void;
-    iconPosition?: 'left' | 'right';
-};
-
-export const IconButton: FunctionComponent<ButtonProps> = (props) => {
+export const IconButton: FunctionComponent<{
+    icon: any,
+    label: string,
+    onPressFunc: () => void,
+    iconPosition?: 'left' | 'right'
+}> = (props) => {
     const iconStyle = props.iconPosition === 'right' ? styles.contentRight : styles.contentLeft;
 
     return (

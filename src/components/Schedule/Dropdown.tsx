@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, useWindowDimensions, Linking } from 'react-native';
 import Bell from '../../../assets/bell.png';
 import CrossedOutCall from '../../../assets/CrossedOutCall.png';
 import Arrow from '../../../assets/arrow_drop_down.png';
-import Reminder from './Reminder';
+import { Reminder } from './Reminder';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
+import { getLessonType, truncateString } from '../../services/utility.service';
+import { ISchedule } from '../../shared/interfaces/schedule.interface';
 
-export const DropDown = ({ lesson }) => {
-    const [isDropdownVisible, setDropdownVisible] = useState(false);
-    const [arrowRotation, setArrowRotation] = useState(0);
-    const [reminderVisible, setReminderVisible] = useState(false);
-    const [isDismissedReminder, setDismissedReminder] = useState(false);
-
+export const DropDown: FunctionComponent<{
+    lesson: ISchedule
+}> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
-
     const window = useWindowDimensions();
+
+    const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
+    const [arrowRotation, setArrowRotation] = useState<number>(0);
+    const [reminderVisible, setReminderVisible] = useState<boolean>(false);
+    const [isDismissedReminder, setDismissedReminder] = useState<boolean>(false);
+
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
@@ -42,19 +46,22 @@ export const DropDown = ({ lesson }) => {
         else hideReminderModal();
     };
 
-    const maxCharacters = window.width < 450 ? 30 : lesson.l.length;
+    const maxCharacters = window.width < 450 ? 30 : props.lesson.l.length;
+
     return (
         <View style={styles.container}>
             <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
                     <View>
                         <View style={{ borderColor: 'transparent', flexDirection: 'row' }}>
-                            <Text style={{ color: 'white', fontWeight: '500' }}>{lesson.li}. </Text>
+                            <Text style={{ color: 'white', fontWeight: '500' }}>{props.lesson.li}. </Text>
                             <Text style={{ color: 'white', fontWeight: '500' }}>
-                                {lesson.l.length > maxCharacters ? lesson.l.slice(0, 30) + '...' : lesson.l}
+                                {truncateString(props.lesson.l, maxCharacters)}
                             </Text>
                         </View>
-                        <Text style={{ color: '#CAC4D0', fontSize: 12 }}>{lesson.lt === '(Л)' ? 'Лекція' : 'Лабораторна робота'}</Text>
+                        <Text style={{ color: '#CAC4D0', fontSize: 12 }}>
+                            {getLessonType(props.lesson.lt)}
+                        </Text>
                     </View>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
@@ -65,35 +72,36 @@ export const DropDown = ({ lesson }) => {
                     <View style={styles.info}>
                         <View style={styles.rowContainer}>
                             <Text style={styles.titleText}>Групи:</Text>
-                            <Text style={styles.infoText}>{lesson.g}</Text>
+                            <Text style={styles.infoText}>{props.lesson.g}</Text>
                         </View>
                         <View style={styles.rowContainer}>
-                            {lesson.vr ? (
+                            {props.lesson.vr && 
                                 <>
                                     <Text style={styles.titleText}>Аудиторія:</Text>
-                                    <Text style={styles.infoText}>{lesson.vr}</Text>
+                                    <Text style={styles.infoText}>{props.lesson.vr}</Text>
                                 </>
-                            ) : (
+                            }
+
+                            {props.lesson.link && 
                                 <>
                                     <Text style={styles.titleText}>Посилання:</Text>
-                                    <TouchableOpacity style={{ flex: 0.7 }} onPress={() => Linking.openURL(lesson.link)}>
-                                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                                            {' '}
-                                            {lesson.link && lesson.link.length > 30 ? lesson.link.slice(0, 30) + '...' : lesson.link}
+                                    <TouchableOpacity style={{ flex: 0.7 }} onPress={() => Linking.openURL(props.lesson.link)}>
+                                        <Text style={{ color: 'lightblue', textDecorationLine: 'underline' }}>
+                                            {props.lesson.link}
                                         </Text>
                                     </TouchableOpacity>
                                 </>
-                            )}
+                            }
                         </View>
 
                         <View style={styles.rowContainer}>
                             <Text style={styles.titleText}>Викладач:</Text>
-                            <Text style={styles.infoText}>{lesson.t}</Text>
+                            <Text style={styles.infoText}>{props.lesson.t}</Text>
                         </View>
                         <View style={styles.rowContainer}>
                             <Text style={styles.titleText}>Час:</Text>
                             <Text style={styles.infoText}>
-                                {lesson.ls} | {lesson.le}
+                                {props.lesson.ls} | {props.lesson.le}
                             </Text>
                         </View>
                     </View>

@@ -1,24 +1,30 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
-import React, { useState } from 'react';
-import ProfileForm from '../../shared/components/ProfileForm';
+import React, { FunctionComponent, useState } from 'react';
+import { ProfileForm } from '../../shared/components/ProfileForm';
 import { WideButton } from '../../shared/components/WideButton';
 import { addProfile } from '../../services/local-storage.service';
 
 import okFace from '../../../assets/ok-face-1.png';
+import { IProfile } from '../../shared/interfaces/profile.interface';
+import { handleError } from '../../services/utility.service';
 
-export default function RegistrationPage({ buttonFunction }) {
-    const [isFormFilled, setIsFormFilled] = useState(false);
-    const [profileData, setProfileData] = useState([]);
+const { height } = Dimensions.get('window');
+const paddingContainerTop = height < 800 ? height * 0.06 : height * 0.1;
 
-    const handleWideBtnClick = async (profileData) => {
+export const RegistrationPage: FunctionComponent<{
+    buttonFunction: () => void
+}> = (props) => {
+    const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+    const [profileData, setProfileData] = useState<IProfile>(null);
+
+    const handleWideBtnClick = async (profileData: IProfile) => {
         try {
             const profileAdded = await addProfile(profileData);
             if (profileAdded) {
-                buttonFunction();
+                props.buttonFunction();
             }
         } catch (error) {
-            console.error('Error setting local profile:', error);
-            throw error;
+            handleError(error);
         }
     };
 
@@ -47,9 +53,6 @@ export default function RegistrationPage({ buttonFunction }) {
         </View>
     );
 }
-
-const windowHeight = Dimensions.get('window').height;
-const paddingContainerTop = windowHeight < 800 ? windowHeight * 0.06 : windowHeight * 0.1;
 
 const styles = StyleSheet.create({
     section: {

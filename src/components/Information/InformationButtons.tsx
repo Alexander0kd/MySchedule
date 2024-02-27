@@ -6,9 +6,9 @@ import { IconButton } from '../../shared/components/IconButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 
-export default function InformationButtons() {
+export const InformationButtons = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
-    
+
     const subject = 'Повідомлення про проблеми';
     const message ='Шановна команда підтримки, звертаюся до вас щодо проблеми, з якою я зіткнувся(-лася) під час використання вашого мобільного застосунку. Описую проблему нижче:';
     

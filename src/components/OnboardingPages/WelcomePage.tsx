@@ -2,8 +2,11 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import happyFace from './../../../assets/happy-face-1.png';
 import { WideButton } from '../../shared/components/WideButton';
+import { FunctionComponent } from 'react';
 
-export default function WelcomePage({ buttonFunction }) {
+export const WelcomePage: FunctionComponent<{
+    buttonFunction: () => void
+}> = (props) => {
     return (
         <View style={styles.section}>
             <View style={styles.container}>
@@ -16,7 +19,7 @@ export default function WelcomePage({ buttonFunction }) {
                 </View>
             </View>
             <View>
-                <WideButton label="Продовжити" onPressFunc={buttonFunction} isDisabled={false} />
+                <WideButton label="Продовжити" onPressFunc={props.buttonFunction} isDisabled={false} />
             </View>
         </View>
     );

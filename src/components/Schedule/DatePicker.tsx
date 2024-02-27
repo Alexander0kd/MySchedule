@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { FunctionComponent, useState } from 'react';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
-export const DatePicker = ({ handleDataPickerOpen, handleSetDate }) => {
+export const DatePicker: FunctionComponent<{
+    handleDataPickerOpen: (value: boolean) => void,
+    handleSetDate: (value: Date) => void
+}> = (props) => {
     const [date, setDate] = useState(new Date());
 
-    const onChange = (event, selectedDate) => {
-        if (event.type === 'set' || event.type === 'confirm') {
+    const onChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+        if (event.type === 'set') {
             const currentDate = selectedDate || date;
-            handleDataPickerOpen(false);
+            props.handleDataPickerOpen(false);
             setDate(currentDate);
-            handleSetDate(currentDate);
+            props.handleSetDate(currentDate);
         }
+        
         if (event.type === 'dismissed' || event.type === 'neutralButtonPressed') {
-            handleDataPickerOpen(false);
+            props.handleDataPickerOpen(false);
         }
     };
 
     return (
-        <View>
-            <DateTimePicker value={date} themeVariant="dark" mode="date" display="calendar" onChange={onChange} />
-        </View>
+        <DateTimePicker value={date} mode="date" display="calendar" onChange={onChange} />
     );
 };

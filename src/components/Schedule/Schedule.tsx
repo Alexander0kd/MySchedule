@@ -9,11 +9,11 @@ import { IProfile } from '../../shared/interfaces/profile.interface';
 import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
-import { filterShedule, formateDate } from '../../services/utility.service';
+import { filterShedule, formateLastUpdate, handleError } from '../../services/utility.service';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Schedule() {
+export const Schedule = () => {
     const [activeProfile, setActiveProfile] = useState<IProfile>(null);
     const [filteredSchedule, setFilteredSchedule] = useState<ISchedule[]>(null);
 
@@ -29,14 +29,8 @@ export default function Schedule() {
     }, []);
 
     useEffect(() => {
-        updateSchedule();
+        setFilteredSchedule(filterShedule(currentDate, activeProfile));
     }, [currentDate]);
-
-    const updateSchedule = () => {
-        const schedule = filterShedule(currentDate, activeProfile);
-
-        setFilteredSchedule(schedule);
-    }
 
     const loadData = async () => {
         try {
@@ -49,26 +43,24 @@ export default function Schedule() {
                     profile.schedule = schedule;
                 }
                 profile.lastUpdate = new Date();
-
-                if (activeProfile !== profile) {
-                    setActiveProfile(profile);
-                    setCurrentDate(new Date());
-                }
-                updateSchedule();
-    
-                await updateProfileById(profile.id, profile);
+                
+                setActiveProfile(profile);
+                
+                await updateProfileById(profile.id, profile).then(() => {
+                    setFilteredSchedule(filterShedule(currentDate, profile));    
+                    setIsLoading(false);
+                });
             });
-
-            setIsLoading(false);
         } catch (error) {
-            console.error('Error fetching schedule:', error);
+            handleError(error);
         }
     };
 
     const onRefresh = async () => {
         setIsRefreshing(true);
-        await loadData();
-        setIsRefreshing(false);
+        await loadData().then(() => {
+            setIsRefreshing(false);
+        });
     };
 
     const handleDataPickerOpen = (status: boolean) => {
@@ -110,10 +102,8 @@ export default function Schedule() {
 
     if (isLoading) {
         return (
-            <View style={styles.container}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <ActivityIndicator size="large" color="#fff" />
-                </View>
+            <View style={{ ...styles.container, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color="#fff" />
             </View>
         );
     }
@@ -132,7 +122,7 @@ export default function Schedule() {
                             )}
                         </View>
                     </ScrollView>
-                    <Text style={styles.update}>Останнє оновлення: {formateDate(activeProfile.lastUpdate)}</Text>
+                    <Text style={styles.update}>Останнє оновлення: {formateLastUpdate(activeProfile.lastUpdate)}</Text>
                 </View>
             </PanGestureHandler>
             {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}

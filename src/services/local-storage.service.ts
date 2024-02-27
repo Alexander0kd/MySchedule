@@ -3,13 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IProfile } from '../shared/interfaces/profile.interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
+import { handleError } from './utility.service';
 
 export async function getAllProfiles(): Promise<IProfile[]> {
     try {
         const profiles = await AsyncStorage.getItem('profiles');
         return JSON.parse(profiles) || [];
     } catch (error) {
-        console.error('Error getting all profiles:', error);
+        handleError(error);
         throw error;
     }
 }
@@ -19,7 +20,7 @@ export async function isLocalStorageEmpty(): Promise<boolean> {
         const profiles = await getAllProfiles();
         return !profiles || profiles.length < 1;
     } catch (error) {
-        console.error('Error check local storage:', error);
+        handleError(error);
         return true;
     }
 }
@@ -50,7 +51,7 @@ export async function addProfile(profileData: IProfile): Promise<boolean> {
 
         return true;
     } catch (error) {
-        console.error('Error setting local profile:', error);
+        handleError(error);
         return false;
     }
 }
@@ -60,7 +61,7 @@ export async function getProfileById(id: string): Promise<IProfile> {
         const profiles = await getAllProfiles();
         return profiles.find((user) => user.id === id) || null;
     } catch (error) {
-        console.error('GET_PROFILE_BY_ID_ERROR : ', error);
+        handleError(error);
         return null;
     }
 }
@@ -85,7 +86,7 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
 
         return true;
     } catch (error) {
-        console.error('Error deleting local profile:', error);
+        handleError(error);
         return false;
     }
 }
@@ -105,7 +106,7 @@ export async function updateProfileById(id: string, editedProfileData: IProfile)
 
         return true;
     } catch (error) {
-        console.error('EDIT_USER_PROFILE_ERROR : ', error);
+        handleError(error);
         return false;
     }
 }
@@ -127,7 +128,7 @@ export async function getActiveProfile(): Promise<IProfile> {
 
         return null;
     } catch (error) {
-        console.error('Cant get active profile: ', error);
+        handleError(error);
         return null;
     }
 }
@@ -153,7 +154,7 @@ export async function setActiveProfile(id: string, navigation?: StackNavigationP
 
         return true;
     } catch (error) {
-        console.error('Cant change active profile: ', error);
+        handleError(error);
         return false;
     }
 }

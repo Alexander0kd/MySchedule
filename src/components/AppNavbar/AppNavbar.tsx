@@ -5,17 +5,16 @@ import ScheduleIcon from '../../../assets/schedule.png';
 import NotesIcon from '../../../assets/notes.png';
 import SettingsIcon from '../../../assets/setting.png';
 import InformationIcon from '../../../assets/info.png';
-import Schedule from '../Schedule/Schedule';
-import NotesList from '../Notes/NotesList';
-import Settings from '../Settings/Settings';
-import Information from '../Information/Information';
+import { Schedule } from '../Schedule/Schedule';
+import { NotesList } from '../Notes/NotesList';
+import { Settings } from '../Settings/Settings';
+import { Information } from '../Information/Information';
 
-export default function AppNavbar() {
+export const AppNavbar = () => {
     const window = useWindowDimensions();
-
     const Tab = createBottomTabNavigator();
-
-    const tabBarIconStyle = (focused) => ({
+    
+    const tabBarIconStyle = (focused: boolean) => ({
         ...styles.icon,
         backgroundColor: focused ? '#4A4458' : '#211F26',
         marginTop: window.width <= 768 ? 7 : 0,

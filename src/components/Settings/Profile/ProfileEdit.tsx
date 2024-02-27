@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Text, View, StatusBar } from 'react-native';
+import { Text, View } from 'react-native';
 
-export default function ProfileEdit() {
+export const ProfileEdit = () => {
     return (
         <View>
             <Text>Налаштування Профілів</Text>
-            <StatusBar style="auto" />
         </View>
     );
 }

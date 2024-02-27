@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
 import Arrow from '../../../assets/arrow_drop_down.png';
 
-const FAQDropdown = ({ question }) => {
-    const [arrowRotation, setArrowRotation] = useState(0);
-    const [isDropdownVisible, setDropdownVisible] = useState(false);
+export const FAQDropdown: FunctionComponent<{
+    title: string,
+    description: string
+}> = (props) => {
+    const [arrowRotation, setArrowRotation] = useState<number>(0);
+    const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
@@ -16,14 +19,14 @@ const FAQDropdown = ({ question }) => {
             <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
                     <View>
-                        <Text style={{ ...styles.buttonText, fontWeight: '500' }}>{question.title}</Text>
+                        <Text style={{ ...styles.buttonText, fontWeight: '500' }}>{props.title}</Text>
                     </View>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
             </Pressable>
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
-                    <Text style={styles.infoText}>{question.description.split('<br/>').join('\n')}</Text>
+                    <Text style={styles.infoText}>{props.description.split('<br/>').join('\n')}</Text>
                 </View>
             )}
         </View>

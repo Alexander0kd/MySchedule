@@ -1,13 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 
-type ButtonProps = {
-    label: string;
-    onPressFunc: () => void;
-    isDisabled?: boolean;
-};
-
-export const WideButton: FunctionComponent<ButtonProps> = (props) => {
+export const WideButton: FunctionComponent<{
+    label: string,
+    onPressFunc: () => void,
+    isDisabled?: boolean
+}> = (props) => {
     const { width } = Dimensions.get('window');
 
     return (

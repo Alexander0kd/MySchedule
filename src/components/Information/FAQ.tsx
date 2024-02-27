@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Text, StyleSheet, ScrollView, View } from 'react-native';
-import FAQDropdown from './FAQDropdown';
+import { FAQDropdown } from './FAQDropdown';
 import { faqData } from '../../shared/env/faq-data';
 import { IFAQ, IFAQChild } from '../../shared/interfaces/faq.interface';
 
-export default function FAQ() {
+export const FAQ = () => {
     return (
         <ScrollView>
             {faqData.map((group: IFAQ, index: number) => (
@@ -12,7 +12,11 @@ export default function FAQ() {
                     <Text style={styles.text}>{group.title}</Text>
                     
                     {group.children.map((question: IFAQChild, _index: number) => (
-                        <FAQDropdown key={_index} question={question} />
+                        <FAQDropdown
+                            key={_index}
+                            title={question.title}
+                            description={question.description}
+                        />
                     ))}
 
                 </View>

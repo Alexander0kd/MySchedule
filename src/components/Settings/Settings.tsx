@@ -2,14 +2,15 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TransitionPresets } from '@react-navigation/stack';
 
-import SettingsButtons from './SettingsButtons';
-import ProfileList from './Profile/ProfileList';
-import Notification from './Notification/Notification';
-import SettingsShedule from './Schedule/SettingsShedule';
+import { SettingsButtons } from './SettingsButtons';
+import { ProfileList } from './Profile/ProfileList';
+import { Notification } from './Notification/Notification';
+import { SettingsShedule } from './Schedule/SettingsShedule';
 
-export default function Settings() {
+
+export const Settings = () => {
     const Stack = createStackNavigator();
-
+    
     const screenOptions = {
         headerStyle: { backgroundColor: '#4F378B' },
         headerTintColor: 'white',
@@ -17,7 +18,6 @@ export default function Settings() {
     };
 
     const modalScreenOptions = {
-        presentation: 'modal',
         gestureEnabled: true,
         ...TransitionPresets.SlideFromRightIOS,
     };
@@ -36,6 +36,7 @@ export default function Settings() {
                 component={ProfileList}
                 options={{
                     title: 'Налаштування профілів',
+                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />
@@ -44,6 +45,7 @@ export default function Settings() {
                 component={Notification}
                 options={{
                     title: 'Налаштування сповіщень',
+                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />
@@ -52,6 +54,7 @@ export default function Settings() {
                 component={SettingsShedule}
                 options={{
                     title: 'Налаштування занять',
+                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />
