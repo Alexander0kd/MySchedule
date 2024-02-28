@@ -10,7 +10,6 @@ export const InformationButtons = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
     const subject = 'Повідомлення про проблеми';
-    const supportMail = 'autodot222@gmail.com';
     const message =
         'Шановна команда підтримки, звертаюся до вас щодо проблеми, з якою я зіткнувся(-лася) під час використання вашого мобільного застосунку. Описую проблему нижче:';
 
@@ -21,7 +20,7 @@ export const InformationButtons = () => {
                     icon="link"
                     iconPosition="right"
                     label="Технічна підтримка"
-                    onPressFunc={() => Linking.openURL(`mailto:${supportMail}?subject=${subject}&body=${message}`)}
+                    onPressFunc={() => Linking.openURL(`mailto:autodot222@gmail.com?subject=${subject}&body=${message}`)}
                 />
                 <IconButton icon="link" iconPosition="right" label="Оновити застосунок" onPressFunc={() => Linking.openURL('#')} />
                 <IconButton
