@@ -41,10 +41,10 @@ export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     const filteringDate = date.toISOString().split('T')[0];
 
     return (
-        profile?.schedule.filter((lesson) => {
+        profile ? profile.schedule.filter((lesson) => {
             // ?: Placeholder for future filtering of hidden lessons
             return lesson.d === filteringDate;
-        }) || []
+        }) : []
     );
 }
 
