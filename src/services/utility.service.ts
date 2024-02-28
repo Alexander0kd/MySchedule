@@ -92,10 +92,10 @@ export function handleError(error: Error): void {
  */
 export function getYearRequest(): string {
     const currentDate = new Date();
-    
+
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
-    
+
     if (currentMonth < 9) {
         return `${currentYear - 1}-${currentYear}-2`;
     }

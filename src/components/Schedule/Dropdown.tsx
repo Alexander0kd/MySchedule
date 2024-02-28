@@ -42,10 +42,8 @@ export const DropDown: FunctionComponent<{
     const updateReminderStatus = () => {
         setDismissedReminder(!isDismissedReminder);
         hideReminderModal();
-        
-        !isDismissedReminder ?
-            showReminderModal() :
-            hideReminderModal();
+
+        !isDismissedReminder ? showReminderModal() : hideReminderModal();
     };
 
     const maxCharacters = window.width < 450 ? 30 : props.lesson.l.length;
@@ -227,7 +225,7 @@ const styles = StyleSheet.create({
         height: 14,
         marginRight: 5,
         marginTop: 3,
-        objectFit: 'scale-down'
+        objectFit: 'scale-down',
     },
 
     buttonContent: {
