@@ -9,7 +9,7 @@ const initialNotes = [
         notes: [
             {
                 id: 1,
-                data: '2024-02-22',
+                data: '28 лютого | 12:54',
                 text: 'Dolore est voluptate culpa tempor velit cupidatat cillum dolor ea ullamco dolor amet. Occaecat adipisicing excepteur velit quis id. Id dolore est eu laborum nulla et irure mollit sint. Excepteur reprehenderit reprehenderit laboris elit aute tempor. Consectetur sit ipsum in dolor. Cillum aliqua consequat duis reprehenderit non amet pariatur in ea ex nulla eu voluptate amet. Magna elit ad adipisicing do aliquip elit. Proident reprehenderit nostrud aute cupidatat dolore ipsum in. Veniam aliqua incididunt est ut voluptate ex exercitation tempor ipsum aliqua eu adipisicing pariatur esse. Ex laborum id anim qui proident culpa duis aliquip tempor officia occaecat. Aliquip esse cupidatat minim occaecat. Qui est duis ad adipisicing ipsum labore laborum dolore est voluptate. Eu irure eiusmod laborum ullamco sit. Sint proident duis aliquip velit pariatur quis velit nisi consequat nostrud ipsum.',
             },
             {
@@ -26,7 +26,7 @@ const initialNotes = [
             {
                 id: 1,
                 data: '2024-02-22',
-                text: 'Study something',
+                text: 'Study somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy somethingStudy something',
             },
             {
                 id: 2,

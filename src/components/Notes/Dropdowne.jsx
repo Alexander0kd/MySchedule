@@ -6,6 +6,7 @@ import Bell from '../../../assets/bell.png';
 import More from '../../../assets/more_vert.png';
 import Plus from '../../../assets/plus-icon.png';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const Dropdown = ({ note }) => {
     const [arrowRotation, setArrowRotation] = useState(0);
@@ -34,17 +35,20 @@ const Dropdown = ({ note }) => {
             </Pressable>
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
-                     {notes.map((singleNote) => (
-                        <View key={singleNote.id}>
-                            <View style={styles.dataSettingContainer}>
-                                <Text style={styles.infoText}>{singleNote.data}</Text>
-                                <TouchableOpacity>
-                                    <Image source={More} style={styles.icon} />
-                                </TouchableOpacity>
+                    {notes.map((singleNote) => (
+                        <View style={styles.mainContainer}>
+                            <View style={styles.lineCont}></View>
+                            <View key={singleNote.id} style={styles.notesCont}>
+                                <View style={styles.dataSettingContainer}>
+                                    <Text style={styles.dataText}>{singleNote.data}</Text>
+                                    <TouchableOpacity>
+                                        <Image source={More} style={styles.icon} />
+                                    </TouchableOpacity>
+                                </View>
+                                <ScrollView style={{ maxHeight: 220 }}>
+                                    <Text style={styles.infoText}>{singleNote.text}</Text>
+                                </ScrollView>
                             </View>
-                            <ScrollView style={{maxHeight:128}}>
-                                <Text style={styles.infoText}>{singleNote.text}</Text>
-                            </ScrollView>
                         </View>
                     ))}
                     <View style={styles.actions}>
@@ -71,7 +75,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#332D41',
         border: 0,
     },
+    mainContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: 6,
+        paddingTop: 16,
+    },
+    dataText: {
+        color: '#cac4d0',
+        fontSize: 14,
+        paddingBottom: 4,
+        flex: 1,
+    },
+    notesCont: {
+        // borderLeftWidth: 3,
+        // borderColor: '#fff',
+        // borderTopLeftRadius: 10,
+        // borderBottomLeftRadius: 10,
+        // marginTop: 10,
+    },
 
+    lineCont: {
+        width: 2,
+        height: '100%',
+        backgroundColor: '#eaddff',
+        maxHeight: '100%',
+        borderRadius: 100,
+    },
     title: {
         padding: 16,
         paddingLeft: 24,
@@ -116,9 +148,8 @@ const styles = StyleSheet.create({
     infoText: {
         fontSize: 14,
         color: 'white',
-        paddingBottom: 8,
-        paddingTop: 8,
-        flex: 1, // Змінено на 1, щоб розтягувати на всю висоту
+        paddingBottom: 4,
+        flex: 1,
     },
 
     actions: {
