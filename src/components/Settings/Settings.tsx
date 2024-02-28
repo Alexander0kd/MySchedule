@@ -35,7 +35,6 @@ export const Settings = () => {
                 component={ProfileList}
                 options={{
                     title: 'Налаштування профілів',
-                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />
@@ -44,7 +43,6 @@ export const Settings = () => {
                 component={Notification}
                 options={{
                     title: 'Налаштування сповіщень',
-                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />
@@ -53,7 +51,6 @@ export const Settings = () => {
                 component={SettingsShedule}
                 options={{
                     title: 'Налаштування занять',
-                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />

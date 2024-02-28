@@ -33,7 +33,6 @@ export const Information = () => {
                 component={FAQ}
                 options={{
                     title: 'Поширені запитання (FAQ)',
-                    presentation: 'modal',
                     ...modalScreenOptions,
                 }}
             />

@@ -1,8 +1,6 @@
-type Faculty = {
-    [key: number]: string;
-};
+import { IApiFaculty } from "../../interfaces/faculty.interface";
 
-export const PnuFaculty: Faculty = {
+export const PnuFaculty: IApiFaculty = {
     1001: 'Фізико-технічний факультет',
     1002: 'Факультет математики та інформатики',
     1003: 'Економічний факультет',
