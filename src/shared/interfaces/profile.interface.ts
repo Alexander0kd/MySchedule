@@ -10,8 +10,8 @@ import { AvailableUni } from '../universities/available-uni.enum';
  * @param {string} faculty - Факультет.
  * @param {number} year - Рік.
  * @param {string} group - Група.
- * @param {ISchedule[]} schedule[] - Розклад занять користувача.
- * @param {INotes[]} notes[] - Замітки користувача.
+ * @param {ISchedule[]} schedule - Розклад занять користувача.
+ * @param {INotes[]} notes - Замітки користувача.
  * @param {ISettings} settings - Налаштування користувача.
  * @param {Date} lastUpdate - Час останнього оновлення розкладу.
  */

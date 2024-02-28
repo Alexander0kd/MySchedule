@@ -1,7 +1,12 @@
 import { IProfile } from '../shared/interfaces/profile.interface';
 import { ISchedule } from '../shared/interfaces/schedule.interface';
 
-export function formateLastUpdate(date: Date): string {
+/**
+ * Formats the last update date string.
+ * @param date - The date object to be formatted.
+ * @returns A formatted string representing the last update date.
+ */
+export function formatLastUpdate(date: Date): string {
     const day = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
@@ -13,7 +18,12 @@ export function formateLastUpdate(date: Date): string {
     return `${day} | ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 }
 
-export function formateDate(date: Date): string {
+/**
+ * Formats the date string.
+ * @param date - The date object to be formatted.
+ * @returns A formatted string representing the date.
+ */
+export function formatDate(date: Date): string {
     return new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
@@ -21,45 +31,74 @@ export function formateDate(date: Date): string {
     }).format(date);
 }
 
-export function filterShedule(date: Date, profile: IProfile): ISchedule[] {
+/**
+ * Filters the schedule based on the given date and profile.
+ * @param date - The date object used for filtering.
+ * @param profile - The profile object containing the schedule.
+ * @returns An array of filtered schedule items.
+ */
+export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     const filteringDate = date.toISOString().split('T')[0];
 
     return (
         profile?.schedule.filter((lesson) => {
-            // ?: Місце для того, шоб потім можна було фільтрувати приховані пари
-
+            // ?: Placeholder for future filtering of hidden lessons
             return lesson.d === filteringDate;
         }) || []
     );
 }
 
+/**
+ * Truncates a string to the specified length.
+ * @param str - The string to be truncated.
+ * @param length - The maximum length of the truncated string.
+ * @returns The truncated string.
+ */
 export function truncateString(str: string, length: number): string {
     return str.length > length ? str.slice(0, length) + '...' : str;
 }
 
+/**
+ * Gets the lesson type based on the input string.
+ * @param str - The input string representing the lesson type.
+ * @returns The formatted lesson type string.
+ */
 export function getLessonType(str: string): string {
-    switch (str.toLowerCase()) {
-        case '(л)':
-            return 'Лекція';
-        case '(лаб)':
-            return 'Лабораторна робота';
-        case '(екз)':
-            return 'Екзамен';
-        case '(прс)':
-            return 'Практичне заняття';
-        case '(сем)':
-            return 'Семінар';
-        case '(кср)':
-            return 'Контрольна самостійна робота';
-        case '(к)':
-            return 'Колоквіум';
-        default:
-            return str;
-    }
+    const lessonTypes: { [key: string]: string } = {
+        '(л)': 'Лекція',
+        '(лаб)': 'Лабораторна робота',
+        '(екз)': 'Екзамен',
+        '(прс)': 'Практичне заняття',
+        '(сем)': 'Семінар',
+        '(кср)': 'Контрольна самостійна робота',
+        '(к)': 'Колоквіум',
+    };
+
+    return lessonTypes[str.toLowerCase()] || str;
 }
 
+/**
+ * Handles errors by logging them to the console and display popups.
+ * @param error - The error object to be handled.
+ */
 export function handleError(error: Error): void {
-    // TODO: Добавити спливаюче вікно про помилку
+    // TODO: Implement more error handling mechanism (e.g., display error messages to the user)
+    console.error('Error:', error);
+}
 
-    console.error('Handling error:', error);
+/**
+ * Generates a string representing the academic year for making requests.
+ * @returns A string representing the academic year (e.g., "2023-2024-2").
+ */
+export function getYearRequest(): string {
+    const currentDate = new Date();
+    
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    
+    if (currentMonth < 9) {
+        return `${currentYear - 1}-${currentYear}-2`;
+    }
+
+    return `${currentYear}-${currentYear + 1}-1`;
 }

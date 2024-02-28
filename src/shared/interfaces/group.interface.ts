@@ -1,9 +1,9 @@
 /**
- * @interface IGroup Представляє елемент групи
- * @param {number} f - вибраний факультет
- * @param {number} i - індивідуальний номер групи для запитів
- * @param {number} c - курс групи
- * @param {string} l - назва групи
+ * @interface IGroup Представляє елемент групи.
+ * @param {number} f - Вибраний факультет.
+ * @param {number} i - Індивідуальний номер групи для запитів.
+ * @param {number} c - Курс групи.
+ * @param {string} l - Назва групи.
  */
 export interface IGroup {
     f: number;

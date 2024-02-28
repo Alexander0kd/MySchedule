@@ -9,7 +9,7 @@ import { IProfile } from '../../shared/interfaces/profile.interface';
 import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
-import { filterShedule, formateLastUpdate, handleError } from '../../services/utility.service';
+import { filterSchedule, formatLastUpdate, handleError } from '../../services/utility.service';
 
 const { width, height } = Dimensions.get('window');
 
@@ -29,7 +29,7 @@ export const Schedule = () => {
     }, []);
 
     useEffect(() => {
-        setFilteredSchedule(filterShedule(currentDate, activeProfile));
+        setFilteredSchedule(filterSchedule(currentDate, activeProfile));
     }, [currentDate]);
 
     const loadData = async () => {
@@ -47,7 +47,7 @@ export const Schedule = () => {
                 setActiveProfile(profile);
 
                 await updateProfileById(profile.id, profile).then(() => {
-                    setFilteredSchedule(filterShedule(currentDate, profile));
+                    setFilteredSchedule(filterSchedule(currentDate, profile));
                     setIsLoading(false);
                 });
             });
@@ -122,7 +122,7 @@ export const Schedule = () => {
                             )}
                         </View>
                     </ScrollView>
-                    <Text style={styles.update}>Останнє оновлення: {formateLastUpdate(activeProfile.lastUpdate)}</Text>
+                    <Text style={styles.update}>Останнє оновлення: {formatLastUpdate(activeProfile.lastUpdate)}</Text>
                 </View>
             </PanGestureHandler>
             {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}

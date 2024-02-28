@@ -5,6 +5,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
 import { handleError } from './utility.service';
 
+/**
+ * Retrieves all profiles stored in AsyncStorage.
+ * @returns A Promise that resolves to an array of profile objects.
+ */
 export async function getAllProfiles(): Promise<IProfile[]> {
     try {
         const profiles = await AsyncStorage.getItem('profiles');
@@ -15,6 +19,10 @@ export async function getAllProfiles(): Promise<IProfile[]> {
     }
 }
 
+/**
+ * Checks if the AsyncStorage storage is empty.
+ * @returns A Promise that resolves to true if the storage is empty, false otherwise.
+ */
 export async function isLocalStorageEmpty(): Promise<boolean> {
     try {
         const profiles = await getAllProfiles();
@@ -25,6 +33,11 @@ export async function isLocalStorageEmpty(): Promise<boolean> {
     }
 }
 
+/**
+ * Adds a new profile to AsyncStorage.
+ * @param profileData The profile object to be added.
+ * @returns A Promise that resolves to true if the profile is successfully added, false otherwise.
+ */
 export async function addProfile(profileData: IProfile): Promise<boolean> {
     try {
         const profiles = await getAllProfiles();
@@ -56,6 +69,11 @@ export async function addProfile(profileData: IProfile): Promise<boolean> {
     }
 }
 
+/**
+ * Retrieves a profile by its ID from AsyncStorage.
+ * @param id The ID of the profile to retrieve.
+ * @returns A Promise that resolves to the profile object if found, or null if not found.
+ */
 export async function getProfileById(id: string): Promise<IProfile> {
     try {
         const profiles = await getAllProfiles();
@@ -66,6 +84,12 @@ export async function getProfileById(id: string): Promise<IProfile> {
     }
 }
 
+/**
+ * Deletes a profile by its ID from AsyncStorage.
+ * @param id The ID of the profile to delete.
+ * @param navigation The navigation object for redirection after deletion.
+ * @returns A Promise that resolves to true if the profile is successfully deleted, false otherwise.
+ */
 export async function deleteProfileById(id: string, navigation: StackNavigationProp<AvailableRoutes>): Promise<boolean> {
     try {
         const profiles = await getAllProfiles();
@@ -91,6 +115,12 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
     }
 }
 
+/**
+ * Updates a profile by its ID in AsyncStorage.
+ * @param id The ID of the profile to update.
+ * @param editedProfileData The updated profile data.
+ * @returns A Promise that resolves to true if the profile is successfully updated, false otherwise.
+ */
 export async function updateProfileById(id: string, editedProfileData: IProfile): Promise<boolean> {
     try {
         const profiles = await getAllProfiles();
@@ -111,6 +141,10 @@ export async function updateProfileById(id: string, editedProfileData: IProfile)
     }
 }
 
+/**
+ * Retrieves the active profile from AsyncStorage OR set any profile active.
+ * @returns A Promise that resolves to the active profile object if found, or null if not found.
+ */
 export async function getActiveProfile(): Promise<IProfile> {
     try {
         const activeProfileId = JSON.parse(await AsyncStorage.getItem('active'));
@@ -133,6 +167,12 @@ export async function getActiveProfile(): Promise<IProfile> {
     }
 }
 
+/**
+ * Sets a profile as active in AsyncStorage.
+ * @param id The ID of the profile to set as active.
+ * @param navigation The navigation object for redirection after setting the profile as active.
+ * @returns A Promise that resolves to true if the profile is successfully set as active, false otherwise.
+ */
 export async function setActiveProfile(id: string, navigation?: StackNavigationProp<AvailableRoutes>): Promise<boolean> {
     try {
         const activeProfileId = JSON.parse(await AsyncStorage.getItem('active'));

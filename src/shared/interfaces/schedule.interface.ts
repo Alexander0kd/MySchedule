@@ -10,7 +10,7 @@
  * @param {string} l - Назва пари.
  * @param {string} lt - Тип пари.
  * @param {string} g - Список груп, які можуть відвідувати пару.
- * @param {string} link - Посилання на онлайн пару.
+ * @param {string} link - (Необов'язково) Посилання на онлайн пару.
  */
 export interface ISchedule {
     d: string;

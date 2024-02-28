@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Arrow from '../../../assets/arrow-left.png';
-import { formateDate } from '../../services/utility.service';
+import { formatDate } from '../../services/utility.service';
 
 export const DateBlock: FunctionComponent<{
     date: Date;
@@ -18,7 +18,7 @@ export const DateBlock: FunctionComponent<{
                 onPress={() => {
                     props.handleDataPickerOpen(true);
                 }}>
-                <Text style={styles.dateText}>{formateDate(props.date)}</Text>
+                <Text style={styles.dateText}>{formatDate(props.date)}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={props.onForward}>
                 <Image source={Arrow} style={[styles.arrowImage, { transform: [{ rotate: '180deg' }] }]} />

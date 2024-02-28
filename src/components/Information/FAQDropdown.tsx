@@ -38,9 +38,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 24,
         marginBottom: 16,
         borderRadius: 16,
-
         backgroundColor: '#332D41',
-        border: 0,
+        borderWidth: 0,
     },
     title: {
         padding: 16,
@@ -57,12 +56,10 @@ const styles = StyleSheet.create({
     dropdownContent: {
         padding: 24,
         paddingTop: 16,
-
         backgroundColor: '#1D192B',
-
         borderRadius: 10,
-        borderTopStartRadius: 0,
-        borderTopEndRadius: 0,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
     },
     buttonText: {
         color: 'white',

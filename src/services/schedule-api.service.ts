@@ -5,22 +5,21 @@ import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
 import { IGroup } from '../shared/interfaces/group.interface';
 import { AvailableUni } from '../shared/universities/available-uni.enum';
 import { IFaculty } from '../shared/interfaces/faculty.interface';
-import { handleError } from './utility.service';
+import { getYearRequest, handleError } from './utility.service';
+import { ISchedule } from '../shared/interfaces/schedule.interface';
 
 /**
- * @function getFacultyList | Отримати список факультетів Університету.
- * @param { AvailableUni } uni - Enum AvailableUni
+ * Retrieves the list of faculties for the specified university.
+ * @param uni The enum value representing the university.
+ * @returns An array of faculty objects.
  */
 export function getFacultyList(uni: AvailableUni): IFaculty[] {
     const faculties: IFaculty[] = [];
 
     switch (uni) {
         case AvailableUni.PNU:
-            Object.keys(PnuFaculty).forEach((key: string) => {
-                faculties.push({
-                    value: key,
-                    label: PnuFaculty[key],
-                });
+            Object.entries(PnuFaculty).forEach(([value, label]) => {
+                faculties.push({ value, label });
             });
             break;
     }
@@ -29,12 +28,13 @@ export function getFacultyList(uni: AvailableUni): IFaculty[] {
 }
 
 /**
- * @function getGroupList | Отримати список груп.
- * @param { UniEndpoints } uni Endpoint API Розкладу Університету
- * @param { Number } facultyId ID Потрібного факультету
- * @param { Number } year Рік, за яким шукати групу
+ * Retrieves the list of groups for the specified faculty and year.
+ * @param uni The endpoint API for the university.
+ * @param facultyId The ID of the faculty.
+ * @param year The year for which the groups are needed.
+ * @returns An array of group objects.
  */
-export async function getGroupList(uni: UniEndpoints, facultyId: number, year: number) {
+export async function getGroupList(uni: UniEndpoints, facultyId: number, year: number): Promise<IGroup[]> {
     const fullURL = `https://${uni}/2023-2024-1/data/groups-list.js`;
 
     try {
@@ -58,16 +58,16 @@ export async function getGroupList(uni: UniEndpoints, facultyId: number, year: n
 }
 
 /**
- * @function getGroupSchedule | Отримати розклад групи.
- * @param { AvailableUni } url Endpoint API Розкладу Університету
- * @param { Number } groupId ID Потрібної групи
- * @param { Number } year Рік, за яким робиться запит
- * @param { Number } facultyId ID Потрібного факультету
+ * Retrieves the schedule for the specified group.
+ * @param url The endpoint API for the university.
+ * @param facultyId The ID of the faculty.
+ * @param groupId The ID of the group.
+ * @returns The schedule data for the group.
  */
-export async function getGroupSchedule(url: UniEndpoints, facultyId: string, groupId: string) {
+export async function getGroupSchedule(url: UniEndpoints, facultyId: string, groupId: string): Promise<ISchedule[]> {
     const formatedGroupId = String(groupId).padStart(6, '0');
 
-    const fullURL = `https://${url}/2023-2024-2/static/groups/${facultyId}/${formatedGroupId}/index.js`;
+    const fullURL = `https://${url}/${getYearRequest()}/static/groups/${facultyId}/${formatedGroupId}/index.js`;
 
     try {
         const response = await axios.get(fullURL);
