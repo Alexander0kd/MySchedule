@@ -41,8 +41,8 @@ const Dropdown = ({ note }) => {
                             <View key={singleNote.id} style={styles.notesCont}>
                                 <View style={styles.dataSettingContainer}>
                                     <Text style={styles.dataText}>{singleNote.data}</Text>
-                                    <TouchableOpacity>
-                                        <Image source={More} style={styles.icon} />
+                                    <TouchableOpacity style={styles.touchableCont}>
+                                        <Image source={More} style={styles.iconMore} />
                                     </TouchableOpacity>
                                 </View>
                                 <ScrollView style={{ maxHeight: 220 }}>
@@ -78,8 +78,6 @@ const styles = StyleSheet.create({
     mainContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
         gap: 6,
         paddingTop: 16,
     },
@@ -90,6 +88,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     notesCont: {
+        width: '100%',
+        height: '100%',
         // borderLeftWidth: 3,
         // borderColor: '#fff',
         // borderTopLeftRadius: 10,
@@ -193,7 +193,19 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginTop: 3,
     },
-
+    iconMore: {
+        width: 4,
+        height: 16,
+        marginRight: 5,
+        resizeMode: 'contain',
+    },
+    touchableCont: {
+        paddingLeft: 12,
+        paddingRight: 12,
+        paddingBottom: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     buttonContent: {
         justifyContent: 'center',
         flexDirection: 'row',
