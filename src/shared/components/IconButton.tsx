@@ -3,7 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FunctionComponent } from 'react';
 
 export const IconButton: FunctionComponent<{
-    icon: any;
+    icon: keyof typeof MaterialIcons.glyphMap;
     label: string;
     onPressFunc: () => void;
     iconPosition?: 'left' | 'right';

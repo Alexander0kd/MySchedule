@@ -1,4 +1,4 @@
-import { IApiFaculty } from "../../interfaces/faculty.interface";
+import { IApiFaculty } from '../../interfaces/faculty.interface';
 
 export const PnuFaculty: IApiFaculty = {
     1001: 'Фізико-технічний факультет',
