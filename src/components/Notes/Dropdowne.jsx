@@ -57,12 +57,12 @@ const Dropdown = ({ note }) => {
                                 {isMenuVisible && (
                                     <View style={styles.menuContainer}>
                                         <TouchableOpacity style={styles.menuButton} onPress={() => console.log('Option 1')}>
-                                            <Image source={Edit} style={styles.iconMoreMenu} />
+                                            <Image source={Edit} style={[styles.iconMoreMenu,{tintColor:'#e6e0e9'}]} />
                                             <Text style={styles.menuButtonText}>Редагувати</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.menuButton} onPress={() => console.log('Option 2')}>
-                                            <Image  source={Trash} style={[styles.iconMoreMenu,{tintColor: '#DC362E'}]} />
-                                            <Text style={[styles.menuButtonText,{color: '#DC362E'}]}>Видалити</Text>
+                                            <Image source={Trash} style={[styles.iconMoreMenu, { tintColor: '#DC362E' }]} />
+                                            <Text style={[styles.menuButtonText, { color: '#DC362E' }]}>Видалити</Text>
                                         </TouchableOpacity>
                                     </View>
                                 )}
@@ -270,13 +270,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '50%',
         alignItems: 'center',
-        justifyContent: 'center',
         textAlign: 'left',
     },
     menuButtonText: {
-        color: 'white',
+        color: '#e6e0e9',
         fontSize: 14,
-        left: 12,
+        left: 48,
     },
 });
 
