@@ -102,3 +102,29 @@ export function getYearRequest(): string {
 
     return `${currentYear}-${currentYear + 1}-1`;
 }
+
+/**
+ * Opens a modal window with the specified title, text, cancel button text, and continue button text.
+ * @param title - The title of the modal window.
+ * @param text - The text content of the modal window.
+ * @param cancelText - The text displayed on the cancel button.
+ * @param continueText - The text displayed on the continue button.
+ * @returns **True** if the **Continue** button is clicked, **false** if the **Cancel** button is clicked.
+ */
+export function openModal(
+    title: string,
+    text: string,
+    cancelText: string,
+    continueText: string
+): boolean {
+    console.log(`Opened modal window "${title}`);
+    console.log(`Text: ${text}`);
+
+    console.log(`Cancel Button: ${cancelText}`);
+    console.log(`Continue Button: ${continueText}`);
+
+    // ? On Cancle Button: return false;
+    // ? On Continue Button: return true;
+
+    return false;
+}
