@@ -9,7 +9,7 @@ import { IProfile } from '../../shared/interfaces/profile.interface';
 import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
-import { filterSchedule, formatLastUpdate, handleError } from '../../services/utility.service';
+import { filterSchedule, formatDateWithTime, handleError } from '../../services/utility.service';
 
 const { width, height } = Dimensions.get('window');
 
@@ -122,7 +122,7 @@ export const Schedule = () => {
                             )}
                         </View>
                     </ScrollView>
-                    <Text style={styles.update}>Останнє оновлення: {formatLastUpdate(activeProfile.lastUpdate)}</Text>
+                    <Text style={styles.update}>Останнє оновлення: {formatDateWithTime(activeProfile.lastUpdate)}</Text>
                 </View>
             </PanGestureHandler>
             {isDatePickerOpen && <DatePicker handleDataPickerOpen={handleDataPickerOpen} handleSetDate={handleSetDate} />}

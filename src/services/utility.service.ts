@@ -6,7 +6,7 @@ import { ISchedule } from '../shared/interfaces/schedule.interface';
  * @param date - The date object to be formatted.
  * @returns A formatted string representing the last update date.
  */
-export function formatLastUpdate(date: Date): string {
+export function formatDateWithTime(date: Date): string {
     const day = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
