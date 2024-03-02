@@ -31,4 +31,4 @@ My Schedule is a mobile application built using React Native that allows users t
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+---
