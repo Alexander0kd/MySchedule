@@ -39,7 +39,7 @@ export async function getGroupList(uni: UniEndpoints, facultyId: number, year: n
 
     try {
         const response = await axios.get(fullURL);
-        let data = response.data.replace('const PNUgroups=', '');
+        let data = response.data.replace(/^.*?=/, '');
         data = data.replace(/,(\w+):/g, ',"$1":');
         data = data.replace(/{(\w+):/g, '{"$1":');
 
@@ -71,8 +71,7 @@ export async function getGroupSchedule(url: UniEndpoints, facultyId: string, gro
 
     try {
         const response = await axios.get(fullURL);
-        let data = response.data;
-        data = data.replace('const PNUschedule=', '');
+        let data = response.data.replace(/^.*?=/, '');
         data = data.replace(/,(\w+):/g, ',"$1":');
         data = data.replace(/{(\w+):/g, '{"$1":');
 

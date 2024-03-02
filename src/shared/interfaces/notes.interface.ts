@@ -9,10 +9,10 @@ export interface INote {
 }
 
 /**
-* @interface INoteData Представляє масив нотаток до предмету.
-* @param {Date} date Дата написання нотатки.
-* @param {string} text Текст нотатки.
-*/
+ * @interface INoteData Представляє масив нотаток до предмету.
+ * @param {Date} date Дата написання нотатки.
+ * @param {string} text Текст нотатки.
+ */
 export interface INoteData {
     date: Date;
     text: string;

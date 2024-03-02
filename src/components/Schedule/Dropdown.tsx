@@ -81,7 +81,7 @@ export const DropDown: FunctionComponent<{
                             {props.lesson.link && (
                                 <>
                                     <Text style={styles.titleText}>Посилання:</Text>
-                                    <TouchableOpacity style={{ flex: 0.7 }} onPress={() => Linking.openURL(props.lesson.link)}>
+                                    <TouchableOpacity style={styles.infoText} onPress={() => Linking.openURL(props.lesson.link)}>
                                         <Text style={{ color: 'lightblue', textDecorationLine: 'underline' }}>{props.lesson.link}</Text>
                                     </TouchableOpacity>
                                 </>
@@ -137,10 +137,12 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        padding: 16,
-        paddingLeft: 24,
+        paddingVertical: 16,
+        paddingHorizontal: 24,
+        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
     },
 
     titleText: {
@@ -156,8 +158,6 @@ const styles = StyleSheet.create({
         width: 9,
         height: 5,
         justifyContent: 'flex-end',
-        marginTop: 13,
-        marginRight: 13,
     },
 
     info: {

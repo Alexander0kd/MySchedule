@@ -10,7 +10,4 @@ export type AvailableRoutes = {
     SettingsSche: undefined;
 
     FAQPage: undefined;
-
-    AddNote: undefined;
-    EditNote: undefined;
 };
