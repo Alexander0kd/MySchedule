@@ -124,7 +124,7 @@ export const ProfileForm: FunctionComponent<{
 
         // Update Group List
         if (university && faculty && year) {
-            const updateGroupList = async (): Promise<void> => {
+            const updateGroupList = async () => {
                 const displayedGroups = [];
 
                 await getGroupList(UniEndpoints[university], Number(faculty), Number(year)).then((group: IGroup[]) => {
