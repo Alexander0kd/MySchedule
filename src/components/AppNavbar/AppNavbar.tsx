@@ -45,7 +45,7 @@ export const AppNavbar = () => {
                     height: 60,
                     borderTopWidth: 0,
                 },
-                headerRight: () => <ProfileMenu menuText="Menu" textStyle={{ color: 'white' }} isIcon={true} />,
+                headerRight: () => <ProfileMenu />,
             }}>
             <Tab.Screen
                 name="Schedule"
