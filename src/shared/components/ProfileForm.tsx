@@ -149,7 +149,7 @@ export const ProfileForm: FunctionComponent<{
         if (university && faculty && year && group) {
             props.setIsFormFilled(true);
 
-            const groupName = groupList.find((item: IDropdown) => item.value === group).label;
+            const selectedGroup = groupList.find((item: IDropdown) => item.value === group);
 
             const profile: IProfile = {
                 id: uuid.v4().toString(),
@@ -157,7 +157,7 @@ export const ProfileForm: FunctionComponent<{
                 faculty: faculty,
                 year: Number(year),
                 group: group,
-                groupName: groupName,
+                groupName: selectedGroup ? selectedGroup.label : 'undefined',
                 schedule: [],
                 notes: [],
                 settings: {},
