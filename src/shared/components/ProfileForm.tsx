@@ -9,6 +9,7 @@ import { AvailableUni } from '../universities/available-uni.enum';
 import { getFacultyList, getGroupList } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../universities/uni-endpoints.enum';
 import { IGroup } from '../interfaces/group.interface';
+import { IDropdown } from '../interfaces/dropdown.interface';
 
 const CustomDropdown: FunctionComponent<{
     placeholder: string;
@@ -86,38 +87,38 @@ export const ProfileForm: FunctionComponent<{
     const [year, setYear] = useState<string>(null);
     const [group, setGroup] = useState<string>(null);
 
-    const [universityList, setUniversityList] = useState([]);
-    const [facultyList, setFacultyList] = useState([]);
-    const [yearList, setYearList] = useState([]);
-    const [groupList, setGroupList] = useState([]);
+    const [universityList, setUniversityList] = useState<IDropdown[]>([]);
+    const [facultyList, setFacultyList] = useState<IDropdown[]>([]);
+    const [yearList, setYearList] = useState<IDropdown[]>([]);
+    const [groupList, setGroupList] = useState<IDropdown[]>([]);
 
     useEffect(() => {
         // Erase Values
         props.setIsFormFilled(false);
 
         // Set University List
-        const uniList: TFlatList = [];
+        const _universityList: IDropdown[] = [];
         Object.keys(AvailableUni).forEach((key: string) => {
-            uniList.push({
+            _universityList.push({
                 value: key,
                 label: AvailableUni[key],
             });
         });
-        setUniversityList(uniList);
+        setUniversityList(_universityList);
 
         // Update Faculty List
         if (university) {
-            const facList = getFacultyList(AvailableUni[university]);
-            setFacultyList(facList);
+            const _facultyList = getFacultyList(AvailableUni[university]);
+            setFacultyList(_facultyList);
         }
 
         // Set Year List
         if (university && faculty) {
-            const _yearList = [
-                { value: 1, label: 1 },
-                { value: 2, label: 2 },
-                { value: 3, label: 3 },
-                { value: 4, label: 4 },
+            const _yearList: IDropdown[] = [
+                { value: 1, label: '1' },
+                { value: 2, label: '2' },
+                { value: 3, label: '3' },
+                { value: 4, label: '4' },
             ];
             setYearList(_yearList);
         }
@@ -125,19 +126,20 @@ export const ProfileForm: FunctionComponent<{
         // Update Group List
         if (university && faculty && year) {
             const updateGroupList = async () => {
-                const displayedGroups = [];
+                const _groupList: IDropdown[] = [];
 
                 await getGroupList(UniEndpoints[university], Number(faculty), Number(year)).then((group: IGroup[]) => {
-                    displayedGroups.slice(0, displayedGroups.length);
-                    group.forEach((item) => {
-                        displayedGroups.push({
+                    _groupList.slice(0, _groupList.length);
+
+                    group.forEach((item: IGroup) => {
+                        _groupList.push({
                             value: item.i,
                             label: item.l,
                         });
                     });
                 });
 
-                setGroupList(displayedGroups);
+                setGroupList(_groupList);
             };
 
             updateGroupList();
@@ -147,12 +149,15 @@ export const ProfileForm: FunctionComponent<{
         if (university && faculty && year && group) {
             props.setIsFormFilled(true);
 
+            const groupName = groupList.find((item: IDropdown) => item.value === group).label;
+
             const profile: IProfile = {
                 id: uuid.v4().toString(),
                 university: university,
                 faculty: faculty,
                 year: Number(year),
                 group: group,
+                groupName: groupName,
                 schedule: [],
                 notes: [],
                 settings: {},
@@ -167,7 +172,7 @@ export const ProfileForm: FunctionComponent<{
         <View style={{ marginBottom: 16 }}>
             <CustomDropdown
                 placeholder="Університет"
-                options={universityList}
+                options={universityList as unknown as TFlatList}
                 selectedValue={university}
                 onValueChange={(value: AvailableUni) => {
                     setUniversity(value);
@@ -180,7 +185,7 @@ export const ProfileForm: FunctionComponent<{
 
             <CustomDropdown
                 placeholder="Факультет"
-                options={facultyList}
+                options={facultyList as unknown as TFlatList}
                 selectedValue={faculty}
                 onValueChange={(value: string) => {
                     setFaculty(value);
@@ -192,7 +197,7 @@ export const ProfileForm: FunctionComponent<{
 
             <CustomDropdown
                 placeholder="Курс"
-                options={yearList}
+                options={yearList as unknown as TFlatList}
                 selectedValue={year}
                 onValueChange={(value: string) => {
                     setYear(value);
@@ -203,7 +208,7 @@ export const ProfileForm: FunctionComponent<{
 
             <CustomDropdown
                 placeholder="Група"
-                options={groupList}
+                options={groupList as unknown as TFlatList}
                 selectedValue={group}
                 onValueChange={(value: string) => setGroup(value)}
                 disabled={!faculty || !university || !year}

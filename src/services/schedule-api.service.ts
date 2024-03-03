@@ -4,17 +4,17 @@ import { PnuFaculty } from '../shared/universities/faculty/pnu.faculty';
 import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
 import { IGroup } from '../shared/interfaces/group.interface';
 import { AvailableUni } from '../shared/universities/available-uni.enum';
-import { IFaculty } from '../shared/interfaces/faculty.interface';
 import { getYearRequest, handleError } from './utility.service';
 import { ISchedule } from '../shared/interfaces/schedule.interface';
+import { IDropdown } from '../shared/interfaces/dropdown.interface';
 
 /**
  * Retrieves the list of faculties for the specified university.
  * @param uni The enum value representing the university.
  * @returns An array of faculty objects.
  */
-export function getFacultyList(uni: AvailableUni): IFaculty[] {
-    const faculties: IFaculty[] = [];
+export function getFacultyList(uni: AvailableUni): IDropdown[] {
+    const faculties: IDropdown[] = [];
 
     switch (uni) {
         case AvailableUni.PNU:

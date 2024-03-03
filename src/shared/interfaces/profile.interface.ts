@@ -22,6 +22,7 @@ export interface IProfile {
     faculty: string;
     year: number;
     group: string;
+    groupName: string;
 
     schedule: ISchedule[];
     notes: INote[];

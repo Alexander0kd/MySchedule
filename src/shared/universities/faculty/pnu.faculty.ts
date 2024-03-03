@@ -1,6 +1,6 @@
-import { IApiFaculty } from '../../interfaces/faculty.interface';
+import { IFaculty } from '../../interfaces/faculty.interface';
 
-export const PnuFaculty: IApiFaculty = {
+export const PnuFaculty: IFaculty = {
     1001: 'Фізико-технічний факультет',
     1002: 'Факультет математики та інформатики',
     1003: 'Економічний факультет',
