@@ -10,28 +10,27 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableUni } from '../../shared/universities/available-uni.enum';
 import { truncateString } from '../../services/utility.service';
 
-const ProfileMenu = ({ isIcon, menuText, textStyle }) => {
+export const ProfileMenu = () => {
     const window = useWindowDimensions();
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
-    const [visible, setVisible] = useState(false);
+
+    const [visible, setVisible] = useState<boolean>(false);
     const [allProfiles, setAllProfiles] = useState<IProfile[]>([]);
     const [activeProfileId, setActiveProfileId] = useState<string>(null);
-    const [loading, setLoading] = useState<boolean>(true);
 
     const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
 
-    const loadProfiles = async () => {
-        const profiles = await getAllProfiles();
-        const activeProfile = await getActiveProfile();
-        if (activeProfile) {
-            setActiveProfileId(activeProfile.id);
-        }
-        setAllProfiles(profiles);
-        setLoading(false);
-    };
-
     useEffect(() => {
+        const loadProfiles = async () => {
+            const profiles = await getAllProfiles();
+            const activeProfile = await getActiveProfile();
+            if (activeProfile) {
+                setActiveProfileId(activeProfile.id);
+            }
+            setAllProfiles(profiles);
+        };
+
         loadProfiles();
     }, []);
 
@@ -47,11 +46,11 @@ const ProfileMenu = ({ isIcon, menuText, textStyle }) => {
                 anchor={<MaterialIcons style={styles.profileIcon} name="account-circle" size={24} color="white" onPress={showMenu} />}
                 onRequestClose={hideMenu}>
                 <ScrollView>
-                    {allProfiles.map((profile) => (
+                    {allProfiles.map((profile: IProfile) => (
                         <View
                             key={profile.id}
                             style={[styles.profileItem, { backgroundColor: activeProfileId === profile.id ? '#332D41' : 'transparent' }]}>
-                            <MenuItem onPress={() => setActiveProfileHandler(profile.id)} pressColor="none">
+                            <MenuItem onPress={() => setActiveProfileHandler(profile.id)} pressColor="#332D41">
                                 <View style={styles.profileInfo}>
                                     <Text style={styles.profileText}>{profile.groupName}</Text>
                                     <Text style={styles.profileText}>
@@ -104,4 +103,3 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
 });
-export default ProfileMenu;

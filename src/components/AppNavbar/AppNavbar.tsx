@@ -9,7 +9,8 @@ import { Schedule } from '../Schedule/Schedule';
 import { NotesList } from '../Notes/NotesList';
 import { Settings } from '../Settings/Settings';
 import { Information } from '../Information/Information';
-import ProfileMenu from './ProfileMenu';
+import { ProfileMenu } from './ProfileMenu';
+
 export const AppNavbar = () => {
     const window = useWindowDimensions();
     const Tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ export const AppNavbar = () => {
                     height: 60,
                     borderTopWidth: 0,
                 },
-                headerRight: () => <ProfileMenu menuText="Menu" textStyle={{ color: 'white' }} isIcon={true} />,
+                headerRight: () => <ProfileMenu />,
             }}>
             <Tab.Screen
                 name="Schedule"

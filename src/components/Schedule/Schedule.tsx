@@ -103,7 +103,7 @@ export const Schedule = () => {
     if (isLoading) {
         return (
             <View style={{ ...styles.container, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#fff" />
+                <ActivityIndicator size="large" color="#D0BCFF" />
             </View>
         );
     }
