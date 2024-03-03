@@ -46,10 +46,14 @@ export const ProfileMenu = () => {
                 anchor={<MaterialIcons style={styles.profileIcon} name="account-circle" size={24} color="white" onPress={showMenu} />}
                 onRequestClose={hideMenu}>
                 <ScrollView>
-                    {allProfiles.map((profile: IProfile) => (
+                    {allProfiles.map((profile: IProfile, index: number) => (
                         <View
                             key={profile.id}
-                            style={[styles.profileItem, { backgroundColor: activeProfileId === profile.id ? '#332D41' : 'transparent' }]}>
+                            style={[
+                                styles.profileItem,
+                                { backgroundColor: activeProfileId === profile.id ? '#332D41' : 'transparent' },
+                                index === 0 ? styles.firstProfileItem : null,
+                            ]}>
                             <MenuItem onPress={() => setActiveProfileHandler(profile.id)} pressColor="#332D41">
                                 <View style={styles.profileInfo}>
                                     <Text style={styles.profileText}>{profile.groupName}</Text>
@@ -86,10 +90,14 @@ const styles = StyleSheet.create({
         marginRight: 24,
     },
     profileItem: {
-        borderRadius: 4,
+        borderRadius: 5,
         borderTopWidth: 1,
         borderColor: '#FFFFFF',
         padding: 5,
+        marginRight: 2,
+    },
+    firstProfileItem: {
+        borderTopWidth: 0,
     },
     profileInfo: {
         flexDirection: 'column',
