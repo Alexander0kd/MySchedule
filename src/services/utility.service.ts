@@ -6,7 +6,7 @@ import { ISchedule } from '../shared/interfaces/schedule.interface';
  * @param date - The date object to be formatted.
  * @returns A formatted string representing the last update date.
  */
-export function formatLastUpdate(date: Date): string {
+export function formatDateWithTime(date: Date): string {
     const day = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
@@ -40,12 +40,12 @@ export function formatDate(date: Date): string {
 export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     const filteringDate = date.toISOString().split('T')[0];
 
-    return (
-        profile ? profile.schedule.filter((lesson) => {
-            // ?: Placeholder for future filtering of hidden lessons
-            return lesson.d === filteringDate;
-        }) : []
-    );
+    return profile
+        ? profile.schedule.filter((lesson) => {
+              // ?: Placeholder for future filtering of hidden lessons
+              return lesson.d === filteringDate;
+          })
+        : [];
 }
 
 /**
@@ -111,13 +111,8 @@ export function getYearRequest(): string {
  * @param continueText - The text displayed on the continue button.
  * @returns **True** if the **Continue** button is clicked, **false** if the **Cancel** button is clicked.
  */
-export function openModal(
-    title: string,
-    text: string,
-    cancelText: string,
-    continueText: string
-): boolean {
-    console.log(`Opened modal window "${title}`);
+export function openModal(title: string, text: string, cancelText: string, continueText: string): boolean {
+    console.log(`Opened modal window: ${title}`);
     console.log(`Text: ${text}`);
 
     console.log(`Cancel Button: ${cancelText}`);
