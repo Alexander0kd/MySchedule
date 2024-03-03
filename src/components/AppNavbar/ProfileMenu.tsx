@@ -10,7 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableUni } from '../../shared/universities/available-uni.enum';
 import { truncateString } from '../../services/utility.service';
 
-const ProfileMenu = () => {
+export const ProfileMenu = () => {
     const window = useWindowDimensions();
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
