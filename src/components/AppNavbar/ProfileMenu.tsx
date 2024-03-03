@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         maxHeight: 240,
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: '#fafafa',
+        borderColor: '#FFFFFF',
     },
     profileIcon: {
         marginRight: 24,
@@ -89,19 +89,19 @@ const styles = StyleSheet.create({
     profileItem: {
         borderRadius: 4,
         borderTopWidth: 1,
-        borderColor: '#fafafa',
+        borderColor: '#FFFFFF',
         padding: 5,
     },
     profileInfo: {
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        color: '#fafafa',
+        color: '#FFFFFF',
         flex: 1,
     },
     profileText: {
         fontSize: 16,
-        color: '#fafafa',
+        color: '#FFFFFF',
     },
 });
 export default ProfileMenu;
