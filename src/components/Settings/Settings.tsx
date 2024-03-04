@@ -6,6 +6,7 @@ import { SettingsButtons } from './SettingsButtons';
 import { ProfileList } from './Profile/ProfileList';
 import { Notification } from './Notification/Notification';
 import { SettingsShedule } from './Schedule/SettingsShedule';
+import { ProfileMenu } from '../AppNavbar/ProfileMenu';
 
 export const Settings = () => {
     const Stack = createStackNavigator();
@@ -14,6 +15,7 @@ export const Settings = () => {
         headerStyle: { backgroundColor: '#4F378B' },
         headerTintColor: 'white',
         cardStyle: { backgroundColor: '#141218' },
+        headerRight: () => <ProfileMenu />,
     };
 
     const modalScreenOptions = {

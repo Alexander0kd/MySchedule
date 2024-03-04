@@ -4,6 +4,7 @@ import { TransitionPresets } from '@react-navigation/stack';
 
 import { InformationButtons } from './InformationButtons';
 import { FAQ } from './FAQ';
+import { ProfileMenu } from '../AppNavbar/ProfileMenu';
 
 export const Information = () => {
     const Stack = createStackNavigator();
@@ -12,6 +13,7 @@ export const Information = () => {
         headerStyle: { backgroundColor: '#4F378B' },
         headerTintColor: 'white',
         cardStyle: { backgroundColor: '#141218' },
+        headerRight: () => <ProfileMenu />,
     };
 
     const modalScreenOptions = {
