@@ -9,7 +9,8 @@ import { AvailableUni } from '../universities/available-uni.enum';
  * @param {AvailableUni} university - Університет.
  * @param {string} faculty - Факультет.
  * @param {number} year - Рік.
- * @param {string} group - Група.
+ * @param {string} group - ID Групи.
+ * @param {string} groupName - Назва Групи.
  * @param {ISchedule[]} schedule - Розклад занять користувача.
  * @param {INote[]} notes - Замітки користувача.
  * @param {ISettings} settings - Налаштування користувача.
