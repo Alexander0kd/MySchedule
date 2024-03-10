@@ -3,10 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TransitionPresets } from '@react-navigation/stack';
 
 import { SettingsButtons } from './SettingsButtons';
-import { ProfileList } from './Profile/ProfileList/ProfileList';
 import { Notification } from './Notification/Notification';
 import { SettingsShedule } from './Schedule/SettingsShedule';
 import { ProfileMenu } from '../Navigation/ProfileMenu';
+import { ProfileStack } from './Profile/ProfileStack';
 
 export const Settings = () => {
     const Stack = createStackNavigator();
@@ -34,8 +34,9 @@ export const Settings = () => {
             />
             <Stack.Screen
                 name="SettingsProfile"
-                component={ProfileList}
+                component={ProfileStack}
                 options={{
+                    headerShown: false,
                     title: 'Налаштування профілів',
                     ...modalScreenOptions,
                 }}
@@ -49,7 +50,7 @@ export const Settings = () => {
                 }}
             />
             <Stack.Screen
-                name="SettingsSche"
+                name="SettingsShedule"
                 component={SettingsShedule}
                 options={{
                     title: 'Налаштування занять',

@@ -39,8 +39,8 @@ export const InformationButtons = () => {
 
             <Text style={styles.text}>Розробники</Text>
             <View style={styles.buttonsContainer}>
-                <IconButton icon="link" iconPosition="right" label="PNU" onPressFunc={() => Linking.openURL('https://pnu.edu.ua')} />
-                <IconButton icon="link" iconPosition="right" label="KNIS" onPressFunc={() => Linking.openURL('https://comp-sc.pnu.edu.ua/')} />
+                <IconButton icon="link" iconPosition="right" label="ПНУ" onPressFunc={() => Linking.openURL('https://pnu.edu.ua')} />
+                <IconButton icon="link" iconPosition="right" label="КНІС" onPressFunc={() => Linking.openURL('https://comp-sc.pnu.edu.ua/')} />
                 <IconButton
                     icon="link"
                     iconPosition="right"

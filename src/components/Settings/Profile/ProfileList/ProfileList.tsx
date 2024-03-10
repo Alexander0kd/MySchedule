@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { setActiveProfile, deleteProfileById, getAllProfiles, getActiveProfile } from '../../../../services/local-storage.service';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';
@@ -13,6 +13,7 @@ import { ProfileDropdown } from './ProfileDropdown';
 
 export const ProfileList = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
+    const isFocused = useIsFocused();
 
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -34,6 +35,12 @@ export const ProfileList = () => {
         loadProfiles();
     }, []);
 
+    useEffect(() => {
+        if (isFocused) {
+            loadProfiles();
+        }
+    }, [isFocused]);
+
     const deleteProfile = async (id: string) => {
         const isDelete = openModal(
             'Бажаєте видалити профіль?',
@@ -53,11 +60,13 @@ export const ProfileList = () => {
     };
 
     const addProfile = () => {
-        navigation.replace('OnboardingPage');
+        navigation.push('ProfileAdd');
     };
 
-    const editProfile = () => {
-        navigation.replace('OnboardingPage');
+    const editProfile = (id: string) => {
+        navigation.push('ProfileEdit', {
+            profileId: id,
+        });
     };
 
     if (loading) {
@@ -74,11 +83,10 @@ export const ProfileList = () => {
                         isProfileActive={activeProfileId === profile.id}
                         deleteProfileFn={deleteProfile}
                         activeProfileFn={activeProfile}
-                        addProfileFn={addProfile}
                         editProfileFn={editProfile}
                     />
                 ))}
-                <View>
+                <View style={styles.wrapper}>
                     <RoundButton iconPosition="center" icon="add" label="Додати профіль" onPressFunc={() => addProfile()} />
                 </View>
             </ScrollView>
@@ -92,5 +100,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#141218',
         paddingTop: 16,
         paddingBottom: 16,
+    },
+    wrapper: {
+        marginHorizontal: 24,
     },
 });

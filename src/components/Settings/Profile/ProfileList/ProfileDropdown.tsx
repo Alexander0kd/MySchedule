@@ -13,7 +13,6 @@ export const ProfileDropdown: FunctionComponent<{
     isProfileActive: boolean;
     deleteProfileFn: (id: string) => void;
     activeProfileFn: (id: string) => void;
-    addProfileFn: () => void;
     editProfileFn: (id: string) => void;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);

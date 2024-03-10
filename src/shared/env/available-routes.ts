@@ -6,8 +6,13 @@ export type AvailableRoutes = {
     Notes: undefined;
 
     SettingsProfile: undefined;
+
+    ProfileList: undefined;
+    ProfileEdit: { profileId: string };
+    ProfileAdd: undefined;
+
     SettingsNotification: undefined;
-    SettingsSche: undefined;
+    SettingsShedule: undefined;
 
     FAQPage: undefined;
 };
