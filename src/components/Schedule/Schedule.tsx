@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GestureEvent, PanGestureHandler, PanGestureHandlerEventPayload } from 'react-native-gesture-handler';
-import { View, StyleSheet, ScrollView, Text, RefreshControl, ActivityIndicator, Dimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, RefreshControl, Dimensions } from 'react-native';
 import { DropDown } from './Dropdown';
 import { DateBlock } from './DateBlock';
 import { DatePicker } from './DatePicker';
@@ -10,10 +10,14 @@ import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
 import { filterSchedule, formatDateWithTime, handleError } from '../../services/utility.service';
+import { LoadingScreen } from '../../shared/components/LoadingScreen';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
 export const Schedule = () => {
+    const isFocused = useIsFocused();
+
     const [activeProfile, setActiveProfile] = useState<IProfile>(null);
     const [filteredSchedule, setFilteredSchedule] = useState<ISchedule[]>(null);
 
@@ -31,6 +35,13 @@ export const Schedule = () => {
     useEffect(() => {
         setFilteredSchedule(filterSchedule(currentDate, activeProfile));
     }, [currentDate]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        if (isFocused) {
+            loadData();
+        }
+    }, [isFocused]);
 
     const loadData = async () => {
         try {
@@ -101,11 +112,7 @@ export const Schedule = () => {
     };
 
     if (isLoading) {
-        return (
-            <View style={{ ...styles.container, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#D0BCFF" />
-            </View>
-        );
+        return <LoadingScreen></LoadingScreen>;
     }
 
     return (

@@ -103,17 +103,19 @@ export const DropDown: FunctionComponent<{
                         <TouchableOpacity style={[styles.button, styles.buttonFirst]} onPress={() => navigation.navigate('Notes')}>
                             <Text style={styles.buttonText}>Нотатки</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, styles.buttonSecond]} onPress={showReminderModal}>
+                        <TouchableOpacity
+                            style={[styles.button, styles.buttonSecond]}
+                            onPress={() => (!isDismissedReminder ? showReminderModal() : buttonState())}>
                             {!isDismissedReminder ? (
                                 <View style={styles.buttonContent}>
                                     <Image source={Bell} style={styles.icon} />
                                     <Text style={styles.buttonText}>Нагадати</Text>
                                 </View>
                             ) : (
-                                <TouchableOpacity style={[styles.buttonContent]} onPress={buttonState}>
+                                <View style={[styles.buttonContent]}>
                                     <Image source={CrossedOutCall} style={styles.icon} />
                                     <Text style={styles.buttonText}>Не нагадувати</Text>
-                                </TouchableOpacity>
+                                </View>
                             )}
                         </TouchableOpacity>
                     </View>

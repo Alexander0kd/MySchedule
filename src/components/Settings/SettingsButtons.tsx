@@ -11,9 +11,14 @@ export const SettingsButtons = () => {
 
     return (
         <View style={styles.buttonsContainer}>
-            <IconButton icon="person" label="Налаштування профілів" onPressFunc={() => navigation.navigate('SettingsProfile')} />
-            <IconButton icon="email" label="Налаштування сповіщень" onPressFunc={() => navigation.navigate('SettingsNotification')} />
-            <IconButton icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsSche')} />
+            <IconButton iconPosition="left" icon="person" label="Налаштування профілів" onPressFunc={() => navigation.navigate('SettingsProfile')} />
+            <IconButton
+                iconPosition="left"
+                icon="email"
+                label="Налаштування сповіщень"
+                onPressFunc={() => navigation.navigate('SettingsNotification')}
+            />
+            <IconButton iconPosition="left" icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsSche')} />
         </View>
     );
 };

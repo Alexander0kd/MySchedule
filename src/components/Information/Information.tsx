@@ -4,7 +4,7 @@ import { TransitionPresets } from '@react-navigation/stack';
 
 import { InformationButtons } from './InformationButtons';
 import { FAQ } from './FAQ';
-import { ProfileMenu } from '../AppNavbar/ProfileMenu';
+import { ProfileMenu } from '../Navigation/ProfileMenu';
 
 export const Information = () => {
     const Stack = createStackNavigator();
