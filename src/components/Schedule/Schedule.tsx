@@ -57,7 +57,7 @@ export const Schedule = () => {
 
                 setActiveProfile(profile);
 
-                await updateProfileById(profile.id, profile).then(() => {
+                await updateProfileById(profile.id, profile, true).then(() => {
                     setFilteredSchedule(filterSchedule(currentDate, profile));
                     setIsLoading(false);
                 });

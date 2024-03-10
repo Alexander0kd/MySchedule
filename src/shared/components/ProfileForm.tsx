@@ -81,6 +81,7 @@ const CustomDropdown: FunctionComponent<{
 export const ProfileForm: FunctionComponent<{
     setIsFormFilled: (value: boolean) => void;
     setProfileData: (value: IProfile) => void;
+    filledProfile?: IProfile;
 }> = (props) => {
     const [university, setUniversity] = useState<AvailableUni>(null);
     const [faculty, setFaculty] = useState<string>(null);
@@ -91,6 +92,15 @@ export const ProfileForm: FunctionComponent<{
     const [facultyList, setFacultyList] = useState<IDropdown[]>([]);
     const [yearList, setYearList] = useState<IDropdown[]>([]);
     const [groupList, setGroupList] = useState<IDropdown[]>([]);
+
+    useEffect(() => {
+        if (props.filledProfile) {
+            setUniversity(props.filledProfile.university);
+            setFaculty(props.filledProfile.faculty);
+            setYear(props.filledProfile.year.toString());
+            setGroup(props.filledProfile.group);
+        }
+    }, []);
 
     useEffect(() => {
         // Erase Values
@@ -115,10 +125,10 @@ export const ProfileForm: FunctionComponent<{
         // Set Year List
         if (university && faculty) {
             const _yearList: IDropdown[] = [
-                { value: 1, label: '1' },
-                { value: 2, label: '2' },
-                { value: 3, label: '3' },
-                { value: 4, label: '4' },
+                { value: '1', label: '1' },
+                { value: '2', label: '2' },
+                { value: '3', label: '3' },
+                { value: '4', label: '4' },
             ];
             setYearList(_yearList);
         }

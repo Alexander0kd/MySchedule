@@ -56,7 +56,7 @@ export async function addProfile(profileData: IProfile): Promise<boolean> {
         );
 
         if (isProfileExist) {
-            throw new Error('Duplicate profile detected');
+            throw new Error('Add Profile] Duplicate profile detected');
         }
 
         profiles.push(profileData);
@@ -124,11 +124,24 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
  * @param editedProfileData The updated profile data.
  * @returns A Promise that resolves to true if the profile is successfully updated, false otherwise.
  */
-export async function updateProfileById(id: string, editedProfileData: IProfile): Promise<boolean> {
+export async function updateProfileById(id: string, editedProfileData: IProfile, isUpdateSetting: boolean): Promise<boolean> {
     try {
         const profiles = await getAllProfiles();
-        const profileIndex = profiles.findIndex((user) => user.id === id);
 
+        if (!isUpdateSetting) {
+            const isProfileExist = profiles.find(
+                (profile) =>
+                    profile.university === editedProfileData.university &&
+                    profile.faculty === editedProfileData.faculty &&
+                    profile.year === editedProfileData.year &&
+                    profile.group === editedProfileData.group
+            );
+            if (isProfileExist) {
+                throw new Error('[Update Profile] Duplicate profile detected');
+            }
+        }
+
+        const profileIndex = profiles.findIndex((user) => user.id === id);
         if (profileIndex == -1) {
             throw new Error('User with this ID not found');
         }
