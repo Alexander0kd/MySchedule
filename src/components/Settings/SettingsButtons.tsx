@@ -18,7 +18,7 @@ export const SettingsButtons = () => {
                 label="Налаштування сповіщень"
                 onPressFunc={() => navigation.navigate('SettingsNotification')}
             />
-            <IconButton iconPosition="left" icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsSche')} />
+            <IconButton iconPosition="left" icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsShedule')} />
         </View>
     );
 };

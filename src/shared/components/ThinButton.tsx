@@ -2,12 +2,11 @@ import { Text, View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from '
 import { MaterialIcons } from '@expo/vector-icons';
 import { FunctionComponent } from 'react';
 
-export const RoundButton: FunctionComponent<{
+export const ThinButton: FunctionComponent<{
     icon?: keyof typeof MaterialIcons.glyphMap;
     label: string;
     onPressFunc: () => void;
     iconPosition?: 'left' | 'right' | 'center';
-    disabled?: boolean;
 }> = (props) => {
     let iconStyle: StyleProp<ViewStyle>;
 
@@ -27,23 +26,21 @@ export const RoundButton: FunctionComponent<{
     }
 
     return (
-        <TouchableOpacity
-            disabled={props.disabled}
-            style={[styles.buttonContainer, { backgroundColor: props.disabled ? 'rgba(202, 196, 208, 0.12)' : '#6750A4' }]}
-            onPress={props.onPressFunc}>
+        <TouchableOpacity style={styles.buttonThin} onPress={props.onPressFunc}>
             <View style={[styles.buttonContent, iconStyle]}>
                 {props.icon && <MaterialIcons style={{ marginBottom: -3 }} name={props.icon} size={20} color="#CAC4D0" />}
-                <Text style={[styles.text, { color: props.disabled ? 'rgba(202, 196, 208, 0.38)' : '#FFF' }]}>{props.label}</Text>
+                <Text style={styles.text}>{props.label}</Text>
             </View>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        backgroundColor: '#6750A4',
+    buttonThin: {
+        borderWidth: 1,
+        borderColor: '#E8DEF8',
         borderRadius: 100,
-        paddingVertical: 14,
+        paddingVertical: 12,
         paddingHorizontal: 24,
     },
     text: {
