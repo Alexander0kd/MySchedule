@@ -42,7 +42,7 @@ export const ProfileList = () => {
     }, [isFocused]);
 
     const deleteProfile = async (id: string) => {
-        const isDelete = openModal(
+        const isDelete = await openModal(
             'Бажаєте видалити профіль?',
             'Всі дані цього профілю будуть видалені без можливості повернути їх',
             'Скасувати',
