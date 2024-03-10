@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { IProfile } from '../shared/interfaces/profile.interface';
 import { ISchedule } from '../shared/interfaces/schedule.interface';
 import { AvailableUni } from '../shared/universities/available-uni.enum';
@@ -119,17 +120,24 @@ export function getFacultyFullName(uni: AvailableUni, facultyId: string): string
  * @param continueText - The text displayed on the continue button.
  * @returns **True** if the **Continue** button is clicked, **false** if the **Cancel** button is clicked.
  */
-export function openModal(title: string, text: string, cancelText: string, continueText: string): boolean {
-    console.log(`Opened modal window: ${title}`);
-    console.log(`Text: ${text}`);
-
-    console.log(`Cancel Button: ${cancelText}`);
-    console.log(`Continue Button: ${continueText}`);
-
-    // ? On Cancle Button: return false;
-    // ? On Continue Button: return true;
-
-    return true;
+export async function openModal(title: string, text: string, cancelText: string, continueText: string): Promise<boolean> {
+    return new Promise((resolve) => {
+        Alert.alert(title, text,
+            [{
+                text: cancelText,
+                onPress: () => resolve(false),
+                style: 'cancel',
+            },
+            {
+                text: continueText,
+                onPress: () => resolve(true)
+            }],
+            {
+                cancelable: true,
+                userInterfaceStyle: 'dark',
+            }
+        );
+    });
 }
 
 /**

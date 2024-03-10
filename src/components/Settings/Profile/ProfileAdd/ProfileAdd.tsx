@@ -21,7 +21,7 @@ export const ProfileAdd = () => {
             const profileAdded = await addProfile(profileData);
             if (profileAdded) {
                 await setActiveProfile(profileData.id);
-                navigation.goBack();
+                navigation.push('AppNavbar');
             }
         } catch (error) {
             handleError(error);
@@ -29,11 +29,16 @@ export const ProfileAdd = () => {
     };
 
     useEffect(() => {
-        navigation.addListener('beforeRemove', (e) => {
+        navigation.addListener('beforeRemove', async (e) => {
             e.preventDefault();
-
-            const modal = openModal('Бажаєте скасувати додавання?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
-
+    
+            const modal = await openModal(
+                'Бажаєте скасувати додавання?',
+                'Цю дію неможливо відмінити',
+                'Ні, залишитись',
+                'Так, скасувати'
+            );
+    
             if (modal) {
                 navigation.dispatch(e.data.action);
             }
@@ -50,7 +55,7 @@ export const ProfileAdd = () => {
                 <ThinButton
                     label="Скасувати"
                     onPressFunc={() => {
-                        navigation.goBack();
+                        navigation.replace('ProfileList');
                     }}
                 />
                 <RoundButton
