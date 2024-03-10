@@ -70,23 +70,21 @@ export const DropDown: FunctionComponent<{
                             <Text style={styles.titleText}>Групи:</Text>
                             <Text style={styles.infoText}>{props.lesson.g}</Text>
                         </View>
-                        <View style={styles.rowContainer}>
                             {props.lesson.vr && (
-                                <>
+                                <View style={styles.rowContainer}>
                                     <Text style={styles.titleText}>Аудиторія:</Text>
                                     <Text style={styles.infoText}>{props.lesson.vr}</Text>
-                                </>
+                                </View>
                             )}
 
                             {props.lesson.link && (
-                                <>
+                                <View style={styles.rowContainer}>
                                     <Text style={styles.titleText}>Посилання:</Text>
                                     <TouchableOpacity style={styles.infoText} onPress={() => Linking.openURL(props.lesson.link)}>
                                         <Text style={{ color: 'lightblue', textDecorationLine: 'underline' }}>{props.lesson.link}</Text>
                                     </TouchableOpacity>
-                                </>
+                                </View>
                             )}
-                        </View>
 
                         <View style={styles.rowContainer}>
                             <Text style={styles.titleText}>Викладач:</Text>
