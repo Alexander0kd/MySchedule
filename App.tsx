@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
 
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 
-import { AppNavbar } from './src/components/AppNavbar/AppNavbar';
+import { AppNavbar } from './src/components/Navigation/AppNavbar';
 import { OnboardingPage } from './src/components/OnboardingPages/OnboardingPage';
 import { isLocalStorageEmpty } from './src/services/local-storage.service';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -25,6 +25,7 @@ export default function App() {
         };
 
         initializeApp();
+
     }, []);
 
     if (isInitialized) {
@@ -33,8 +34,8 @@ export default function App() {
                 <StatusBar backgroundColor="#381E72" />
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={isLocalStorageAvailable ? 'AppNavbar' : 'OnboardingPage'}>
-                        <Stack.Screen name="OnboardingPage" component={OnboardingPage} options={{ headerShown: false }} />
-                        <Stack.Screen name="AppNavbar" component={AppNavbar} options={{ headerShown: false }} />
+                        <Stack.Screen name="OnboardingPage" component={OnboardingPage} options={{ headerShown: false, ...TransitionPresets.SlideFromRightIOS }} />
+                        <Stack.Screen name="AppNavbar" component={AppNavbar} options={{ headerShown: false, ...TransitionPresets.SlideFromRightIOS }} />
                     </Stack.Navigator>
                 </NavigationContainer>
             </SafeAreaView>

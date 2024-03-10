@@ -3,10 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TransitionPresets } from '@react-navigation/stack';
 
 import { SettingsButtons } from './SettingsButtons';
-import { ProfileList } from './Profile/ProfileList';
+import { ProfileList } from './Profile/ProfileList/ProfileList';
 import { Notification } from './Notification/Notification';
 import { SettingsShedule } from './Schedule/SettingsShedule';
-import { ProfileMenu } from '../AppNavbar/ProfileMenu';
+import { ProfileMenu } from '../Navigation/ProfileMenu';
 
 export const Settings = () => {
     const Stack = createStackNavigator();

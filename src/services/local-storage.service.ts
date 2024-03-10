@@ -5,13 +5,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
 import { handleError } from './utility.service';
 
+enum STORAGE_KEYS {
+    PROFILES = 'profiles',
+    ACTIVE = 'active',
+}
+
 /**
  * Retrieves all profiles stored in AsyncStorage.
  * @returns A Promise that resolves to an array of profile objects.
  */
 export async function getAllProfiles(): Promise<IProfile[]> {
     try {
-        const profiles = await AsyncStorage.getItem('profiles');
+        const profiles = await AsyncStorage.getItem(STORAGE_KEYS.PROFILES);
         return JSON.parse(profiles) || [];
     } catch (error) {
         handleError(error);
@@ -55,7 +60,7 @@ export async function addProfile(profileData: IProfile): Promise<boolean> {
         }
 
         profiles.push(profileData);
-        await AsyncStorage.setItem('profiles', JSON.stringify(profiles));
+        await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
 
         const activeProfle = await getActiveProfile();
         if (!activeProfle) {
@@ -100,12 +105,10 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
         }
 
         profiles.splice(profileIndex, 1);
-        await AsyncStorage.setItem('profiles', JSON.stringify(profiles));
+        await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
 
         if (profiles.length < 1) {
             navigation.replace('OnboardingPage');
-        } else {
-            navigation.replace('SettingsProfile');
         }
 
         return true;
@@ -132,7 +135,7 @@ export async function updateProfileById(id: string, editedProfileData: IProfile)
 
         profiles[profileIndex] = editedProfileData;
 
-        await AsyncStorage.setItem('profiles', JSON.stringify(profiles));
+        await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
 
         return true;
     } catch (error) {
@@ -147,7 +150,7 @@ export async function updateProfileById(id: string, editedProfileData: IProfile)
  */
 export async function getActiveProfile(): Promise<IProfile> {
     try {
-        const activeProfileId = JSON.parse(await AsyncStorage.getItem('active'));
+        const activeProfileId = JSON.parse(await AsyncStorage.getItem(STORAGE_KEYS.ACTIVE));
         const profile = await getProfileById(activeProfileId);
 
         if (profile) {
@@ -175,7 +178,7 @@ export async function getActiveProfile(): Promise<IProfile> {
  */
 export async function setActiveProfile(id: string, navigation?: StackNavigationProp<AvailableRoutes>): Promise<boolean> {
     try {
-        const activeProfileId = JSON.parse(await AsyncStorage.getItem('active'));
+        const activeProfileId = JSON.parse(await AsyncStorage.getItem(STORAGE_KEYS.ACTIVE));
         if (id === activeProfileId) {
             throw new Error('Profile already active');
         }
@@ -187,7 +190,7 @@ export async function setActiveProfile(id: string, navigation?: StackNavigationP
             throw new Error(`Cant find profile with id: ${id}.`);
         }
 
-        await AsyncStorage.setItem('active', JSON.stringify(id));
+        await AsyncStorage.setItem(STORAGE_KEYS.ACTIVE, JSON.stringify(id));
         if (navigation) {
             navigation.replace('AppNavbar');
         }

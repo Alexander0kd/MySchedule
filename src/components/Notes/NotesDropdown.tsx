@@ -116,7 +116,7 @@ export const NotesDropdown: FunctionComponent<{
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 16,
+        marginBottom: 16,
         marginRight: 24,
         marginLeft: 24,
         borderRadius: 12,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { View, Text, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -9,11 +9,14 @@ import { AvailableRoutes } from '../../shared/env/available-routes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableUni } from '../../shared/universities/available-uni.enum';
 import { truncateString } from '../../services/utility.service';
+import { LoadingScreen } from '../../shared/components/LoadingScreen';
 
 export const ProfileMenu = () => {
     const window = useWindowDimensions();
+    const isFocused = useIsFocused();
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [visible, setVisible] = useState<boolean>(false);
     const [allProfiles, setAllProfiles] = useState<IProfile[]>([]);
     const [activeProfileId, setActiveProfileId] = useState<string>(null);
@@ -21,18 +24,21 @@ export const ProfileMenu = () => {
     const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
 
-    useEffect(() => {
-        const loadProfiles = async () => {
-            const profiles = await getAllProfiles();
-            const activeProfile = await getActiveProfile();
-            if (activeProfile) {
-                setActiveProfileId(activeProfile.id);
-            }
-            setAllProfiles(profiles);
-        };
+    const loadProfiles = async () => {
+        const profiles = await getAllProfiles();
+        const activeProfile = await getActiveProfile();
+        if (activeProfile) {
+            setActiveProfileId(activeProfile.id);
+        }
+        setAllProfiles(profiles);
+    };
 
-        loadProfiles();
-    }, []);
+    useEffect(() => {
+        setLoading(true);
+        loadProfiles().then(() => {
+            setLoading(false);
+        });
+    }, [isFocused]);
 
     const setActiveProfileHandler = async (id: string) => {
         await setActiveProfile(id, navigation);
@@ -46,27 +52,31 @@ export const ProfileMenu = () => {
                 anchor={<MaterialIcons style={styles.profileIcon} name="account-circle" size={24} color="white" onPress={showMenu} />}
                 onRequestClose={hideMenu}>
                 <ScrollView>
-                    {allProfiles.map((profile: IProfile, index: number) => (
-                        <View
-                            key={profile.id}
-                            style={[
-                                styles.profileItem,
-                                { backgroundColor: activeProfileId === profile.id ? '#332D41' : 'transparent' },
-                                index === 0 ? styles.firstProfileItem : null,
-                            ]}>
-                            <MenuItem onPress={() => setActiveProfileHandler(profile.id)} pressColor="#332D41">
-                                <View style={styles.profileInfo}>
-                                    <Text style={styles.profileText}>{profile.groupName}</Text>
-                                    <Text style={styles.profileText}>
-                                        {truncateString(
-                                            AvailableUni[profile.university],
-                                            window.width < 450 ? 20 : AvailableUni[profile.university].length
-                                        )}
-                                    </Text>
-                                </View>
-                            </MenuItem>
-                        </View>
-                    ))}
+                    {loading ? (
+                        <LoadingScreen />
+                    ) : (
+                        allProfiles.map((profile: IProfile, index: number) => (
+                            <View
+                                key={profile.id}
+                                style={[
+                                    styles.profileItem,
+                                    { backgroundColor: activeProfileId === profile.id ? '#332D41' : 'transparent' },
+                                    index === 0 ? styles.firstProfileItem : null,
+                                ]}>
+                                <MenuItem onPress={() => setActiveProfileHandler(profile.id)} pressColor="#332D41">
+                                    <View style={styles.profileInfo}>
+                                        <Text style={styles.profileText}>{profile.groupName}</Text>
+                                        <Text style={styles.profileText}>
+                                            {truncateString(
+                                                AvailableUni[profile.university],
+                                                window.width < 450 ? 20 : AvailableUni[profile.university].length
+                                            )}
+                                        </Text>
+                                    </View>
+                                </MenuItem>
+                            </View>
+                        ))
+                    )}
                 </ScrollView>
             </Menu>
         </View>

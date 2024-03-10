@@ -1,5 +1,7 @@
 import { IProfile } from '../shared/interfaces/profile.interface';
 import { ISchedule } from '../shared/interfaces/schedule.interface';
+import { AvailableUni } from '../shared/universities/available-uni.enum';
+import { PnuFaculty } from '../shared/universities/faculty/pnu.faculty';
 
 /**
  * Formats the last update date string.
@@ -38,14 +40,14 @@ export function formatDate(date: Date): string {
  * @returns An array of filtered schedule items.
  */
 export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
+    if (!profile || !profile.schedule) return [];
+
     const filteringDate = date.toISOString().split('T')[0];
 
-    return profile
-        ? profile.schedule.filter((lesson) => {
-              // ?: Placeholder for future filtering of hidden lessons
-              return lesson.d === filteringDate;
-          })
-        : [];
+    return profile.schedule.filter((lesson) => {
+        // ?: Placeholder for future filtering of hidden lessons
+        return lesson.d === filteringDate;
+    });
 }
 
 /**
@@ -78,15 +80,6 @@ export function getLessonType(str: string): string {
 }
 
 /**
- * Handles errors by logging them to the console and display popups.
- * @param error - The error object to be handled.
- */
-export function handleError(error: Error): void {
-    // TODO: Implement more error handling mechanism (e.g., display error messages to the user)
-    console.error('Error:', error);
-}
-
-/**
  * Generates a string representing the academic year for making requests.
  * @returns A string representing the academic year (e.g., "2023-2024-2").
  */
@@ -101,6 +94,21 @@ export function getYearRequest(): string {
     }
 
     return `${currentYear}-${currentYear + 1}-1`;
+}
+
+/**
+ * Retrieves the full name of a faculty based on the provided university and faculty ID.
+ * @param uni - The available university.
+ * @param facultyId - The ID of the faculty.
+ * @returns The full name of the faculty if found, otherwise an empty string.
+ */
+export function getFacultyFullName(uni: AvailableUni, facultyId: string): string {
+    switch (AvailableUni[uni]) {
+        case AvailableUni.PNU:
+            return PnuFaculty[facultyId];
+        default:
+            return '';
+    }
 }
 
 /**
@@ -121,5 +129,14 @@ export function openModal(title: string, text: string, cancelText: string, conti
     // ? On Cancle Button: return false;
     // ? On Continue Button: return true;
 
-    return false;
+    return true;
+}
+
+/**
+ * Handles errors by logging them to the console and display popups.
+ * @param error - The error object to be handled.
+ */
+export function handleError(error: Error): void {
+    // TODO: Implement more error handling mechanism (e.g., display error messages to the user)
+    console.error('Error:', error);
 }
