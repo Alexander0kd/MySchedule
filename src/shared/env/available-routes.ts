@@ -4,6 +4,8 @@ export type AvailableRoutes = {
     AppNavbar: undefined;
 
     Notes: undefined;
+    NotesAdd: undefined;
+    NotesEdit: undefined;
 
     SettingsProfile: undefined;
 

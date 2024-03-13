@@ -1,5 +1,5 @@
 /**
- * @interface INotes Представляє нотатку користувача.
+ * @interface INote Представляє нотатку користувача.
  * @param {string} subject - До якого предмету відносяться ці нотатки.
  * @param {INoteData[]} notes - Масив нотаток.
  */

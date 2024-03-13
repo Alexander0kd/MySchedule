@@ -50,10 +50,6 @@ export const NotesDropdown: FunctionComponent<{
         console.log('Navigate to Edit Note');
     };
 
-    const addNote = () => {
-        console.log('Navigate to Add Note');
-    };
-
     return (
         <ScrollView style={styles.container}>
             <Pressable onPress={toggleDropdown}>
@@ -101,7 +97,7 @@ export const NotesDropdown: FunctionComponent<{
                     ))}
 
                     <View style={styles.actions}>
-                        <TouchableOpacity onPress={addNote} style={[styles.button, styles.buttonSecond]}>
+                        <TouchableOpacity onPress={() => console.log('navigate')} style={[styles.button, styles.buttonSecond]}>
                             <View style={styles.buttonContent}>
                                 <Image source={Plus} style={styles.icon} />
                                 <Text style={styles.buttonText}>Додати нотатку</Text>
