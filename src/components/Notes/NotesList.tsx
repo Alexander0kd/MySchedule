@@ -4,32 +4,37 @@ import { NotesDropdown } from './NotesDropdown';
 import { INote } from '../../shared/interfaces/notes.interface';
 import { getAllSubjects } from '../../services/notes-local-storage.service';
 
-
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AvailableRoutes } from '../../shared/env/available-routes';
+import { useNavigation } from '@react-navigation/native';
 
 export const NotesList = () => {
-    const [notes, setNotes] = useState<INote[]>([]);
+    const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
+    const [notes, setNotes] = useState([]);
+
+    const fetchNotes = async () => {
+        const subjects = await getAllSubjects();
+        setNotes(subjects);
+    };
 
     useEffect(() => {
-        const fetchNotes = async () => {
-            const subjects = await getAllSubjects();
-            setNotes(subjects);
-        };
-
         fetchNotes();
     }, []);
+
+    const addNote = (subject) => {
+        navigation.push('NotesAdd', { subject });
+    };
 
     return (
         <View style={styles.container}>
             <ScrollView>
                 {notes.map((note: INote, index: number) => (
-                    <NotesDropdown key={`${note.subject}-${index}`} note={note} />
+                    <NotesDropdown key={`${note.subject}-${index}`} note={note} noteAddFn={() => addNote(note.subject)} />
                 ))}
             </ScrollView>
         </View>
     );
 };
-
-
 
 const styles = StyleSheet.create({
     container: {

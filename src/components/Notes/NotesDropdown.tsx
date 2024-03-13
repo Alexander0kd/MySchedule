@@ -7,10 +7,11 @@ import More from '../../../assets/more_vert.png';
 import Plus from '../../../assets/plus-icon.png';
 import Edit from '../../../assets/edit.png';
 import Trash from '../../../assets/trashcan.png';
-import { formatDateWithTime, openModal, truncateString } from '../../services/utility.service';
+import { openModal, truncateString } from '../../services/utility.service';
 
 export const NotesDropdown: FunctionComponent<{
     note: INote;
+    noteAddFn;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -68,7 +69,7 @@ export const NotesDropdown: FunctionComponent<{
                             <View style={styles.noteLine}></View>
 
                             <View style={styles.noteGroup}>
-                                <Text style={styles.noteDate}>{formatDateWithTime(noteData.date)}</Text>
+                                <Text style={styles.noteDate}>{noteData.date}</Text>
 
                                 <ScrollView>
                                     <Text style={styles.infoText}>{noteData.text}</Text>
@@ -97,7 +98,7 @@ export const NotesDropdown: FunctionComponent<{
                     ))}
 
                     <View style={styles.actions}>
-                        <TouchableOpacity onPress={() => console.log('navigate')} style={[styles.button, styles.buttonSecond]}>
+                        <TouchableOpacity onPress={() => props.noteAddFn()} style={[styles.button, styles.buttonSecond]}>
                             <View style={styles.buttonContent}>
                                 <Image source={Plus} style={styles.icon} />
                                 <Text style={styles.buttonText}>Додати нотатку</Text>

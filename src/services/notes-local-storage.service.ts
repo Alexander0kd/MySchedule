@@ -3,6 +3,19 @@ import { handleError } from './utility.service';
 import { INote } from '../shared/interfaces/notes.interface';
 import { getActiveProfile, updateProfileById } from './local-storage.service';
 
+function customSort(a: string, b: string): number {
+    if (a.includes('Письм.Екз.') && !b.includes('Письм.Екз.')) {
+        return 1;
+    } else if (!a.includes('Письм.Екз.') && b.includes('Письм.Екз.')) {
+        return -1;
+    }
+    return a.localeCompare(b);
+}
+
+function createProfileNotes(allSubjects: string[]): INote[] {
+    return allSubjects.map((subject) => ({ subject, notes: [] }));
+}
+
 export async function getAllSubjects(): Promise<INote[]> {
     try {
         const activeProfile = await getActiveProfile();
@@ -15,27 +28,16 @@ export async function getAllSubjects(): Promise<INote[]> {
             activeProfile.notes = profileNotes;
             await updateProfileById(id, activeProfile, true);
 
+            // console.log(activeProfile.notes);
             return activeProfile.notes;
         } else {
-            return notes;
+            // console.log(activeProfile.notes);
+            return activeProfile.notes;
         }
     } catch (error) {
         handleError(error);
         throw error;
     }
-}
-
-function customSort(a: string, b: string): number {
-    if (a.includes('Письм.Екз.') && !b.includes('Письм.Екз.')) {
-        return 1;
-    } else if (!a.includes('Письм.Екз.') && b.includes('Письм.Екз.')) {
-        return -1;
-    }
-    return a.localeCompare(b);
-}
-
-function createProfileNotes(allSubjects: string[]): INote[] {
-    return allSubjects.map((subject) => ({ subject, notes: [] }));
 }
 
 export async function getAllNotes(activeProfile: object, allSubjects: string[]): Promise<boolean> {
@@ -64,15 +66,29 @@ export async function getAllNotes(activeProfile: object, allSubjects: string[]):
     }
 }
 
-// export async function addNote(subject: string, noteData: INote ): Promise<boolean> {
-//     try {
-//         const notes = await getAllNotes();
+export async function addNote(subject: string, noteData: INote): Promise<boolean> {
+    try {
+        const allNotes = await getAllSubjects();
+        const activeProfile = await getActiveProfile();
+        const { id } = activeProfile;
 
-//         await AsyncStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(notes));
+        const foundNoteIndex = allNotes.findIndex((note) => note.subject === subject);
 
-//         return true;
-//     } catch (error) {
-//         handleError(error);
-//         return false;
-//     }
-// }
+        if (foundNoteIndex !== -1) {
+            allNotes[foundNoteIndex].notes.push(noteData);
+
+            activeProfile.notes = allNotes;
+
+            updateProfileById(id, activeProfile, true);
+
+            console.log(JSON.stringify(activeProfile.notes, null, 2));
+        } else {
+            console.error('Note not found with subject:', subject);
+        }
+
+        return true;
+    } catch (error) {
+        handleError(error);
+        return false;
+    }
+}

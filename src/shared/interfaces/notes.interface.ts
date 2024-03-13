@@ -16,4 +16,5 @@ export interface INote {
 export interface INoteData {
     date: Date;
     text: string;
+    id: string;
 }

@@ -6,10 +6,10 @@ import NotesIcon from '../../../assets/notes.png';
 import SettingsIcon from '../../../assets/setting.png';
 import InformationIcon from '../../../assets/info.png';
 import { Schedule } from '../Schedule/Schedule';
-import { NotesList } from '../Notes/NotesList';
 import { Settings } from '../Settings/Settings';
 import { Information } from '../Information/Information';
 import { ProfileMenu } from './ProfileMenu';
+import { NotesStack } from '../Notes/NotesStack';
 
 export const AppNavbar = () => {
     const window = useWindowDimensions();
@@ -58,7 +58,7 @@ export const AppNavbar = () => {
             />
             <Tab.Screen
                 name="Notes"
-                component={NotesList}
+                component={NotesStack}
                 options={{
                     headerTitle: 'Нотатки',
                     ...getTabScreenOptions('Нотатки', NotesIcon),

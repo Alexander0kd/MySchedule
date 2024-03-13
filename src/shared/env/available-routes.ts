@@ -3,7 +3,7 @@ export type AvailableRoutes = {
 
     AppNavbar: undefined;
 
-    Notes: undefined;
+    NotesList: undefined;
     NotesAdd: undefined;
     NotesEdit: undefined;
 
