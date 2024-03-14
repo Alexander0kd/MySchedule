@@ -7,11 +7,12 @@ import More from '../../../assets/more_vert.png';
 import Plus from '../../../assets/plus-icon.png';
 import Edit from '../../../assets/edit.png';
 import Trash from '../../../assets/trashcan.png';
-import { openModal, truncateString } from '../../services/utility.service';
+import { truncateString } from '../../services/utility.service';
 
 export const NotesDropdown: FunctionComponent<{
     note: INote;
     noteAddFn;
+    noteDeleteFn;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -37,14 +38,6 @@ export const NotesDropdown: FunctionComponent<{
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
-    };
-
-    const deleteNote = () => {
-        const isDelete = openModal('Title', 'Text', 'Cancel', 'Yes');
-
-        if (isDelete) {
-            console.log('Notes[props.subject].notes[props.index] deleted!');
-        }
     };
 
     const editNote = () => {
@@ -88,7 +81,7 @@ export const NotesDropdown: FunctionComponent<{
                                         <Image source={Edit} style={[styles.iconMoreMenu, { tintColor: '#e6e0e9' }]} />
                                         <Text style={styles.menuButtonText}>Редагувати</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={styles.menuButton} onPress={deleteNote}>
+                                    <TouchableOpacity style={styles.menuButton} onPress={() => props.noteDeleteFn(noteData.id)}>
                                         <Image source={Trash} style={[styles.iconMoreMenu, { tintColor: '#DC362E' }]} />
                                         <Text style={[styles.menuButtonText, { color: '#DC362E' }]}>Видалити</Text>
                                     </TouchableOpacity>

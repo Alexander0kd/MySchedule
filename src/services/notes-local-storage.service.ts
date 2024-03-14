@@ -92,3 +92,20 @@ export async function addNote(subject: string, noteData: INote): Promise<boolean
         return false;
     }
 }
+
+export async function deleteNoteById(id) {
+    const allNotes = await getAllSubjects();
+    const activeProfile = await getActiveProfile();
+
+    // Перебираємо кожен об'єкт у масиві
+    allNotes.forEach((subject) => {
+        // Фільтруємо нотатки в даному об'єкті за відповідним id
+        subject.notes = subject.notes.filter((note) => note.id !== id);
+    });
+
+    activeProfile.notes = allNotes;
+
+    updateProfileById(activeProfile.id, activeProfile, true);
+
+    console.log(`Нотатка з id ${id} була успішно видалена.`);
+}

@@ -122,16 +122,20 @@ export function getFacultyFullName(uni: AvailableUni, facultyId: string): string
  */
 export async function openModal(title: string, text: string, cancelText: string, continueText: string): Promise<boolean> {
     return new Promise((resolve) => {
-        Alert.alert(title, text,
-            [{
-                text: cancelText,
-                onPress: () => resolve(false),
-                style: 'cancel',
-            },
-            {
-                text: continueText,
-                onPress: () => resolve(true)
-            }],
+        Alert.alert(
+            title,
+            text,
+            [
+                {
+                    text: cancelText,
+                    onPress: () => resolve(false),
+                    style: 'cancel',
+                },
+                {
+                    text: continueText,
+                    onPress: () => resolve(true),
+                },
+            ],
             {
                 cancelable: true,
                 userInterfaceStyle: 'dark',

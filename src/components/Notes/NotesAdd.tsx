@@ -32,7 +32,7 @@ export const NotesAdd = ({ route }) => {
             text,
             id: uuidv4(),
         };
-        await addNote(subject, noteData).then(() => navigation.replace('NotesList', { key: Math.random().toString() }));
+        await addNote(subject, noteData).then(() => navigation.replace('NotesList'));
     };
 
     return (
