@@ -13,6 +13,7 @@ export const NotesDropdown: FunctionComponent<{
     note: INote;
     noteAddFn;
     noteDeleteFn;
+    noteEditFn;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -77,7 +78,7 @@ export const NotesDropdown: FunctionComponent<{
 
                             {isMenuVisible[indx] && (
                                 <View style={styles.menuContainer}>
-                                    <TouchableOpacity style={styles.menuButton} onPress={editNote}>
+                                    <TouchableOpacity style={styles.menuButton} onPress={() => props.noteEditFn(noteData.id)}>
                                         <Image source={Edit} style={[styles.iconMoreMenu, { tintColor: '#e6e0e9' }]} />
                                         <Text style={styles.menuButtonText}>Редагувати</Text>
                                     </TouchableOpacity>

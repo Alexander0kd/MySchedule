@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         maxHeight: height / 4,
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        textAlignVertical: 'top', // Вирівнює текст зверху
-        textAlign: 'left', // Вирівнює текст ліворуч
+        textAlignVertical: 'top',
+        textAlign: 'left',
     },
 });

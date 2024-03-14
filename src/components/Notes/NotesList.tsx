@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { NotesDropdown } from './NotesDropdown';
 import { INote } from '../../shared/interfaces/notes.interface';
-import { deleteNoteById, getAllSubjects } from '../../services/notes-local-storage.service';
+import { deleteNoteById, getAllSubjects, getNoteById } from '../../services/notes-local-storage.service';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 import { useNavigation } from '@react-navigation/native';
 import { openModal } from '../../services/utility.service';
+import { NotesEdit } from './NotesEdit';
+import { json } from 'react-router-native';
 
 export const NotesList = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
@@ -25,6 +27,12 @@ export const NotesList = () => {
     const addNote = (subject) => {
         navigation.push('NotesAdd', { subject });
         fetchNotes();
+    };
+
+    const editNote = async (id) => {
+        const selectedNote = await getNoteById(id);
+
+        navigation.push('NotesEdit', {selectedNote});
     };
 
     const deleteNote = async (id) => {
@@ -45,6 +53,7 @@ export const NotesList = () => {
                         note={note}
                         noteAddFn={() => addNote(note.subject)}
                         noteDeleteFn={(id) => deleteNote(id)}
+                        noteEditFn={editNote}
                     />
                 ))}
             </ScrollView>

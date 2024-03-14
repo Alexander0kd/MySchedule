@@ -66,6 +66,14 @@ export async function getAllNotes(activeProfile: object, allSubjects: string[]):
     }
 }
 
+export async function getNoteById(id) {
+    const allNotes = await getAllSubjects();
+
+    const foundNote = allNotes.flatMap((subject) => subject.notes).find((note) => note.id === id);
+
+    return foundNote || null;
+}
+
 export async function addNote(subject: string, noteData: INote): Promise<boolean> {
     try {
         const allNotes = await getAllSubjects();
@@ -108,4 +116,24 @@ export async function deleteNoteById(id) {
     updateProfileById(activeProfile.id, activeProfile, true);
 
     console.log(`Нотатка з id ${id} була успішно видалена.`);
+}
+
+export async function editNoteById(editedNote) {
+    const allNotes = await getAllSubjects();
+    const activeProfile = await getActiveProfile();
+
+    // Шукаємо нотатку за її id та замінюємо її на відредаговану нотатку
+    allNotes.forEach((subject) => {
+        subject.notes.forEach((note, index) => {
+            if (note.id === editedNote.id) {
+                subject.notes[index] = editedNote;
+            }
+        });
+    });
+
+    // Оновлюємо активний профіль
+    activeProfile.notes = allNotes;
+    updateProfileById(activeProfile.id, activeProfile, true);
+
+    console.log(`Нотатка з id ${editedNote.id} була успішно відредагована.`);
 }
