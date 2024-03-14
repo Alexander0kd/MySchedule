@@ -9,7 +9,7 @@ import { Schedule } from '../Schedule/Schedule';
 import { Settings } from '../Settings/Settings';
 import { Information } from '../Information/Information';
 import { ProfileMenu } from './ProfileMenu';
-import { NotesStack } from '../Notes/NotesStack';
+import { NotesList } from '../Notes/NotesList';
 
 export const AppNavbar = () => {
     const window = useWindowDimensions();
@@ -57,8 +57,8 @@ export const AppNavbar = () => {
                 }}
             />
             <Tab.Screen
-                name="Notes"
-                component={NotesStack}
+                name="NotesList"
+                component={NotesList}
                 options={{
                     headerTitle: 'Нотатки',
                     ...getTabScreenOptions('Нотатки', NotesIcon),

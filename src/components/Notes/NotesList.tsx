@@ -7,6 +7,7 @@ import { deleteNoteById, getAllSubjects, getNoteById } from '../../services/note
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 import { useNavigation } from '@react-navigation/native';
+
 import { openModal } from '../../services/utility.service';
 import { LoadingScreen } from '../../shared/components/LoadingScreen';
 
