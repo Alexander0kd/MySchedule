@@ -14,6 +14,7 @@ export const NotesDropdown: FunctionComponent<{
     noteAddFn;
     noteDeleteFn;
     noteEditFn;
+    // isActive;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -23,6 +24,9 @@ export const NotesDropdown: FunctionComponent<{
         if (!isDropdownVisible) {
             setMenuVisible(new Array(props.note.notes.length));
         }
+        // if (props.isActive) {
+        //     toggleDropdown;
+        // }
     }, [isDropdownVisible]);
 
     const toggleMenu = (index: number) => {
@@ -39,10 +43,6 @@ export const NotesDropdown: FunctionComponent<{
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
-    };
-
-    const editNote = () => {
-        console.log('Navigate to Edit Note');
     };
 
     return (

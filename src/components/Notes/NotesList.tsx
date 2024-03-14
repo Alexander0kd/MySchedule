@@ -8,16 +8,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 import { useNavigation } from '@react-navigation/native';
 import { openModal } from '../../services/utility.service';
-import { NotesEdit } from './NotesEdit';
-import { json } from 'react-router-native';
+import { LoadingScreen } from '../../shared/components/LoadingScreen';
 
 export const NotesList = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
     const [notes, setNotes] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchNotes = async () => {
+        setIsLoading(true);
         const subjects = await getAllSubjects();
         setNotes(subjects);
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -32,7 +34,7 @@ export const NotesList = () => {
     const editNote = async (id) => {
         const selectedNote = await getNoteById(id);
 
-        navigation.push('NotesEdit', {selectedNote});
+        navigation.push('NotesEdit', { selectedNote });
     };
 
     const deleteNote = async (id) => {
@@ -46,17 +48,21 @@ export const NotesList = () => {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
-                {notes.map((note: INote, index: number) => (
-                    <NotesDropdown
-                        key={`${note.subject}-${index}`}
-                        note={note}
-                        noteAddFn={() => addNote(note.subject)}
-                        noteDeleteFn={(id) => deleteNote(id)}
-                        noteEditFn={editNote}
-                    />
-                ))}
-            </ScrollView>
+            {isLoading ? (
+                <LoadingScreen></LoadingScreen>
+            ) : (
+                <ScrollView>
+                    {notes.map((note: INote, index: number) => (
+                        <NotesDropdown
+                            key={`${note.subject}-${index}`}
+                            note={note}
+                            noteAddFn={() => addNote(note.subject)}
+                            noteDeleteFn={(id) => deleteNote(id)}
+                            noteEditFn={editNote}
+                        />
+                    ))}
+                </ScrollView>
+            )}
         </View>
     );
 };
