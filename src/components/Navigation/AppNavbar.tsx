@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, ImageSourcePropType, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
-import ScheduleIcon from '../../../assets/schedule.png';
-import NotesIcon from '../../../assets/notes.png';
-import SettingsIcon from '../../../assets/setting.png';
-import InformationIcon from '../../../assets/info.png';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { Schedule } from '../Schedule/Schedule';
 import { NotesList } from '../Notes/NotesList';
 import { Settings } from '../Settings/Settings';
 import { Information } from '../Information/Information';
 import { ProfileMenu } from './ProfileMenu';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const AppNavbar = () => {
     const window = useWindowDimensions();
@@ -27,11 +24,11 @@ export const AppNavbar = () => {
         marginLeft: window.width <= 768 ? 0 : 30,
     };
 
-    const getTabScreenOptions = (label: string, icon: ImageSourcePropType) => ({
+    const getTabScreenOptions = (label: string, iconName: any) => ({
         tabBarLabel: () => <Text style={tabBarLabelStyle}>{label}</Text>,
         tabBarIcon: ({ focused }) => (
             <View style={tabBarIconStyle(focused)}>
-                <Image source={icon} style={{ width: 20, height: 20 }} />
+                <MaterialIcons name={iconName} color="white" size={24} />
             </View>
         ),
     });
@@ -43,7 +40,6 @@ export const AppNavbar = () => {
                 headerTintColor: 'white',
                 tabBarStyle: {
                     backgroundColor: '#211F26',
-                    height: 60,
                     borderTopWidth: 0,
                 },
                 headerRight: () => <ProfileMenu />,
@@ -53,7 +49,7 @@ export const AppNavbar = () => {
                 component={Schedule}
                 options={{
                     headerTitle: 'Розклад',
-                    ...getTabScreenOptions('Розклад', ScheduleIcon),
+                    ...getTabScreenOptions('Розклад', 'today'),
                 }}
             />
             <Tab.Screen
@@ -61,7 +57,7 @@ export const AppNavbar = () => {
                 component={NotesList}
                 options={{
                     headerTitle: 'Нотатки',
-                    ...getTabScreenOptions('Нотатки', NotesIcon),
+                    ...getTabScreenOptions('Нотатки', 'sticky-note-2'),
                 }}
             />
             <Tab.Screen
@@ -70,7 +66,7 @@ export const AppNavbar = () => {
                 options={{
                     headerShown: false,
                     headerTitle: 'Налаштування',
-                    ...getTabScreenOptions('Налаштування', SettingsIcon),
+                    ...getTabScreenOptions('Налаштування', 'settings'),
                 }}
             />
             <Tab.Screen
@@ -79,7 +75,7 @@ export const AppNavbar = () => {
                 options={{
                     headerShown: false,
                     headerTitle: 'Інформація',
-                    ...getTabScreenOptions('Інформація', InformationIcon),
+                    ...getTabScreenOptions('Інформація', 'info'),
                 }}
             />
         </Tab.Navigator>
