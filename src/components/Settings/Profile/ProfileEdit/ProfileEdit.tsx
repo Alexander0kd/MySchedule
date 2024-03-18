@@ -27,6 +27,7 @@ export const ProfileEdit: FunctionComponent<{
             const profileUpdated = await updateProfileById(props.route.params.profileId, profileData, false);
             if (profileUpdated) {
                 await setActiveProfile(profileData.id);
+                await getGroupSubjects(UniEndpoints[profileData.university], profileData.faculty, profileData.group);
                 navigation.push('AppNavbar');
             }
         } catch (error) {
