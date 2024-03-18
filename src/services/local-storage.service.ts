@@ -4,6 +4,10 @@ import { IProfile } from '../shared/interfaces/profile.interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
 import { handleError } from './utility.service';
+import {ISubject} from "../shared/interfaces/subject.interface";
+import {UniEndpoints} from "../shared/universities/uni-endpoints.enum";
+import {getGroupSubjects} from "./schedule-api.service";
+
 
 enum STORAGE_KEYS {
     PROFILES = 'profiles',
@@ -212,5 +216,41 @@ export async function setActiveProfile(id: string, navigation?: StackNavigationP
     } catch (error) {
         handleError(error);
         return false;
+    }
+}
+
+/**
+ * Зберігає предмети для певної групи за її ID в AsyncStorage.
+ * @param groupId ID групи, для якої зберігаються предмети.
+ * @param subjects Масив предметів, які потрібно зберегти.
+ * @returns Проміс, який розрішується, коли предмети успішно збережено, або відхиляється в разі помилки.
+ */
+export async function saveSubjectsForGroup(groupId: string, subjects: ISubject[]): Promise<void> {
+    try {
+        const key = `GROUP_SUBJECTS_${groupId}`;
+        await AsyncStorage.setItem(key, JSON.stringify(subjects));
+    } catch (error) {
+        console.error('Помилка збереження предметів для групи:', error);
+        throw error;
+    }
+}
+
+/**
+ * Отримує предмети для певної групи за її ID з AsyncStorage.
+ * @param groupId ID групи, для якої потрібно отримати предмети.
+ * @returns Проміс, який розрішується з масивом предметів, або відхиляється в разі помилки або відсутності даних.
+ */
+export async function getSubjectsForGroup(groupId: string): Promise<ISubject[]> {
+    try {
+        const key = `GROUP_SUBJECTS_${groupId}`;
+        const subjectsJson = await AsyncStorage.getItem(key);
+        if (subjectsJson) {
+            return JSON.parse(subjectsJson);
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error('Помилка отримання предметів для групи:', error);
+        throw error;
     }
 }
