@@ -15,7 +15,6 @@ export const AppNavbar = () => {
     const tabBarIconStyle = (focused: boolean) => ({
         ...styles.icon,
         backgroundColor: focused ? '#4A4458' : '#211F26',
-        marginTop: window.width <= 768 ? 7 : 0,
     });
 
     const tabBarLabelStyle = {
@@ -24,11 +23,11 @@ export const AppNavbar = () => {
         marginLeft: window.width <= 768 ? 0 : 30,
     };
 
-    const getTabScreenOptions = (label: string, iconName: any) => ({
+    const getTabScreenOptions = (label: string, iconName: keyof typeof MaterialIcons.glyphMap) => ({
         tabBarLabel: () => <Text style={tabBarLabelStyle}>{label}</Text>,
         tabBarIcon: ({ focused }) => (
             <View style={tabBarIconStyle(focused)}>
-                <MaterialIcons name={iconName} color="white" size={24} />
+                <MaterialIcons name={iconName} color="white" size={20} />
             </View>
         ),
     });
@@ -41,6 +40,8 @@ export const AppNavbar = () => {
                 tabBarStyle: {
                     backgroundColor: '#211F26',
                     borderTopWidth: 0,
+                    height: 58,
+                    paddingVertical: 8,
                 },
                 headerRight: () => <ProfileMenu />,
             }}>
