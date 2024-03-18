@@ -4,7 +4,7 @@ import { TransitionPresets } from '@react-navigation/stack';
 
 import { SettingsButtons } from './SettingsButtons';
 import { Notification } from './Notification/Notification';
-import { SettingsShedule } from './Schedule/SettingsShedule';
+import { SettingsSchedule } from './Schedule/SettingSchedule/SettingsSсhedule';
 import { ProfileMenu } from '../Navigation/ProfileMenu';
 import { ProfileStack } from './Profile/ProfileStack';
 
