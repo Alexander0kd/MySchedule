@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Schedule } from '../Schedule/Schedule';
 import { NotesList } from '../Notes/NotesList';
 import { Settings } from '../Settings/Settings';
@@ -9,18 +9,17 @@ import { ProfileMenu } from './ProfileMenu';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export const AppNavbar = () => {
-    const window = useWindowDimensions();
     const Tab = createBottomTabNavigator();
 
     const tabBarIconStyle = (focused: boolean) => ({
         ...styles.icon,
         backgroundColor: focused ? '#4A4458' : '#211F26',
+        marginTop: 4,
     });
 
     const tabBarLabelStyle = {
         ...styles.label,
-        marginBottom: window.width <= 768 ? 7 : 0,
-        marginLeft: window.width <= 768 ? 0 : 30,
+        marginBottom: 8,
     };
 
     const getTabScreenOptions = (label: string, iconName: keyof typeof MaterialIcons.glyphMap) => ({
@@ -40,8 +39,6 @@ export const AppNavbar = () => {
                 tabBarStyle: {
                     backgroundColor: '#211F26',
                     borderTopWidth: 0,
-                    height: 58,
-                    paddingVertical: 8,
                 },
                 headerRight: () => <ProfileMenu />,
             }}>
@@ -86,7 +83,7 @@ export const AppNavbar = () => {
 const styles = StyleSheet.create({
     icon: {
         backgroundColor: '#332D41',
-        width: 46,
+        width: '50%',
         height: 24,
         borderRadius: 15,
         alignItems: 'center',
