@@ -46,7 +46,7 @@ export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     const filteringDate = date.toISOString().split('T')[0];
 
     return profile.schedule.filter((lesson) => {
-        if (profile.settings.hidden.length > 0) {
+        if (profile.settings.hidden && profile.settings.hidden.length > 0) {
             const subject = profile.settings.hidden.find((item) => item.l === lesson.l);
             if (subject && !subject.isVisible) {
                 return false;
