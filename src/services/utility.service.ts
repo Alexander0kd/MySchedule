@@ -46,7 +46,13 @@ export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     const filteringDate = date.toISOString().split('T')[0];
 
     return profile.schedule.filter((lesson) => {
-        // ?: Placeholder for future filtering of hidden lessons
+        if (profile.settings.hidden && profile.settings.hidden.length > 0) {
+            const subject = profile.settings.hidden.find((item) => item.l === lesson.l);
+            if (subject && !subject.isVisible) {
+                return false;
+            }
+        }
+
         return lesson.d === filteringDate;
     });
 }
@@ -122,22 +128,43 @@ export function getFacultyFullName(uni: AvailableUni, facultyId: string): string
  */
 export async function openModal(title: string, text: string, cancelText: string, continueText: string): Promise<boolean> {
     return new Promise((resolve) => {
-        Alert.alert(title, text,
-            [{
-                text: cancelText,
-                onPress: () => resolve(false),
-                style: 'cancel',
-            },
-            {
-                text: continueText,
-                onPress: () => resolve(true)
-            }],
+        Alert.alert(
+            title,
+            text,
+            [
+                {
+                    text: cancelText,
+                    onPress: () => resolve(false),
+                    style: 'cancel',
+                },
+                {
+                    text: continueText,
+                    onPress: () => resolve(true),
+                },
+            ],
             {
                 cancelable: true,
                 userInterfaceStyle: 'dark',
             }
         );
     });
+}
+
+/**
+ * Retrieves an array of unique schedule items from a given array.
+ * @param schedule - Array containing schedule information.
+ * @returns An array of unique schedule items.
+ */
+export function getUniqueSchedule(schedule: ISchedule[]): string[] {
+    const uniqueItems: string[] = [];
+
+    schedule.forEach((lesson: ISchedule) => {
+        if (!uniqueItems.includes(lesson.l)) {
+            uniqueItems.push(lesson.l);
+        }
+    });
+
+    return uniqueItems;
 }
 
 /**

@@ -4,9 +4,9 @@ import { TransitionPresets } from '@react-navigation/stack';
 
 import { SettingsButtons } from './SettingsButtons';
 import { Notification } from './Notification/Notification';
-import { SettingsShedule } from './Schedule/SettingsShedule';
 import { ProfileMenu } from '../Navigation/ProfileMenu';
 import { ProfileStack } from './Profile/ProfileStack';
+import { ScheduleList } from './Schedule/ScheduleList';
 
 export const Settings = () => {
     const Stack = createStackNavigator();
@@ -51,7 +51,7 @@ export const Settings = () => {
             />
             <Stack.Screen
                 name="SettingsShedule"
-                component={SettingsShedule}
+                component={ScheduleList}
                 options={{
                     title: 'Налаштування занять',
                     ...modalScreenOptions,

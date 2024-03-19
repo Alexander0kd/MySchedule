@@ -47,20 +47,20 @@ export const Schedule = () => {
         try {
             setIsLoading(true);
 
-            await getActiveProfile().then(async (profile) => {
-                const schedule: ISchedule[] = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
+            const profile = await getActiveProfile();
 
-                if (schedule && schedule.length > 0 && profile.schedule !== schedule) {
-                    profile.schedule = schedule;
-                }
-                profile.lastUpdate = new Date();
+            const schedule: ISchedule[] = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
 
-                setActiveProfile(profile);
+            if (schedule && schedule.length > 0 && profile.schedule !== schedule) {
+                profile.schedule = schedule;
+            }
+            profile.lastUpdate = new Date();
 
-                await updateProfileById(profile.id, profile, true).then(() => {
-                    setFilteredSchedule(filterSchedule(currentDate, profile));
-                    setIsLoading(false);
-                });
+            setActiveProfile(profile);
+
+            await updateProfileById(profile.id, profile, true).then(() => {
+                setFilteredSchedule(filterSchedule(currentDate, profile));
+                setIsLoading(false);
             });
         } catch (error) {
             handleError(error);
@@ -69,9 +69,8 @@ export const Schedule = () => {
 
     const onRefresh = async () => {
         setIsRefreshing(true);
-        await loadData().then(() => {
-            setIsRefreshing(false);
-        });
+        await loadData();
+        setIsRefreshing(false);
     };
 
     const handleDataPickerOpen = (status: boolean) => {
@@ -112,7 +111,7 @@ export const Schedule = () => {
     };
 
     if (isLoading) {
-        return <LoadingScreen></LoadingScreen>;
+        return <LoadingScreen />;
     }
 
     return (
