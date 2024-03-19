@@ -152,15 +152,13 @@ export async function openModal(title: string, text: string, cancelText: string,
 
 /**
  * Retrieves an array of unique schedule items from a given profile.
- * @param profile - The profile object containing schedule information.
+ * @param schedule - Array containing schedule information.
  * @returns An array of unique schedule items extracted from the profile. If the profile or schedule is empty, an empty array is returned.
  */
-export function getUniqueSchedule(profile: IProfile): string[] {
-    if (!profile || !profile.schedule) return [];
-
+export function getUniqueSchedule(schedule: ISchedule[]): string[] {
     const uniqueItems: string[] = [];
 
-    profile.schedule.forEach((lesson: ISchedule) => {
+    schedule.forEach((lesson: ISchedule) => {
         if (!uniqueItems.includes(lesson.l)) {
             uniqueItems.push(lesson.l);
         }

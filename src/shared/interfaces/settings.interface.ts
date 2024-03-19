@@ -1,10 +1,10 @@
 /**
  * Представляє елемент налаштувань профілю.
- * @param {IHiddenSchedule} hidden - Масив прихованих пар.
+ * @param {IHiddenItem} hidden - Масив прихованих пар.
  * @param {INotification} notification - Налаштування сповіщень.
  */
 export interface ISettings {
-    hidden: IHiddenSchedule[];
+    hidden: IHiddenItem[];
     notification: INotification;
 }
 
@@ -13,7 +13,7 @@ export interface ISettings {
  * @param {string} l - Назва предмету.
  * @param {boolean} isVisible - Видимість предмету.
  */
-export interface IHiddenSchedule {
+export interface IHiddenItem {
     l: string;
     isVisible: boolean;
 }

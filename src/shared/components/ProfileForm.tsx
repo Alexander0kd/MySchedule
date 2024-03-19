@@ -170,7 +170,10 @@ export const ProfileForm: FunctionComponent<{
                 groupName: selectedGroup ? selectedGroup.label : 'undefined',
                 schedule: [],
                 notes: [],
-                settings: {},
+                settings: {
+                    hidden: [],
+                    notification: {}
+                },
                 lastUpdate: new Date(),
             };
 
