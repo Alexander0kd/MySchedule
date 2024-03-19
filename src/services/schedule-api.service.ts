@@ -8,10 +8,6 @@ import { getYearRequest, handleError } from './utility.service';
 import { ISchedule } from '../shared/interfaces/schedule.interface';
 import { IDropdown } from '../shared/interfaces/dropdown.interface';
 
-import {ISubject} from "../shared/interfaces/subject.interface";
-import subjectService from "./subject.service";
-import {saveSubjectsForGroup} from "./local-storage.service";
-
 /**
  * Retrieves the list of faculties for the specified university.
  * @param uni The enum value representing the university.
@@ -80,44 +76,6 @@ export async function getGroupSchedule(url: UniEndpoints, facultyId: string, gro
         data = data.replace(/{(\w+):/g, '{"$1":');
 
         return JSON.parse(data);
-    } catch (error) {
-        handleError(error);
-        return [];
-    }
-}
-
-/**
- * Retrieves the list of subjects for the specified group.
- * @returns An array of subject objects.
- * @param url
- * @param facultyId
- * @param groupId
- */
-export async function getGroupSubjects(url: UniEndpoints, facultyId: string, groupId: string): Promise<ISubject[]> {
-    const formatedGroupId = String(groupId).padStart(6, '0');
-    const fullURL = `https://${url}/${getYearRequest()}/static/groups/${facultyId}/${formatedGroupId}/index.js`;
-
-    try {
-        const response = await axios.get(fullURL);
-        let data = response.data.replace(/^.*?=/, '');
-        data = data.replace(/,(\w+):/g, ',"$1":');
-        data = data.replace(/{(\w+):/g, '{"$1":');
-
-        const scheduleData = JSON.parse(data);
-        subjectService.groupSubjects =[];
-
-        scheduleData.forEach((day) => {
-            for (const [key, value] of Object.entries(day)) {
-                if ((key === 'l') && (typeof value === 'string')) {
-                    if ((!value.includes('Письм.Екз.-')) && (!subjectService.groupSubjects.find(subject => subject.l === value))) {
-                        subjectService.addSubject(value);
-                    }
-                }
-            }
-        });
-        await saveSubjectsForGroup(groupId,subjectService.groupSubjects);
-        console.log(subjectService.groupSubjects)
-        return subjectService.groupSubjects;
     } catch (error) {
         handleError(error);
         return [];

@@ -1,18 +1,18 @@
-import {RouteProp, useNavigation} from '@react-navigation/native';
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';
 import { LoadingScreen } from '../../../../shared/components/LoadingScreen';
-import {StackNavigationProp} from "@react-navigation/stack";
-import {IProfile} from "../../../../shared/interfaces/profile.interface";
-import {getProfileById, setActiveProfile, updateProfileById} from "../../../../services/local-storage.service";
-import {handleError, openModal} from "../../../../services/utility.service";
-import {ProfileForm} from "../../../../shared/components/ProfileForm";
-import {ThinButton} from "../../../../shared/components/ThinButton";
-import {RoundButton} from "../../../../shared/components/RoundButton";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { IProfile } from '../../../../shared/interfaces/profile.interface';
+import { getProfileById, setActiveProfile, updateProfileById } from '../../../../services/local-storage.service';
+import { handleError, openModal } from '../../../../services/utility.service';
+import { ProfileForm } from '../../../../shared/components/ProfileForm';
+import { ThinButton } from '../../../../shared/components/ThinButton';
+import { RoundButton } from '../../../../shared/components/RoundButton';
 
 export const ProfileEdit: FunctionComponent<{
-    route: RouteProp<AvailableRoutes>
+    route: RouteProp<AvailableRoutes>;
 }> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
@@ -27,7 +27,6 @@ export const ProfileEdit: FunctionComponent<{
             const profileUpdated = await updateProfileById(props.route.params.profileId, profileData, false);
             if (profileUpdated) {
                 await setActiveProfile(profileData.id);
-                await getGroupSubjects(UniEndpoints[profileData.university], profileData.faculty, profileData.group);
                 navigation.push('AppNavbar');
             }
         } catch (error) {
@@ -45,19 +44,14 @@ export const ProfileEdit: FunctionComponent<{
                 navigation.push('ProfileAdd');
             }
             setIsLoading(false);
-        }
+        };
 
         loadData();
 
         navigation.addListener('beforeRemove', async (e) => {
             e.preventDefault();
 
-            const modal = await openModal(
-                'Бажаєте скасувати редагування?',
-                'Цю дію неможливо відмінити',
-                'Ні, залишитись',
-                'Так, скасувати'
-            );
+            const modal = await openModal('Бажаєте скасувати редагування?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
 
             if (modal) {
                 navigation.dispatch(e.data.action);

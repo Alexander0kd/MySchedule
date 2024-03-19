@@ -4,15 +4,14 @@ import { View, StyleSheet, ScrollView, Text, RefreshControl, Dimensions } from '
 import { DropDown } from './Dropdown';
 import { DateBlock } from './DateBlock';
 import { DatePicker } from './DatePicker';
-import {getActiveProfile, getSubjectsForGroup, updateProfileById} from '../../services/local-storage.service';
+import { getActiveProfile, updateProfileById } from '../../services/local-storage.service';
 import { IProfile } from '../../shared/interfaces/profile.interface';
-import {getGroupSchedule} from '../../services/schedule-api.service';
+import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
 import { filterSchedule, formatDateWithTime, handleError } from '../../services/utility.service';
 import { LoadingScreen } from '../../shared/components/LoadingScreen';
 import { useIsFocused } from '@react-navigation/native';
-import {ISubject} from "../../shared/interfaces/subject.interface";
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,8 +27,6 @@ export const Schedule = () => {
     const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
     const [isCanSwipe, setIsCanSwipe] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-
-    const [subjects, setSubjects] = useState<ISubject[]>([]);
 
     useEffect(() => {
         loadData();
@@ -52,13 +49,8 @@ export const Schedule = () => {
 
             const profile = await getActiveProfile();
 
-            const schedule: ISchedule[] = await getGroupSchedule(
-                UniEndpoints[profile.university],
-                profile.faculty,
-                profile.group
-            );
+            const schedule: ISchedule[] = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
 
-            console.log("schedule", schedule);
             if (schedule && schedule.length > 0 && profile.schedule !== schedule) {
                 profile.schedule = schedule;
             }
@@ -66,15 +58,10 @@ export const Schedule = () => {
 
             setActiveProfile(profile);
 
-            await updateProfileById(profile.id, profile, true);
-
-            setFilteredSchedule(filterSchedule(currentDate, profile));
-
-            setIsLoading(false);
-
-            const groupSubjects = await getSubjectsForGroup(profile.group);
-
-            setSubjects(groupSubjects);
+            await updateProfileById(profile.id, profile, true).then(() => {
+                setFilteredSchedule(filterSchedule(currentDate, profile));
+                setIsLoading(false);
+            });
         } catch (error) {
             handleError(error);
         }
@@ -126,6 +113,7 @@ export const Schedule = () => {
     if (isLoading) {
         return <LoadingScreen />;
     }
+
     return (
         <View style={styles.container}>
             <PanGestureHandler onGestureEvent={onSwipeEvent} onHandlerStateChange={onSwipeEnd} maxPointers={1} activeOffsetX={[-20, 20]}>
@@ -133,12 +121,10 @@ export const Schedule = () => {
                     <DateBlock date={currentDate} onBackward={handleBackward} onForward={handleForward} handleDataPickerOpen={handleDataPickerOpen} />
                     <ScrollView style={{ marginTop: 45 }} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
                         <View style={{ ...styles.container, paddingBottom: 48 }}>
-                            {filteredSchedule.length === 0 || filteredSchedule.some(lesson => subjects?.some(subject => subject.l === lesson.l && !subject.v)) ? (
+                            {filteredSchedule.length === 0 ? (
                                 <Text style={styles.noClassesText}>Сьогодні пар немає 😊</Text>
                             ) : (
-                                filteredSchedule
-                                    .filter(lesson => subjects?.some(subject => subject.l === lesson.l && subject.v))
-                                    .map((lesson: ISchedule, index: number) => <DropDown key={`${lesson.d}-${index}`} lesson={lesson} />)
+                                filteredSchedule.map((lesson: ISchedule, index: number) => <DropDown key={`${lesson.d}-${index}`} lesson={lesson} />)
                             )}
                         </View>
                     </ScrollView>

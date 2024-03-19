@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
-import {getActiveProfile, getSubjectsForGroup, saveSubjectsForGroup} from '../../../../services/local-storage.service';
-import { ISubject } from '../../../../shared/interfaces/subject.interface';
-import { openModal, truncateString } from '../../../../services/utility.service';
+import { getActiveProfile } from '../../../services/local-storage.service';
+import { handleError, openModal, truncateString } from '../../../services/utility.service';
 import Eye from '../../../../../assets/eye-open.png';
 import EyeClosed from '../../../../../assets/eye-closed.png';
-import subjectService from "../../../../services/subject.service";
 
 export const SettingsSchedule = () => {
-    const [activeSubjects, setActiveSubjects] = useState<ISubject[]>([]);
     const windowWidth = useWindowDimensions().width;
+
+    const [activeSubjects, setActiveSubjects] = useState<ISubject[]>([]);
     const [closedEyes, setClosedEyes] = useState<Set<string>>(new Set());
     const [group, setGroup] = useState<string>('');
 
@@ -26,13 +25,13 @@ export const SettingsSchedule = () => {
                 subjectService.groupSubjects = subjects;
                 setActiveSubjects(subjects);
 
-                subjects.forEach(subject => {
+                subjects.forEach((subject) => {
                     if (!subject.v) {
-                        setClosedEyes(prevState => new Set(prevState.add(subject.l)));
+                        setClosedEyes((prevState) => new Set(prevState.add(subject.l)));
                     }
                 });
             } catch (error) {
-                console.error(error);
+                handleError(error);
             }
         };
 
@@ -41,16 +40,11 @@ export const SettingsSchedule = () => {
 
     const handleOpenModal = async (nameSubject: string) => {
         if (!closedEyes.has(nameSubject)) {
-            const modal = await openModal(
-                'Бажаєте Приховати цей предмет?',
-                `Приховати предмет "${nameSubject}"`,
-                'Скасувати',
-                'Приховати'
-            );
+            const modal = await openModal('Бажаєте Приховати цей предмет?', `Приховати предмет "${nameSubject}"`, 'Скасувати', 'Приховати');
 
             if (modal) {
-                setClosedEyes(prevState => new Set(prevState.add(nameSubject)));
-                const updatedSubjects = activeSubjects.map(subject => {
+                setClosedEyes((prevState) => new Set(prevState.add(nameSubject)));
+                const updatedSubjects = activeSubjects.map((subject) => {
                     if (subject.l === nameSubject) {
                         return { ...subject, v: false };
                     }
@@ -61,18 +55,18 @@ export const SettingsSchedule = () => {
                 subjectService.groupSubjects = updatedSubjects;
                 await saveSubjectsForGroup(group, subjectService.groupSubjects);
 
-                if (updatedSubjects.find(subject => subject.l === nameSubject && !subject.v)) {
-                    setClosedEyes(prevState => new Set(prevState.add(nameSubject)));
+                if (updatedSubjects.find((subject) => subject.l === nameSubject && !subject.v)) {
+                    setClosedEyes((prevState) => new Set(prevState.add(nameSubject)));
                 }
             }
         } else {
-            setClosedEyes(prevState => {
+            setClosedEyes((prevState) => {
                 const updatedClosedEyes = new Set(prevState);
                 updatedClosedEyes.delete(nameSubject);
                 return updatedClosedEyes;
             });
 
-            const updatedSubjects = activeSubjects.map(subject => {
+            const updatedSubjects = activeSubjects.map((subject) => {
                 if (subject.l === nameSubject) {
                     return { ...subject, v: true };
                 }
@@ -83,8 +77,8 @@ export const SettingsSchedule = () => {
             subjectService.groupSubjects = updatedSubjects;
             await saveSubjectsForGroup(group, subjectService.groupSubjects);
 
-            if (!updatedSubjects.find(subject => subject.l === nameSubject && !subject.v)) {
-                setClosedEyes(prevState => {
+            if (!updatedSubjects.find((subject) => subject.l === nameSubject && !subject.v)) {
+                setClosedEyes((prevState) => {
                     const updatedClosedEyes = new Set(prevState);
                     updatedClosedEyes.delete(nameSubject);
                     return updatedClosedEyes;
@@ -109,7 +103,6 @@ export const SettingsSchedule = () => {
             </View>
         </ScrollView>
     );
-
 };
 
 const styles = StyleSheet.create({
@@ -140,4 +133,3 @@ const styles = StyleSheet.create({
         height: 15,
     },
 });
-
