@@ -78,7 +78,7 @@ export const ProfileEdit: FunctionComponent<{
                 <ThinButton
                     label="Скасувати"
                     onPressFunc={() => {
-                        navigation.replace('ProfileList');
+                        navigation.goBack();
                     }}
                 />
                 <RoundButton
