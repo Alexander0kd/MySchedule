@@ -20,14 +20,14 @@ export const ScheduleList = () => {
             const uniqueSchedule = getUniqueSchedule(profile.schedule);
 
             uniqueSchedule.forEach((item: string) => {
-                if (!scheduleSettings.some((scheduleItem) => scheduleItem.l === item ) && !item.includes('Письм.Екз.-')) {
+                if (!scheduleSettings.some((scheduleItem) => scheduleItem.l === item) && !item.includes('Письм.Екз.-')) {
                     scheduleSettings.push({
                         l: item,
-                        isVisible: true
+                        isVisible: true,
                     });
                 }
             });
-            
+
             scheduleSettings.sort((a, b) => a.l.localeCompare(b.l));
 
             setSubjects(scheduleSettings);
@@ -45,8 +45,7 @@ export const ScheduleList = () => {
             const hiddenItem = scheduleSettings.findIndex((itm) => itm.l === item.l);
             if (hiddenItem !== -1) {
                 scheduleSettings[hiddenItem].isVisible = item.isVisible;
-            }
-            else {
+            } else {
                 scheduleSettings.push(item);
             }
 

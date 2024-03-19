@@ -6,8 +6,8 @@ import EyeClosed from '../../../../assets/eye-closed.png';
 import { IHiddenItem } from '../../../shared/interfaces/settings.interface';
 
 export const ScheduleItem: FunctionComponent<{
-    subject: IHiddenItem
-    onVisibilityChange: (item: IHiddenItem) => void
+    subject: IHiddenItem;
+    onVisibilityChange: (item: IHiddenItem) => void;
 }> = (props) => {
     const handleOpenModal = async (nameSubject: string) => {
         if (props.subject.isVisible) {
@@ -24,19 +24,17 @@ export const ScheduleItem: FunctionComponent<{
             }
             return;
         }
-        
+
         props.subject.isVisible = true;
         props.onVisibilityChange(props.subject);
     };
 
     return (
-        <TouchableOpacity 
-            style={{ ...styles.container, backgroundColor: props.subject.isVisible ? '#332D41' : '#1d192b' }} 
+        <TouchableOpacity
+            style={{ ...styles.container, backgroundColor: props.subject.isVisible ? '#332D41' : '#1d192b' }}
             onPress={() => handleOpenModal(props.subject.l)}>
-                <Text style={{ ...styles.text, textDecorationLine: props.subject.isVisible ? 'none' : 'line-through' }}>
-                    {props.subject.l}
-                </Text>
-                <Image source={props.subject.isVisible ? Eye : EyeClosed} style={styles.eye} />
+            <Text style={{ ...styles.text, textDecorationLine: props.subject.isVisible ? 'none' : 'line-through' }}>{props.subject.l}</Text>
+            <Image source={props.subject.isVisible ? Eye : EyeClosed} style={styles.eye} />
         </TouchableOpacity>
     );
 };
