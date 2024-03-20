@@ -1,18 +1,18 @@
-import {RouteProp, useNavigation} from '@react-navigation/native';
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';
 import { LoadingScreen } from '../../../../shared/components/LoadingScreen';
-import {StackNavigationProp} from "@react-navigation/stack";
-import {IProfile} from "../../../../shared/interfaces/profile.interface";
-import {getProfileById, setActiveProfile, updateProfileById} from "../../../../services/local-storage.service";
-import {handleError, openModal} from "../../../../services/utility.service";
-import {ProfileForm} from "../../../../shared/components/ProfileForm";
-import {ThinButton} from "../../../../shared/components/ThinButton";
-import {RoundButton} from "../../../../shared/components/RoundButton";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { IProfile } from '../../../../shared/interfaces/profile.interface';
+import { getProfileById, setActiveProfile, updateProfileById } from '../../../../services/local-storage.service';
+import { handleError, openModal } from '../../../../services/utility.service';
+import { ProfileForm } from '../../../../shared/components/ProfileForm';
+import { ThinButton } from '../../../../shared/components/ThinButton';
+import { RoundButton } from '../../../../shared/components/RoundButton';
 
 export const ProfileEdit: FunctionComponent<{
-    route: RouteProp<AvailableRoutes>
+    route: RouteProp<AvailableRoutes>;
 }> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
 
@@ -44,7 +44,7 @@ export const ProfileEdit: FunctionComponent<{
                 navigation.push('ProfileAdd');
             }
             setIsLoading(false);
-        }
+        };
 
         loadData();
 
@@ -78,7 +78,7 @@ export const ProfileEdit: FunctionComponent<{
                 <ThinButton
                     label="Скасувати"
                     onPressFunc={() => {
-                        navigation.replace('ProfileList');
+                        navigation.goBack();
                     }}
                 />
                 <RoundButton

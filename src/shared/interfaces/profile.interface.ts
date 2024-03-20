@@ -4,7 +4,7 @@ import { ISettings } from './settings.interface';
 import { AvailableUni } from '../universities/available-uni.enum';
 
 /**
- * @interface IProfile Представляє профіль користувача.
+ * Представляє профіль користувача.
  * @param {string} id - Ідентифікатор профілю.
  * @param {AvailableUni} university - Університет.
  * @param {string} faculty - Факультет.

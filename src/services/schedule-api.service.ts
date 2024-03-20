@@ -46,8 +46,8 @@ export async function getGroupList(uni: UniEndpoints, facultyId: number, year: n
         const groups = JSON.parse(data);
 
         return groups.filter((group: IGroup) => {
-            const groupNumbers = group.l.match(/\d+/);
-            const groupFirstChar = groupNumbers ? groupNumbers[0] : 0;
+            const groupNumbers = group.l.match(/-(\d+)/);
+            const groupFirstChar = groupNumbers ? groupNumbers[0].replaceAll('-', '') : 0;
 
             return group.f === facultyId && year == groupFirstChar[0];
         });
