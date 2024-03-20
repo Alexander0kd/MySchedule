@@ -10,15 +10,19 @@ import { PnuFaculty } from '../shared/universities/faculty/pnu.faculty';
  * @returns A formatted string representing the last update date.
  */
 export function formatDateWithTime(date: Date): string {
-    const day = new Intl.DateTimeFormat('uk-UA', {
-        day: 'numeric',
-        month: 'long',
-    }).format(new Date());
-
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    return `${day} | ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    try {
+        const day = new Intl.DateTimeFormat('uk-UA', {
+            day: 'numeric',
+            month: 'long',
+        }).format(date);
+    
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+    
+        return `${day} | ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    } catch {
+        return date.toString();
+    }
 }
 
 /**

@@ -1,8 +1,8 @@
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
-import { NotesList } from './NotesList';
-import { NotesEdit } from './NotesEdit';
-import { NotesAdd } from './NotesAdd';
+import { NotesList } from './NotesList/NotesList';
+import { NotesEdit } from './NotesEdit/NotesEdit';
+import { NotesAdd } from './NotesAdd/NotesAdd';
 
 export const NotesStack = () => {
     const Stack = createStackNavigator();

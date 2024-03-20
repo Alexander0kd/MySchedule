@@ -8,10 +8,12 @@ import { addProfile, setActiveProfile } from '../../../../services/local-storage
 import { handleError, openModal } from '../../../../services/utility.service';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';
-import { useNavigation } from '@react-navigation/native';
+import { EventArg, useNavigation } from '@react-navigation/native';
 
 export const ProfileAdd = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
+
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(true);
 
     const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
     const [profileData, setProfileData] = useState<IProfile>(null);
@@ -21,7 +23,10 @@ export const ProfileAdd = () => {
             const profileAdded = await addProfile(profileData);
             if (profileAdded) {
                 await setActiveProfile(profileData.id);
-                navigation.push('AppNavbar');
+                setIsOpenModal(false);
+                setTimeout(() => {
+                    navigation.goBack();
+                }, 10);
             }
         } catch (error) {
             handleError(error);
@@ -29,7 +34,16 @@ export const ProfileAdd = () => {
     };
 
     useEffect(() => {
-        navigation.addListener('beforeRemove', async (e) => {
+        if (!isOpenModal) return;
+        
+        async function handleBeforeUnload(e: EventArg<"beforeRemove", true, {
+            action: Readonly<{
+                type: string;
+                payload?: object;
+                source?: string;
+                target?: string;
+            }>;
+        }>) {
             e.preventDefault();
 
             const modal = await openModal(
@@ -42,8 +56,14 @@ export const ProfileAdd = () => {
             if (modal) {
                 navigation.dispatch(e.data.action);
             }
-        });
-    }, []);
+        }
+
+        navigation.addListener('beforeRemove', handleBeforeUnload);
+
+        return () => {
+            navigation.removeListener('beforeRemove', handleBeforeUnload);
+        }
+    }, [isOpenModal]);
 
     return (
         <View style={styles.section}>

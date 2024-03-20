@@ -32,10 +32,6 @@ export const ProfileList = () => {
     };
 
     useEffect(() => {
-        loadProfiles();
-    }, []);
-
-    useEffect(() => {
         if (isFocused) {
             loadProfiles();
         }
@@ -60,11 +56,11 @@ export const ProfileList = () => {
     };
 
     const addProfile = () => {
-        navigation.push('ProfileAdd');
+        navigation.navigate('ProfileAdd');
     };
 
     const editProfile = (id: string) => {
-        navigation.push('ProfileEdit', {
+        navigation.navigate('ProfileEdit', {
             profileId: id,
         });
     };

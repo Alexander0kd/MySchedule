@@ -1,11 +1,13 @@
+import { INote } from "../interfaces/notes.interface";
+
 export type AvailableRoutes = {
     OnboardingPage: undefined;
 
     AppNavbar: undefined;
 
     NotesList: undefined;
-    NotesAdd: undefined;
-    NotesEdit: undefined;
+    NotesEdit: { noteGroup: INote, noteId: number };
+    NotesAdd: { noteGroup: INote };
 
     SettingsProfile: undefined;
 

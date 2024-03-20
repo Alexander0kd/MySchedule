@@ -1,32 +1,28 @@
 import React, { useState, FunctionComponent, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { INote, INoteData } from '../../shared/interfaces/notes.interface';
+import { INote, INoteData } from '../../../shared/interfaces/notes.interface';
 
-import Arrow from '../../../assets/arrow_drop_down.png';
-import More from '../../../assets/more_vert.png';
-import Plus from '../../../assets/plus-icon.png';
-import Edit from '../../../assets/edit.png';
-import Trash from '../../../assets/trashcan.png';
-import { truncateString } from '../../services/utility.service';
+import Arrow from '../../../../assets/arrow_drop_down.png';
+import More from '../../../../assets/more_vert.png';
+import Plus from '../../../../assets/plus-icon.png';
+import Edit from '../../../../assets/edit.png';
+import Trash from '../../../../assets/trashcan.png';
+import { formatDateWithTime } from '../../../services/utility.service';
 
 export const NotesDropdown: FunctionComponent<{
     note: INote;
-    noteAddFn;
-    noteDeleteFn;
-    noteEditFn;
-    // isActive;
+    noteAddFn: (noteGroup: INote) => void;
+    noteDeleteFn: (noteGroup: INote, noteId: number) => void;
+    noteEditFn: (noteGroup: INote, noteId: number) => void;
 }> = (props) => {
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
-    const [isMenuVisible, setMenuVisible] = useState<boolean[]>(new Array(props.note.notes.length));
+    const [isMenuVisible, setMenuVisible] = useState<boolean[]>(new Array(props.note.data.length));
 
     useEffect(() => {
         if (!isDropdownVisible) {
-            setMenuVisible(new Array(props.note.notes.length));
+            setMenuVisible(new Array(props.note.data.length));
         }
-        // if (props.isActive) {
-        //     toggleDropdown;
-        // }
     }, [isDropdownVisible]);
 
     const toggleMenu = (index: number) => {
@@ -49,21 +45,19 @@ export const NotesDropdown: FunctionComponent<{
         <ScrollView style={styles.container}>
             <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
-                    <View>
-                        <Text style={{ ...styles.buttonText, fontWeight: '500' }}>{truncateString(props.note.subject, 30)}</Text>
-                    </View>
+                    <Text style={{ ...styles.buttonText, fontWeight: '500', flex: 1 }} numberOfLines={1}>{props.note.subject}</Text>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
             </Pressable>
 
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
-                    {props.note.notes.map((noteData: INoteData, indx: number) => (
+                    {props.note.data.map((noteData: INoteData, indx: number) => (
                         <View key={indx} style={styles.mainContainer}>
                             <View style={styles.noteLine}></View>
 
                             <View style={styles.noteGroup}>
-                                <Text style={styles.noteDate}>{noteData.date}</Text>
+                                <Text style={styles.noteDate}>{formatDateWithTime(new Date(noteData.date))}</Text>
 
                                 <ScrollView>
                                     <Text style={styles.infoText}>{noteData.text}</Text>
@@ -78,11 +72,11 @@ export const NotesDropdown: FunctionComponent<{
 
                             {isMenuVisible[indx] && (
                                 <View style={styles.menuContainer}>
-                                    <TouchableOpacity style={styles.menuButton} onPress={() => props.noteEditFn(noteData.id)}>
+                                    <TouchableOpacity style={styles.menuButton} onPress={() => props.noteEditFn(props.note, indx)}>
                                         <Image source={Edit} style={[styles.iconMoreMenu, { tintColor: '#e6e0e9' }]} />
                                         <Text style={styles.menuButtonText}>Редагувати</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={styles.menuButton} onPress={() => props.noteDeleteFn(noteData.id)}>
+                                    <TouchableOpacity style={styles.menuButton} onPress={() => props.noteDeleteFn(props.note, indx)}>
                                         <Image source={Trash} style={[styles.iconMoreMenu, { tintColor: '#DC362E' }]} />
                                         <Text style={[styles.menuButtonText, { color: '#DC362E' }]}>Видалити</Text>
                                     </TouchableOpacity>
@@ -92,7 +86,7 @@ export const NotesDropdown: FunctionComponent<{
                     ))}
 
                     <View style={styles.actions}>
-                        <TouchableOpacity onPress={() => props.noteAddFn()} style={[styles.button, styles.buttonSecond]}>
+                        <TouchableOpacity onPress={() => props.noteAddFn(props.note)} style={[styles.button, styles.buttonSecond]}>
                             <View style={styles.buttonContent}>
                                 <Image source={Plus} style={styles.icon} />
                                 <Text style={styles.buttonText}>Додати нотатку</Text>
@@ -129,7 +123,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white',
-        textAlign: 'center',
     },
     button: {
         flex: 1,
@@ -148,6 +141,7 @@ const styles = StyleSheet.create({
         width: 9,
         height: 5,
         justifyContent: 'flex-end',
+        marginLeft: 16,
     },
     dropdownContent: {
         padding: 24,

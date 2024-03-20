@@ -5,8 +5,8 @@ import { Schedule } from '../Schedule/Schedule';
 import { Settings } from '../Settings/Settings';
 import { Information } from '../Information/Information';
 import { ProfileMenu } from './ProfileMenu';
-import { NotesList } from '../Notes/NotesList';
 import { MaterialIcons } from '@expo/vector-icons';
+import { NotesStack } from '../Notes/NotesStack';
 
 export const AppNavbar = () => {
     const Tab = createBottomTabNavigator();
@@ -51,9 +51,10 @@ export const AppNavbar = () => {
                 }}
             />
             <Tab.Screen
-                name="NotesList"
-                component={NotesList}
+                name="NotesStack"
+                component={NotesStack}
                 options={{
+                    headerShown: false,
                     headerTitle: 'Нотатки',
                     ...getTabScreenOptions('Нотатки', 'sticky-note-2'),
                 }}
