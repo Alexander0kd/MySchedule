@@ -33,16 +33,16 @@ export const NotesList = () => {
 
     const addNote = (noteGroup: INote) => {
         navigation.navigate('NotesAdd', {
-            noteGroup: noteGroup
+            noteGroup: noteGroup,
         });
-        
+
         fetchNotes();
     };
 
     const editNote = async (noteGroup: INote, noteId: number) => {
         navigation.navigate('NotesEdit', {
             noteGroup: noteGroup,
-            noteId: noteId
+            noteId: noteId,
         });
     };
 
@@ -63,13 +63,7 @@ export const NotesList = () => {
         <View style={styles.container}>
             <ScrollView>
                 {notes.map((note: INote, index: number) => (
-                    <NotesDropdown
-                        key={`${note.subject}-${index}`}
-                        note={note}
-                        noteAddFn={addNote}
-                        noteDeleteFn={deleteNote}
-                        noteEditFn={editNote}
-                    />
+                    <NotesDropdown key={`${note.subject}-${index}`} note={note} noteAddFn={addNote} noteDeleteFn={deleteNote} noteEditFn={editNote} />
                 ))}
             </ScrollView>
         </View>

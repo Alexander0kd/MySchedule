@@ -23,23 +23,24 @@ export const NotesEdit: FunctionComponent<{
 
     useEffect(() => {
         if (!isInputFilled) return;
-    
-        async function handleBeforeUnload(e: EventArg<"beforeRemove", true, {
-            action: Readonly<{
-                type: string;
-                payload?: object;
-                source?: string;
-                target?: string;
-            }>;
-        }>) {
+
+        async function handleBeforeUnload(
+            e: EventArg<
+                'beforeRemove',
+                true,
+                {
+                    action: Readonly<{
+                        type: string;
+                        payload?: object;
+                        source?: string;
+                        target?: string;
+                    }>;
+                }
+            >
+        ) {
             e.preventDefault();
 
-            const modal = await openModal(
-                'Бажаєте скасувати редагування?',
-                'Цю дію неможливо відмінити',
-                'Ні, залишитись',
-                'Так, скасувати'
-            );
+            const modal = await openModal('Бажаєте скасувати редагування?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
 
             if (modal) {
                 navigation.dispatch(e.data.action);
@@ -50,7 +51,7 @@ export const NotesEdit: FunctionComponent<{
 
         return () => {
             navigation.removeListener('beforeRemove', handleBeforeUnload);
-        }
+        };
     }, [isInputFilled]);
 
     const inputFillChecker = (text: string) => {
@@ -64,7 +65,7 @@ export const NotesEdit: FunctionComponent<{
         await updateNotesBySubject(noteGroup).then(() => {
             setIsInputFilled(false);
             setTimeout(() => {
-                navigation.navigate('NotesList')                
+                navigation.navigate('NotesList');
             }, 10);
         });
     };

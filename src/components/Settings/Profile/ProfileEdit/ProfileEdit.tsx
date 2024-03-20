@@ -42,23 +42,24 @@ export const ProfileEdit: FunctionComponent<{
 
     useEffect(() => {
         if (!isOpenModal) return;
-        
-        async function handleBeforeUnload(e: EventArg<"beforeRemove", true, {
-            action: Readonly<{
-                type: string;
-                payload?: object;
-                source?: string;
-                target?: string;
-            }>;
-        }>) {
+
+        async function handleBeforeUnload(
+            e: EventArg<
+                'beforeRemove',
+                true,
+                {
+                    action: Readonly<{
+                        type: string;
+                        payload?: object;
+                        source?: string;
+                        target?: string;
+                    }>;
+                }
+            >
+        ) {
             e.preventDefault();
 
-            const modal = await openModal(
-                'Бажаєте скасувати редагування?',
-                'Цю дію неможливо відмінити',
-                'Ні, залишитись',
-                'Так, скасувати'
-            );
+            const modal = await openModal('Бажаєте скасувати редагування?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
 
             if (modal) {
                 navigation.dispatch(e.data.action);
@@ -69,7 +70,7 @@ export const ProfileEdit: FunctionComponent<{
 
         return () => {
             navigation.removeListener('beforeRemove', handleBeforeUnload);
-        }
+        };
     }, [isOpenModal]);
 
     useEffect(() => {

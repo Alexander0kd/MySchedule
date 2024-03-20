@@ -22,12 +22,12 @@ export async function getAllSubjects(): Promise<INote[]> {
 
         const uniqueItems = getUniqueSchedule(schedule);
         uniqueItems.push('Власні нотатки');
-        
+
         uniqueItems.forEach((item) => {
             if (!notes.some((note) => note.subject === item) && !item.includes('Письм.Екз.')) {
                 notes.push({
                     subject: item,
-                    data: []
+                    data: [],
                 });
             }
         });
@@ -36,11 +36,11 @@ export async function getAllSubjects(): Promise<INote[]> {
             if (a.subject.includes('Власні нотатки') && !b.subject.includes('Власні нотатки')) {
                 return -1;
             }
-            
+
             if (!a.subject.includes('Власні нотатки') && b.subject.includes('Власні нотатки')) {
                 return 1;
             }
-            
+
             return a.subject.localeCompare(b.subject);
         });
     } catch (error) {
@@ -56,7 +56,7 @@ export async function getAllSubjects(): Promise<INote[]> {
  */
 export async function addNote(noteGroup: INote, noteData: INoteData) {
     const activeProfile = await getActiveProfile();
-    
+
     let foundNoteIndex = activeProfile.notes.findIndex((note) => note.subject === noteGroup.subject);
     if (foundNoteIndex === -1) {
         activeProfile.notes.push(noteGroup);
@@ -76,7 +76,7 @@ export async function addNote(noteGroup: INote, noteData: INoteData) {
  */
 export async function deleteNoteById(noteGroup: INote, noteId: number) {
     const activeProfile = await getActiveProfile();
-    
+
     const index = activeProfile.notes.findIndex((note) => note.subject === noteGroup.subject);
     if (index === -1) {
         handleError(new Error('Subject not found'));

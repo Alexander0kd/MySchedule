@@ -15,10 +15,10 @@ export function formatDateWithTime(date: Date): string {
             day: 'numeric',
             month: 'long',
         }).format(date);
-    
+
         const hours = date.getHours();
         const minutes = date.getMinutes();
-    
+
         return `${day} | ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
     } catch {
         return date.toString();

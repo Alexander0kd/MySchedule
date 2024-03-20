@@ -45,7 +45,9 @@ export const NotesDropdown: FunctionComponent<{
         <ScrollView style={styles.container}>
             <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
-                    <Text style={{ ...styles.buttonText, fontWeight: '500', flex: 1 }} numberOfLines={1}>{props.note.subject}</Text>
+                    <Text style={{ ...styles.buttonText, fontWeight: '500', flex: 1 }} numberOfLines={1}>
+                        {props.note.subject}
+                    </Text>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
             </Pressable>

@@ -17,7 +17,7 @@ export const NotesAdd: FunctionComponent<{
     route: RouteProp<AvailableRoutes, 'NotesAdd'>;
 }> = (props) => {
     const { noteGroup } = props.route.params;
-    
+
     const [inputText, setInputText] = useState<string>();
     const [isInputFilled, setIsInputFilled] = useState<boolean>(false);
 
@@ -25,23 +25,24 @@ export const NotesAdd: FunctionComponent<{
 
     useEffect(() => {
         if (!isInputFilled) return;
-    
-        async function handleBeforeUnload(e: EventArg<"beforeRemove", true, {
-            action: Readonly<{
-                type: string;
-                payload?: object;
-                source?: string;
-                target?: string;
-            }>;
-        }>) {
+
+        async function handleBeforeUnload(
+            e: EventArg<
+                'beforeRemove',
+                true,
+                {
+                    action: Readonly<{
+                        type: string;
+                        payload?: object;
+                        source?: string;
+                        target?: string;
+                    }>;
+                }
+            >
+        ) {
             e.preventDefault();
 
-            const modal = await openModal(
-                'Бажаєте скасувати додавання?',
-                'Цю дію неможливо відмінити',
-                'Ні, залишитись',
-                'Так, скасувати'
-            );
+            const modal = await openModal('Бажаєте скасувати додавання?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
 
             if (modal) {
                 navigation.dispatch(e.data.action);
@@ -52,9 +53,9 @@ export const NotesAdd: FunctionComponent<{
 
         return () => {
             navigation.removeListener('beforeRemove', handleBeforeUnload);
-        }
+        };
     }, [isInputFilled]);
-    
+
     const inputFillChecker = (text: string) => {
         setIsInputFilled(text.length > 0);
         setInputText(text);
@@ -65,11 +66,11 @@ export const NotesAdd: FunctionComponent<{
             text: text,
             date: new Date(),
         };
-    
+
         await addNote(noteGroup, noteData).then(() => {
             setIsInputFilled(false);
             setTimeout(() => {
-                navigation.navigate('NotesList')                
+                navigation.navigate('NotesList');
             }, 10);
         });
     };
