@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { AvailableRoutes } from '../../../shared/env/available-routes';
 import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { TextInput, View, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { TextInput, View, StyleSheet, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
 import { ThinButton } from '../../../shared/components/ThinButton';
 import { RoundButton } from '../../../shared/components/RoundButton';
 
@@ -11,7 +11,7 @@ import { INote, INoteData } from '../../../shared/interfaces/notes.interface';
 import { openModal } from '../../../services/utility.service';
 
 const { width, height } = Dimensions.get('window');
-const inputWidth = width - 24 * 2;
+const inputWidth = width;
 
 export const NotesAdd: FunctionComponent<{
     route: RouteProp<AvailableRoutes, 'NotesAdd'>;
@@ -77,27 +77,26 @@ export const NotesAdd: FunctionComponent<{
 
     return (
         <View style={styles.section}>
-            <View style={[styles.container, { maxHeight: height - 230 }]}>
-                <ScrollView>
-                    <TextInput
-                        style={styles.textInput}
-                        multiline={true}
-                        placeholder="Текст нотатки"
-                        placeholderTextColor="gray"
-                        onChangeText={(text) => inputFillChecker(text)}
-                    />
-                </ScrollView>
-            </View>
-
-            <View style={styles.wrapper}>
-                <ThinButton
-                    label="Скасувати"
-                    onPressFunc={() => {
-                        navigation.navigate('NotesList');
-                    }}
+            <View style={styles.container}>
+                <TextInput
+                    style={styles.textInput}
+                    multiline={true}
+                    placeholder="Текст нотатки"
+                    placeholderTextColor="gray"
+                    onChangeText={(text) => inputFillChecker(text)}
                 />
-                <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleAddNote(noteGroup, inputText)} />
             </View>
+            <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+                <View style={styles.wrapper}>
+                    <ThinButton
+                        label="Скасувати"
+                        onPressFunc={() => {
+                            navigation.navigate('NotesList');
+                        }}
+                    />
+                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleAddNote(noteGroup, inputText)} />
+                </View>
+            </KeyboardAvoidingView>
         </View>
     );
 };
@@ -132,8 +131,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
         letterSpacing: 0.5,
-        width: inputWidth,
         minHeight: 250,
+        width: inputWidth - 24 * 2,
+        maxHeight: height / 1.5,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
         textAlignVertical: 'top',
         textAlign: 'left',
     },
