@@ -4,6 +4,7 @@ import { IProfile } from '../shared/interfaces/profile.interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
 import { handleError } from './utility.service';
+import { handleNotificationUpdate } from './notification.service';
 
 enum STORAGE_KEYS {
     PROFILES = 'profiles',
@@ -168,7 +169,8 @@ export async function updateProfileConfiguration(id: string, editedProfileData: 
         profiles[profileIndex] = newProfile;
 
         await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
-
+        handleNotificationUpdate(profiles[profileIndex]);
+        
         return true;
     } catch (error) {
         handleError(error);
@@ -198,6 +200,7 @@ export async function updateProfileData(id: string, editedProfileData: IProfile)
         profiles[profileIndex].lastUpdate = editedProfileData.lastUpdate;
 
         await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
+        handleNotificationUpdate(profiles[profileIndex]);
 
         return true;
     } catch (error) {
