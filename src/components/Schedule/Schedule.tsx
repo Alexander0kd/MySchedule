@@ -4,7 +4,7 @@ import { View, StyleSheet, ScrollView, Text, RefreshControl, Dimensions } from '
 import { DropDown } from './Dropdown';
 import { DateBlock } from './DateBlock';
 import { DatePicker } from './DatePicker';
-import { getActiveProfile, updateProfileData } from '../../services/local-storage.service';
+import { getActiveProfile, updateProfileData } from '../../services/profile.service';
 import { IProfile } from '../../shared/interfaces/profile.interface';
 import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';

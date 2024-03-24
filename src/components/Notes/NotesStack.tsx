@@ -3,8 +3,12 @@ import * as React from 'react';
 import { NotesList } from './NotesList/NotesList';
 import { NotesEdit } from './NotesEdit/NotesEdit';
 import { NotesAdd } from './NotesAdd/NotesAdd';
+import { RouteProp } from '@react-navigation/native';
+import { AvailableRoutes } from '../../shared/env/available-routes';
 
-export const NotesStack = (prop) => {
+export const NotesStack: React.FunctionComponent<{
+    route: RouteProp<AvailableRoutes, 'NotesStack'>;
+}> = (prop) => {
     const getLesson = () => {
         if (!prop.route.params) {
             return 'none';

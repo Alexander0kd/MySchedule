@@ -4,7 +4,7 @@ import { ProfileForm } from '../../../../shared/components/ProfileForm';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';
 import { RoundButton } from '../../../../shared/components/RoundButton';
 import { ThinButton } from '../../../../shared/components/ThinButton';
-import { addProfile, setActiveProfile } from '../../../../services/local-storage.service';
+import { addProfile, setActiveProfile } from '../../../../services/profile.service';
 import { handleError, openModal } from '../../../../services/utility.service';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';

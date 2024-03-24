@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 
 import { AppNavbar } from './src/components/Navigation/AppNavbar';
 import { OnboardingPage } from './src/components/OnboardingPages/OnboardingPage';
-import { isLocalStorageEmpty } from './src/services/local-storage.service';
+import { isLocalStorageEmpty } from './src/services/profile.service';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();

@@ -4,7 +4,7 @@ import { ScheduleChanges } from './ScheduleChanges';
 import { NotifyByDropdown } from './NotifyByDropdown';
 import RemindersList from './RemindersList';
 import { IProfile } from '../../../shared/interfaces/profile.interface';
-import { getActiveProfile, updateProfileData } from '../../../services/local-storage.service';
+import { getActiveProfile, updateProfileData } from '../../../services/profile.service';
 import { LoadingScreen } from '../../../shared/components/LoadingScreen';
 import { useIsFocused } from '@react-navigation/native';
 

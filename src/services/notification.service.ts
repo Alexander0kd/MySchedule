@@ -10,7 +10,7 @@ import { handleError } from './utility.service';
 
 import { getGroupSchedule } from './schedule-api.service';
 import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
-import { getActiveProfile } from './local-storage.service';
+import { getActiveProfile } from './profile.service';
 
 const BACKGROUND_TASK_NAME = 'scheduleUpdateTask';
 

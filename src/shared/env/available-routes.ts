@@ -5,6 +5,7 @@ export type AvailableRoutes = {
 
     AppNavbar: undefined;
 
+    NotesStack: { lesson: string };
     NotesList: undefined;
     NotesEdit: { noteGroup: INote; noteId: number };
     NotesAdd: { noteGroup: INote };

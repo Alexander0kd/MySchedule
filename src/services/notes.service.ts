@@ -1,6 +1,6 @@
 import { getUniqueSchedule, handleError } from './utility.service';
 import { INote, INoteData } from '../shared/interfaces/notes.interface';
-import { getActiveProfile, updateProfileById } from './local-storage.service';
+import { getActiveProfile, updateProfileData } from './profile.service';
 
 /**
  * Removes empty notes from the given array.
@@ -66,7 +66,7 @@ export async function addNote(noteGroup: INote, noteData: INoteData) {
     activeProfile.notes[foundNoteIndex].data.push(noteData);
 
     activeProfile.notes = clearEmptyNotes(activeProfile.notes);
-    updateProfileById(activeProfile.id, activeProfile, true);
+    updateProfileData(activeProfile.id, activeProfile);
 }
 
 /**
@@ -91,7 +91,7 @@ export async function deleteNoteById(noteGroup: INote, noteId: number) {
     activeProfile.notes[index].data.splice(noteId, 1);
 
     activeProfile.notes = clearEmptyNotes(activeProfile.notes);
-    updateProfileById(activeProfile.id, activeProfile, true);
+    updateProfileData(activeProfile.id, activeProfile);
 }
 
 /**
@@ -110,5 +110,5 @@ export async function updateNotesBySubject(editedNote: INote) {
     activeProfile.notes[index].data = editedNote.data;
 
     activeProfile.notes = clearEmptyNotes(activeProfile.notes);
-    updateProfileById(activeProfile.id, activeProfile, true);
+    updateProfileData(activeProfile.id, activeProfile);
 }

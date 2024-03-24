@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import React, { FunctionComponent, useState } from 'react';
 import { ProfileForm } from '../../shared/components/ProfileForm';
 import { WideButton } from '../../shared/components/WideButton';
-import { addProfile } from '../../services/local-storage.service';
+import { addProfile } from '../../services/profile.service';
 
 import okFace from '../../../assets/ok-face-1.png';
 import { IProfile } from '../../shared/interfaces/profile.interface';

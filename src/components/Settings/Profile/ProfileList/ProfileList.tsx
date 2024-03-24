@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { setActiveProfile, deleteProfileById, getAllProfiles, getActiveProfile } from '../../../../services/local-storage.service';
+import { setActiveProfile, deleteProfileById, getAllProfiles, getActiveProfile } from '../../../../services/profile.service';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';

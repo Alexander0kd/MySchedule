@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { getActiveProfile, updateProfileData } from '../../../services/local-storage.service';
+import { getActiveProfile, updateProfileData } from '../../../services/profile.service';
 import { getUniqueSchedule, handleError } from '../../../services/utility.service';
 import { ScheduleItem } from './ScheduleItem';
 import { IHiddenItem } from '../../../shared/interfaces/settings.interface';

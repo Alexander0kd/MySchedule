@@ -3,7 +3,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { View, Text, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
 import { MaterialIcons } from '@expo/vector-icons';
-import { setActiveProfile, getAllProfiles, getActiveProfile } from '../../services/local-storage.service';
+import { setActiveProfile, getAllProfiles, getActiveProfile } from '../../services/profile.service';
 import { IProfile } from '../../shared/interfaces/profile.interface';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 import { StackNavigationProp } from '@react-navigation/stack';

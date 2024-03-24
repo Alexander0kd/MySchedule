@@ -74,6 +74,27 @@ const CustomDropdown: FunctionComponent<{
                 paddingBottom: 20,
                 backgroundColor: '#49454F',
             }}
+            isSearchable
+            searchControls={{
+                textInputStyle: {
+                    color: 'white',
+                    fontWeight: '500',
+                    minHeight: 10,
+                    paddingVertical: 6,
+                    paddingHorizontal: 16,
+                    backgroundColor: 'rgba(202, 196, 208, 0.38)',
+                    borderColor: 'rgb(202, 196, 208)'
+                },
+                textInputContainerStyle: {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                },
+                textInputProps: {
+                    placeholder: 'Пошук...',
+                    placeholderTextColor: 'white',
+                },
+            }}
         />
     );
 };

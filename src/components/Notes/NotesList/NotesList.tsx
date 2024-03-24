@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { NotesDropdown } from './NotesDropdown';
 import { INote } from '../../../shared/interfaces/notes.interface';
@@ -11,7 +11,9 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { openModal } from '../../../services/utility.service';
 import { LoadingScreen } from '../../../shared/components/LoadingScreen';
 
-export const NotesList = ({ lesson }) => {
+export const NotesList: FunctionComponent<{
+    lesson: string;
+}> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
     const isFocused = useIsFocused();
 
@@ -69,7 +71,7 @@ export const NotesList = ({ lesson }) => {
                         noteAddFn={addNote}
                         noteDeleteFn={deleteNote}
                         noteEditFn={editNote}
-                        isActive={lesson === note.subject}
+                        isActive={props.lesson === note.subject}
                     />
                 ))}
             </ScrollView>

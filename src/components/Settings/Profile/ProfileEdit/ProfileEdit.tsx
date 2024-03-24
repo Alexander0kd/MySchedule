@@ -5,7 +5,7 @@ import { AvailableRoutes } from '../../../../shared/env/available-routes';
 import { LoadingScreen } from '../../../../shared/components/LoadingScreen';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { getProfileById, setActiveProfile, updateProfileConfiguration } from '../../../../services/local-storage.service';
+import { getProfileById, setActiveProfile, updateProfileConfiguration } from '../../../../services/profile.service';
 import { handleError, openModal } from '../../../../services/utility.service';
 import { ProfileForm } from '../../../../shared/components/ProfileForm';
 import { ThinButton } from '../../../../shared/components/ThinButton';
