@@ -172,7 +172,11 @@ export const ProfileForm: FunctionComponent<{
                 notes: [],
                 settings: {
                     hidden: [],
-                    notification: {},
+                    notification: {
+                        notifyChanges: false,
+                        notifyBy: 0,
+                        notificationList: [],
+                    },
                 },
                 lastUpdate: new Date(),
             };

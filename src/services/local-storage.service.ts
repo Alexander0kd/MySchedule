@@ -4,6 +4,7 @@ import { IProfile } from '../shared/interfaces/profile.interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
 import { handleError } from './utility.service';
+import { handleNotificationUpdate } from './notification.service';
 
 enum STORAGE_KEYS {
     PROFILES = 'profiles',
@@ -124,21 +125,20 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
  * @param editedProfileData The updated profile data.
  * @returns A Promise that resolves to true if the profile is successfully updated, false otherwise.
  */
-export async function updateProfileById(id: string, editedProfileData: IProfile, isUpdateSetting: boolean): Promise<boolean> {
+export async function updateProfileConfiguration(id: string, editedProfileData: IProfile): Promise<boolean> {
     try {
         const profiles = await getAllProfiles();
 
-        if (!isUpdateSetting) {
-            const isProfileExist = profiles.find(
-                (profile) =>
-                    profile.university === editedProfileData.university &&
-                    profile.faculty === editedProfileData.faculty &&
-                    profile.year === editedProfileData.year &&
-                    profile.group === editedProfileData.group
-            );
-            if (isProfileExist) {
-                throw new Error('[Update Profile] Duplicate profile detected');
-            }
+        const isProfileExist = profiles.find(
+            (profile) =>
+                profile.university === editedProfileData.university &&
+                profile.faculty === editedProfileData.faculty &&
+                profile.year === editedProfileData.year &&
+                profile.group === editedProfileData.group
+        );
+
+        if (isProfileExist) {
+            throw new Error('[Update Profile] Duplicate profile detected');
         }
 
         const profileIndex = profiles.findIndex((user) => user.id === id);
@@ -146,9 +146,61 @@ export async function updateProfileById(id: string, editedProfileData: IProfile,
             throw new Error('User with this ID not found');
         }
 
-        profiles[profileIndex] = editedProfileData;
+        const newProfile: IProfile = {
+            id: editedProfileData.id,
+            university: editedProfileData.university,
+            faculty: editedProfileData.faculty,
+            year: editedProfileData.year,
+            group: editedProfileData.group,
+            groupName: editedProfileData.groupName,
+            schedule: [],
+            notes: [],
+            settings: {
+                hidden: [],
+                notification: {
+                    notifyChanges: profiles[profileIndex].settings.notification.notifyChanges,
+                    notifyBy: profiles[profileIndex].settings.notification.notifyBy,
+                    notificationList: [],
+                },
+            },
+            lastUpdate: new Date(),
+        };
+
+        profiles[profileIndex] = newProfile;
 
         await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
+        handleNotificationUpdate(profiles[profileIndex]);
+
+        return true;
+    } catch (error) {
+        handleError(error);
+        return false;
+    }
+}
+
+/**
+ * Updates a profile by its ID in AsyncStorage. This function should be used for updating schedule, notes, and settings.
+ * @param id The ID of the profile to update.
+ * @param editedProfileData The updated profile data containing schedule, notes, or settings.
+ * @returns A Promise that resolves to true if the profile is successfully updated, false otherwise.
+ */
+export async function updateProfileData(id: string, editedProfileData: IProfile): Promise<boolean> {
+    try {
+        const profiles = await getAllProfiles();
+
+        const profileIndex = profiles.findIndex((user) => user.id === id);
+        if (profileIndex == -1) {
+            throw new Error('User with this ID not found');
+        }
+
+        profiles[profileIndex].id = editedProfileData.id;
+        profiles[profileIndex].schedule = editedProfileData.schedule;
+        profiles[profileIndex].notes = editedProfileData.notes;
+        profiles[profileIndex].settings = editedProfileData.settings;
+        profiles[profileIndex].lastUpdate = editedProfileData.lastUpdate;
+
+        await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
+        handleNotificationUpdate(profiles[profileIndex]);
 
         return true;
     } catch (error) {

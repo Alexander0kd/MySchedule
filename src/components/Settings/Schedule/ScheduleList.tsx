@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { getActiveProfile, updateProfileById } from '../../../services/local-storage.service';
+import { getActiveProfile, updateProfileData } from '../../../services/local-storage.service';
 import { getUniqueSchedule, handleError } from '../../../services/utility.service';
 import { ScheduleItem } from './ScheduleItem';
 import { IHiddenItem } from '../../../shared/interfaces/settings.interface';
@@ -50,7 +50,7 @@ export const ScheduleList = () => {
             }
 
             profile.settings.hidden = scheduleSettings;
-            updateProfileById(profile.id, profile, true);
+            updateProfileData(profile.id, profile);
 
             await fetchData();
         } catch (error) {
