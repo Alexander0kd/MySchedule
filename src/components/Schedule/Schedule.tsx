@@ -4,7 +4,7 @@ import { View, StyleSheet, ScrollView, Text, RefreshControl, Dimensions } from '
 import { DropDown } from './Dropdown';
 import { DateBlock } from './DateBlock';
 import { DatePicker } from './DatePicker';
-import { getActiveProfile, updateProfileById } from '../../services/local-storage.service';
+import { getActiveProfile, updateProfileData } from '../../services/local-storage.service';
 import { IProfile } from '../../shared/interfaces/profile.interface';
 import { getGroupSchedule } from '../../services/schedule-api.service';
 import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
@@ -58,7 +58,7 @@ export const Schedule = () => {
 
             setActiveProfile(profile);
 
-            await updateProfileById(profile.id, profile, true).then(() => {
+            await updateProfileData(profile.id, profile).then(() => {
                 setFilteredSchedule(filterSchedule(currentDate, profile));
                 setIsLoading(false);
             });
@@ -110,6 +110,49 @@ export const Schedule = () => {
         setIsCanSwipe(true);
     };
 
+    const isHasNotificaton = (lesson: ISchedule) => {
+        const findProfile = activeProfile.settings.notification.notificationList.find((item) => 
+            item.subject.d === lesson.d &&
+            item.subject.li === lesson.li &&
+            item.subject.ld === lesson.ld &&
+            item.subject.ls === lesson.ls &&
+            item.subject.l === lesson.l 
+        );
+
+        return findProfile != undefined;
+    }
+
+    const addNotification = async (date: Date, lesson: ISchedule) => {
+        const obj = {
+            date: date,
+            subject: lesson,
+        }
+
+        const item = activeProfile.settings.notification.notificationList.find((item) => item.subject === obj.subject);
+        if (!item) {
+            activeProfile.settings.notification.notificationList.push({
+                date: date,
+                subject: lesson,
+            });
+            await updateProfileData(activeProfile.id, activeProfile);    
+        }
+    };
+
+    const removeNotification = async (lesson: ISchedule) => {
+        const index = activeProfile.settings.notification.notificationList.findIndex((item) => 
+            item.subject.d === lesson.d &&
+            item.subject.li === lesson.li &&
+            item.subject.ld === lesson.ld &&
+            item.subject.ls === lesson.ls &&
+            item.subject.l === lesson.l
+        );
+
+        if (index !== -1) {
+            activeProfile.settings.notification.notificationList.splice(index, 1);
+            await updateProfileData(activeProfile.id, activeProfile);
+        }
+    };
+
     if (isLoading) {
         return <LoadingScreen />;
     }
@@ -124,7 +167,16 @@ export const Schedule = () => {
                             {filteredSchedule.length === 0 ? (
                                 <Text style={styles.noClassesText}>Сьогодні пар немає 😊</Text>
                             ) : (
-                                filteredSchedule.map((lesson: ISchedule, index: number) => <DropDown key={`${lesson.d}-${index}`} lesson={lesson} />)
+                                filteredSchedule.map((lesson: ISchedule, index: number) => 
+                                    <DropDown 
+                                        key={`${lesson.d}-${index}`} 
+                                        lesson={lesson}
+                                        hasNotification={isHasNotificaton(lesson)}
+                                        addNotificationFn={addNotification}
+                                        removeNotificationFn={removeNotification}
+                                    >
+                                    </DropDown>
+                                )
                             )}
                         </View>
                     </ScrollView>
