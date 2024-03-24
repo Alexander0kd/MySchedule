@@ -15,13 +15,5 @@ export const Reminder: FunctionComponent<{
             props.onCancelFn();
         }
     };
-    return (
-        <RNDateTimePicker
-            value={props.date}
-            mode="time"
-            is24Hour={true}
-            display="clock"
-            onChange={onChange}
-        />
-    );
+    return <RNDateTimePicker value={props.date} mode="time" is24Hour={true} display="clock" onChange={onChange} />;
 };

@@ -32,12 +32,7 @@ export const ProfileAdd = () => {
         navigation.addListener('beforeRemove', async (e) => {
             e.preventDefault();
 
-            const modal = await openModal(
-                'Бажаєте скасувати додавання?',
-                'Цю дію неможливо відмінити',
-                'Ні, залишитись',
-                'Так, скасувати'
-            );
+            const modal = await openModal('Бажаєте скасувати додавання?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
 
             if (modal) {
                 navigation.dispatch(e.data.action);

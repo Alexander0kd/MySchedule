@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, Pressable } from 'react-native';
 import Arrow from './../../../../assets/arrow_drop_down.png';
-import Check from './../../../../assets/check.png'
+import Check from './../../../../assets/check.png';
 
 const dropdownValues = [
     {
@@ -55,9 +55,10 @@ export const NotifyByDropdown: FunctionComponent<{
         <View style={styles.container}>
             <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
-                    <Text style={{ color: 'white', fontWeight: '500' }}>Сповіщати про пари {selectedItemIndex == 0 ? 'за' : (
-                        <Text style={styles.highlight}>{dropdownValues[selectedItemIndex].text.toLowerCase()}</Text>
-                    )}</Text>
+                    <Text style={{ color: 'white', fontWeight: '500' }}>
+                        Сповіщати про пари{' '}
+                        {selectedItemIndex == 0 ? 'за' : <Text style={styles.highlight}>{dropdownValues[selectedItemIndex].text.toLowerCase()}</Text>}
+                    </Text>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
                 </View>
             </Pressable>
@@ -66,7 +67,7 @@ export const NotifyByDropdown: FunctionComponent<{
                 <View style={styles.dropdownContent}>
                     {dropdownValues.map((item, index) => (
                         <Pressable key={index} onPress={() => changeValue(index)}>
-                            <View style={[styles.dropdownItemRow,  selectedItemIndex === index && styles.selectedItem]}>
+                            <View style={[styles.dropdownItemRow, selectedItemIndex === index && styles.selectedItem]}>
                                 <Text style={styles.dropdownItem}>{item.text}</Text>
                                 {selectedItemIndex === index && <Image source={Check} style={styles.check} />}
                             </View>
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
     },
 
     dropdownContent: {
-        paddingTop:16,
-        paddingBottom:16,
+        paddingTop: 16,
+        paddingBottom: 16,
         backgroundColor: '#211f26',
         borderTopStartRadius: 0,
         borderTopEndRadius: 0,
@@ -122,21 +123,19 @@ const styles = StyleSheet.create({
     },
 
     dropdownItemRow: {
-        flexDirection:'row',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 4,
-
     },
 
-    check:{
+    check: {
         width: 24,
         height: 22,
-        alignSelf:'center',
+        alignSelf: 'center',
         marginRight: 16,
     },
 
     selectedItem: {
         backgroundColor: '#332D41',
-    }
+    },
 });
-

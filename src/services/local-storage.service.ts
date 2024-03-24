@@ -159,11 +159,11 @@ export async function updateProfileConfiguration(id: string, editedProfileData: 
                 notification: {
                     notifyChanges: profiles[profileIndex].settings.notification.notifyChanges,
                     notifyBy: profiles[profileIndex].settings.notification.notifyBy,
-                    notificationList: []
-                }
+                    notificationList: [],
+                },
             },
             lastUpdate: new Date(),
-        }
+        };
 
         profiles[profileIndex] = newProfile;
 

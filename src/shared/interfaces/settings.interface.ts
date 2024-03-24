@@ -1,4 +1,4 @@
-import { ISchedule } from "./schedule.interface";
+import { ISchedule } from './schedule.interface';
 
 /**
  * Представляє елемент налаштувань профілю.

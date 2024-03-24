@@ -34,7 +34,7 @@ export const DropDown: FunctionComponent<{
         const dateTimeString = props.lesson.d + 'T' + props.lesson.ls;
 
         return new Date(dateTimeString);
-    }
+    };
 
     const openRemindingModal = () => {
         setReminderVisible(true);
@@ -129,15 +129,7 @@ export const DropDown: FunctionComponent<{
                 </View>
             )}
 
-            {
-                reminderVisible &&
-                !hasNotification && 
-                <Reminder 
-                    onSubmitFn={onSubmit} 
-                    onCancelFn={onCancel} 
-                    date={getDateFromLesson()} 
-                />
-            }
+            {reminderVisible && !hasNotification && <Reminder onSubmitFn={onSubmit} onCancelFn={onCancel} date={getDateFromLesson()} />}
         </View>
     );
 };

@@ -111,22 +111,23 @@ export const Schedule = () => {
     };
 
     const isHasNotificaton = (lesson: ISchedule) => {
-        const findProfile = activeProfile.settings.notification.notificationList.find((item) => 
-            item.subject.d === lesson.d &&
-            item.subject.li === lesson.li &&
-            item.subject.ld === lesson.ld &&
-            item.subject.ls === lesson.ls &&
-            item.subject.l === lesson.l 
+        const findProfile = activeProfile.settings.notification.notificationList.find(
+            (item) =>
+                item.subject.d === lesson.d &&
+                item.subject.li === lesson.li &&
+                item.subject.ld === lesson.ld &&
+                item.subject.ls === lesson.ls &&
+                item.subject.l === lesson.l
         );
 
         return findProfile != undefined;
-    }
+    };
 
     const addNotification = async (date: Date, lesson: ISchedule) => {
         const obj = {
             date: date,
             subject: lesson,
-        }
+        };
 
         const item = activeProfile.settings.notification.notificationList.find((item) => item.subject === obj.subject);
         if (!item) {
@@ -134,17 +135,18 @@ export const Schedule = () => {
                 date: date,
                 subject: lesson,
             });
-            await updateProfileData(activeProfile.id, activeProfile);    
+            await updateProfileData(activeProfile.id, activeProfile);
         }
     };
 
     const removeNotification = async (lesson: ISchedule) => {
-        const index = activeProfile.settings.notification.notificationList.findIndex((item) => 
-            item.subject.d === lesson.d &&
-            item.subject.li === lesson.li &&
-            item.subject.ld === lesson.ld &&
-            item.subject.ls === lesson.ls &&
-            item.subject.l === lesson.l
+        const index = activeProfile.settings.notification.notificationList.findIndex(
+            (item) =>
+                item.subject.d === lesson.d &&
+                item.subject.li === lesson.li &&
+                item.subject.ld === lesson.ld &&
+                item.subject.ls === lesson.ls &&
+                item.subject.l === lesson.l
         );
 
         if (index !== -1) {
@@ -167,16 +169,14 @@ export const Schedule = () => {
                             {filteredSchedule.length === 0 ? (
                                 <Text style={styles.noClassesText}>Сьогодні пар немає 😊</Text>
                             ) : (
-                                filteredSchedule.map((lesson: ISchedule, index: number) => 
-                                    <DropDown 
-                                        key={`${lesson.d}-${index}`} 
+                                filteredSchedule.map((lesson: ISchedule, index: number) => (
+                                    <DropDown
+                                        key={`${lesson.d}-${index}`}
                                         lesson={lesson}
                                         hasNotification={isHasNotificaton(lesson)}
                                         addNotificationFn={addNotification}
-                                        removeNotificationFn={removeNotification}
-                                    >
-                                    </DropDown>
-                                )
+                                        removeNotificationFn={removeNotification}></DropDown>
+                                ))
                             )}
                         </View>
                     </ScrollView>

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import {Text, View, StyleSheet, Image, Pressable, TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native';
 import Arrow from './../../../../assets/arrow_drop_down.png';
-import Trash from "../../../../assets/trashcan.png";
+import Trash from '../../../../assets/trashcan.png';
 import { NotificationItem } from '../../../shared/interfaces/settings.interface';
 import { formatDateWithTime } from '../../../services/utility.service';
 
@@ -28,13 +28,13 @@ const RemindersList: FunctionComponent<{
     const deleteSelect = (index: number) => {
         setNotificationList(notificationList.filter((item, indx) => indx !== index));
         props.onDeleteFn(index);
-    }
+    };
 
     const formatDate = (date: Date) => {
         let formateDate = formatDateWithTime(new Date(date));
         formateDate = formateDate.replace(' |', ',');
         return formateDate;
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -47,15 +47,13 @@ const RemindersList: FunctionComponent<{
             {isDropdownVisible && (
                 <View style={styles.dropdownContent}>
                     {notificationList.map((lesson, index) => (
-                        <View key={index}>
-                            <Pressable key={index} >
-                                <View style={styles.items}>
-                                    <Text style={styles.titleText} numberOfLines={1}>{formatDate(lesson.date)} | {lesson.subject.l}</Text>
-                                    <TouchableOpacity onPress={() => deleteSelect(index)}>
-                                        <Image source={Trash} style={styles.trash} />
-                                    </TouchableOpacity>
-                                </View>
-                            </Pressable>
+                        <View key={index} style={styles.items}>
+                            <Text style={styles.titleText} numberOfLines={1}>
+                                {formatDate(lesson.date)} | {lesson.subject.l}
+                            </Text>
+                            <TouchableOpacity onPress={() => deleteSelect(index)}>
+                                <Image source={Trash} style={styles.trash} />
+                            </TouchableOpacity>
                         </View>
                     ))}
                 </View>
@@ -91,20 +89,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#1d192b',
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
-        paddingTop:16,
-        paddingBottom:16
+        paddingTop: 16,
+        paddingBottom: 16,
     },
-    trash:{
+    trash: {
         width: 24,
         height: 22,
-        alignSelf:'center',
+        alignSelf: 'center',
     },
-    items:{
-        paddingVertical: 8,
+    items: {
+        paddingVertical: 10,
         paddingHorizontal: 24,
-        flexDirection:"row",
-        justifyContent:'space-between'
-    }
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
 });
 
 export default RemindersList;
