@@ -36,7 +36,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
             await Notifications.scheduleNotificationAsync({
                 content: {
                     title: 'Розклад оновився!',
-                    body: 'Перевірьте ваш оновлений розклад!',
+                    body: 'Перевірте ваш оновлений розклад!',
                 },
                 trigger: null,
             });
@@ -93,7 +93,7 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
             try {
                 await Notifications.scheduleNotificationAsync({
                     content: {
-                        title: 'Скоро ропочнеться заняття!',
+                        title: 'Скоро заняття!',
                         body: `"${item.l}" розпочнеться о ${item.ls}.\n Не пропусти!`,
                     },
                     trigger: {
@@ -118,7 +118,7 @@ async function handleNotifyList(notificationList: NotificationItem[]) {
                     body: `Ти просив нагадати про ${item.subject.l} :)`,
                 },
                 trigger: {
-                    date: item.date.getTime(),
+                    date: new Date(item.date).getTime(),
                 },
             });
         });
