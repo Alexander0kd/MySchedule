@@ -89,7 +89,7 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
     schedule.forEach(async (item) => {
         const itemDate = new Date(item.d + 'T' + item.ls);
 
-        if (itemDate >= currentDate) {
+        if (itemDate >= currentDate && itemDate.getTime() <= currentDate.getTime() + 24 * 60 * 60 * 1000 * 7) {
             try {
                 await Notifications.scheduleNotificationAsync({
                     content: {
@@ -97,7 +97,7 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
                         body: `"${item.l}" розпочнеться о ${item.ls}.\n Не пропусти!`,
                     },
                     trigger: {
-                        date: itemDate.getTime() - notifyBy * 60 * 1000,
+                        date: new Date(itemDate.getTime() - notifyBy * 60 * 1000),
                     },
                 });
             } catch (error) {
@@ -108,8 +108,6 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
 }
 
 async function handleNotifyList(notificationList: NotificationItem[]) {
-    await Notifications.cancelAllScheduledNotificationsAsync();
-
     try {
         notificationList.forEach(async (item) => {
             await Notifications.scheduleNotificationAsync({
