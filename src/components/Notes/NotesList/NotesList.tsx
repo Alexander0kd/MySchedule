@@ -11,7 +11,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { openModal } from '../../../services/utility.service';
 import { LoadingScreen } from '../../../shared/components/LoadingScreen';
 
-export const NotesList = () => {
+export const NotesList = ({ lesson }) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
     const isFocused = useIsFocused();
 
@@ -63,7 +63,14 @@ export const NotesList = () => {
         <View style={styles.container}>
             <ScrollView>
                 {notes.map((note: INote, index: number) => (
-                    <NotesDropdown key={`${note.subject}-${index}`} note={note} noteAddFn={addNote} noteDeleteFn={deleteNote} noteEditFn={editNote} />
+                    <NotesDropdown
+                        key={`${note.subject}-${index}`}
+                        note={note}
+                        noteAddFn={addNote}
+                        noteDeleteFn={deleteNote}
+                        noteEditFn={editNote}
+                        isActive={lesson === note.subject}
+                    />
                 ))}
             </ScrollView>
         </View>

@@ -98,7 +98,9 @@ export const DropDown: FunctionComponent<{
                         </View>
                     </View>
                     <View style={styles.actions}>
-                        <TouchableOpacity style={[styles.button, styles.buttonFirst]} onPress={() => navigation.navigate('NotesList')}>
+                        <TouchableOpacity
+                            style={[styles.button, styles.buttonFirst]}
+                            onPress={() => navigation.navigate('NotesStack', { lesson: props.lesson.l })}>
                             <Text style={styles.buttonText}>Нотатки</Text>
                         </TouchableOpacity>
                         <TouchableOpacity

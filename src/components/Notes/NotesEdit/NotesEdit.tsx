@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { TextInput, View, StyleSheet, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
+import { TextInput, View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { ThinButton } from '../../../shared/components/ThinButton';
 import { RoundButton } from '../../../shared/components/RoundButton';
 
@@ -72,27 +72,28 @@ export const NotesEdit: FunctionComponent<{
 
     return (
         <View style={styles.section}>
-            <View style={styles.container}>
-                <TextInput
-                    style={styles.textInput}
-                    multiline={true}
-                    placeholder="Текст нотатки"
-                    placeholderTextColor="gray"
-                    value={inputText}
-                    onChangeText={(value) => inputFillChecker(value)}
-                />
-            </View>
-            <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-                <View style={styles.wrapper}>
-                    <ThinButton
-                        label="Скасувати"
-                        onPressFunc={() => {
-                            navigation.navigate('NotesList');
-                        }}
+            <View style={[styles.container, { maxHeight: height - 230 }]}>
+                <ScrollView>
+                    <TextInput
+                        style={styles.textInput}
+                        multiline={true}
+                        placeholder="Текст нотатки"
+                        placeholderTextColor="gray"
+                        value={inputText}
+                        onChangeText={(value) => inputFillChecker(value)}
                     />
-                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleSaveChanges()} />
-                </View>
-            </KeyboardAvoidingView>
+                </ScrollView>
+            </View>
+
+            <View style={styles.wrapper}>
+                <ThinButton
+                    label="Скасувати"
+                    onPressFunc={() => {
+                        navigation.navigate('NotesList');
+                    }}
+                />
+                <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleSaveChanges()} />
+            </View>
         </View>
     );
 };
@@ -128,9 +129,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         letterSpacing: 0.5,
         width: inputWidth,
-        maxHeight: height / 1.5,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        minHeight: 250,
         textAlignVertical: 'top',
         textAlign: 'left',
     },

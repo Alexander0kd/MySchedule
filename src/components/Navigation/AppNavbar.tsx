@@ -58,6 +58,15 @@ export const AppNavbar = () => {
                     headerTitle: 'Нотатки',
                     ...getTabScreenOptions('Нотатки', 'sticky-note-2'),
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'NotesStack' }],
+                        });
+                    },
+                })}
             />
             <Tab.Screen
                 name="Settings"

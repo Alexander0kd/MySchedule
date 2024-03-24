@@ -4,7 +4,15 @@ import { NotesList } from './NotesList/NotesList';
 import { NotesEdit } from './NotesEdit/NotesEdit';
 import { NotesAdd } from './NotesAdd/NotesAdd';
 
-export const NotesStack = () => {
+export const NotesStack = (prop) => {
+    const getLesson = () => {
+        if (!prop.route.params) {
+            return 'none';
+        } else {
+            return prop.route.params.lesson;
+        }
+    };
+
     const Stack = createStackNavigator();
 
     const screenOptions = {
@@ -23,12 +31,12 @@ export const NotesStack = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name="NotesList"
-                component={NotesList}
                 options={{
                     title: 'Нотатки',
                     ...modalScreenOptions,
-                }}
-            />
+                }}>
+                {() => <NotesList lesson={getLesson()} />}
+            </Stack.Screen>
             <Stack.Screen
                 name="NotesEdit"
                 component={NotesEdit}
