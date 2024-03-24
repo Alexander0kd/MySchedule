@@ -47,7 +47,6 @@ export const InformationButtons = () => {
                     label="Бабала Вікторія"
                     onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/victoria-babala-3198362a3/')}
                 />
-                <IconButton icon="link" label="Булавський Олег" iconPosition="right" onPressFunc={() => Linking.openURL('#')} />
                 <IconButton
                     icon="link"
                     iconPosition="right"
@@ -71,12 +70,6 @@ export const InformationButtons = () => {
                     iconPosition="right"
                     label="Кадемський Олександр"
                     onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/alexander-kademskyi-8939522b4/')}
-                />
-                <IconButton
-                    icon="link"
-                    iconPosition="right"
-                    label="Семків Константин"
-                    onPressFunc={() => Linking.openURL('https://ua.linkedin.com/in/kostiasemkiv/')}
                 />
             </View>
         </ScrollView>
