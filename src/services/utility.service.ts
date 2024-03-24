@@ -13,7 +13,7 @@ export function formatDateWithTime(date: Date): string {
     const day = new Intl.DateTimeFormat('uk-UA', {
         day: 'numeric',
         month: 'long',
-    }).format(new Date());
+    }).format(date);
 
     const hours = date.getHours();
     const minutes = date.getMinutes();

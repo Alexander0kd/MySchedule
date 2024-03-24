@@ -1,3 +1,5 @@
+import { ISchedule } from './schedule.interface';
+
 /**
  * Представляє елемент налаштувань профілю.
  * @param {IHiddenItem} hidden - Масив прихованих пар.
@@ -20,8 +22,22 @@ export interface IHiddenItem {
 
 /**
  * Представляє предмет.
- * @param {Object} data - Дані для елементу налаштувань.
+ * @param {boolean} notifyChanges - Дані для елементу налаштувань.
+ * @param {number} notifyBy - Дані для елементу налаштувань.
+ * @param {NotificationItem[]} notificationList - Дані для елементу налаштувань.
  */
 export interface INotification {
-    // TODO: Fill this
+    notifyChanges: boolean;
+    notifyBy: number;
+    notificationList: NotificationItem[];
+}
+
+/**
+ * Представляє предмет.
+ * @param {Date} date - Дані для елементу налаштувань.
+ * @param {ISchedule} subject - Дані для елементу налаштувань.
+ */
+export interface NotificationItem {
+    date: Date;
+    subject: ISchedule;
 }

@@ -5,7 +5,7 @@ import { AvailableRoutes } from '../../../../shared/env/available-routes';
 import { LoadingScreen } from '../../../../shared/components/LoadingScreen';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { getProfileById, setActiveProfile, updateProfileById } from '../../../../services/local-storage.service';
+import { getProfileById, setActiveProfile, updateProfileConfiguration } from '../../../../services/local-storage.service';
 import { handleError, openModal } from '../../../../services/utility.service';
 import { ProfileForm } from '../../../../shared/components/ProfileForm';
 import { ThinButton } from '../../../../shared/components/ThinButton';
@@ -24,7 +24,7 @@ export const ProfileEdit: FunctionComponent<{
 
     const handleSave = async (profileData: IProfile) => {
         try {
-            const profileUpdated = await updateProfileById(props.route.params.profileId, profileData, false);
+            const profileUpdated = await updateProfileConfiguration(props.route.params.profileId, profileData);
             if (profileUpdated) {
                 await setActiveProfile(profileData.id);
                 navigation.push('AppNavbar');
@@ -51,12 +51,7 @@ export const ProfileEdit: FunctionComponent<{
         navigation.addListener('beforeRemove', async (e) => {
             e.preventDefault();
 
-            const modal = await openModal(
-                'Бажаєте скасувати редагування?',
-                'Цю дію неможливо відмінити',
-                'Ні, залишитись',
-                'Так, скасувати'
-            );
+            const modal = await openModal('Бажаєте скасувати редагування?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
 
             if (modal) {
                 navigation.dispatch(e.data.action);

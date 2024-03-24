@@ -12,6 +12,9 @@ import { ISchedule } from '../../shared/interfaces/schedule.interface';
 
 export const DropDown: FunctionComponent<{
     lesson: ISchedule;
+    hasNotification: boolean;
+    addNotificationFn: (date: Date, lesson: ISchedule) => void;
+    removeNotificationFn: (lesson: ISchedule) => void;
 }> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
     const window = useWindowDimensions();
@@ -19,31 +22,37 @@ export const DropDown: FunctionComponent<{
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
     const [arrowRotation, setArrowRotation] = useState<number>(0);
     const [reminderVisible, setReminderVisible] = useState<boolean>(false);
-    const [isDismissedReminder, setDismissedReminder] = useState<boolean>(false);
+
+    const [hasNotification, setHasNotification] = useState<boolean>(props.hasNotification);
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
         setArrowRotation(arrowRotation === 0 ? 180 : 0);
     };
 
-    const showReminderModal = () => {
-        if (!isDismissedReminder) setReminderVisible(true);
+    const getDateFromLesson = () => {
+        const dateTimeString = props.lesson.d + 'T' + props.lesson.ls;
+
+        return new Date(dateTimeString);
     };
 
-    const hideReminderModal = () => {
+    const openRemindingModal = () => {
+        setReminderVisible(true);
+    };
+
+    const cancleReminding = () => {
+        setReminderVisible(false);
+        setHasNotification(false);
+        props.removeNotificationFn(props.lesson);
+    };
+
+    const onCancel = () => {
         setReminderVisible(false);
     };
 
-    const buttonState = () => {
-        setDismissedReminder(!isDismissedReminder);
-        hideReminderModal();
-    };
-
-    const updateReminderStatus = () => {
-        setDismissedReminder(!isDismissedReminder);
-        hideReminderModal();
-
-        !isDismissedReminder ? showReminderModal() : hideReminderModal();
+    const onSubmit = (date: Date) => {
+        setHasNotification(true);
+        props.addNotificationFn(date, props.lesson);
     };
 
     const maxCharacters = window.width < 450 ? 30 : props.lesson.l.length;
@@ -103,8 +112,8 @@ export const DropDown: FunctionComponent<{
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[styles.button, styles.buttonSecond]}
-                            onPress={() => (!isDismissedReminder ? showReminderModal() : buttonState())}>
-                            {!isDismissedReminder ? (
+                            onPress={() => (!hasNotification ? openRemindingModal() : cancleReminding())}>
+                            {!hasNotification ? (
                                 <View style={styles.buttonContent}>
                                     <Image source={Bell} style={styles.icon} />
                                     <Text style={styles.buttonText}>Нагадати</Text>
@@ -120,7 +129,7 @@ export const DropDown: FunctionComponent<{
                 </View>
             )}
 
-            {reminderVisible && !isDismissedReminder && <Reminder onDismissed={updateReminderStatus} onHide={hideReminderModal} />}
+            {reminderVisible && !hasNotification && <Reminder onSubmitFn={onSubmit} onCancelFn={onCancel} date={getDateFromLesson()} />}
         </View>
     );
 };
