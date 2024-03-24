@@ -24,7 +24,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
         const profile = await getActiveProfile();
         const data = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
         
-        if (data && data.length > 0 && profile.schedule !== data) {
+        if (data && data.length > 0 && profile.schedule != data) {
             Notifications.setNotificationHandler({
                 handleNotification: async () => ({
                     shouldShowAlert: true,
@@ -109,8 +109,17 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
 }
 
 async function handleNotifyList(notificationList: NotificationItem[]) {
-    notificationList = [];
-    console.log(notificationList);
-    //! Step 1: Очистити всі сповіщення в задньому фоні
-    //! Step 2: Якщо notificationList.length > 0, тоді добавити будильник в телефоні на годину, котра вказана у notificationList[i].date
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    
+    notificationList.forEach(async (item) => {
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: 'Нагадування!',
+                body: `Ти просив нагадати про ${item.subject.l} :)`,
+            },
+            trigger: {
+                date: item.date.getTime(),
+            } 
+        });
+    });
 }

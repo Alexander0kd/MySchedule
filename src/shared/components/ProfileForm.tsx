@@ -173,7 +173,7 @@ export const ProfileForm: FunctionComponent<{
                 settings: {
                     hidden: [],
                     notification: {
-                        notifyChanges: true,
+                        notifyChanges: false,
                         notifyBy: 0,
                         notificationList: [],
                     },
