@@ -1,15 +1,15 @@
 import * as Notifications from 'expo-notifications';
 import * as BackgroundFetch from 'expo-background-fetch';
-import * as TaskManager from 'expo-task-manager'
+import * as TaskManager from 'expo-task-manager';
 
-import { IProfile } from "../shared/interfaces/profile.interface";
-import { NotificationItem } from "../shared/interfaces/settings.interface";
+import { IProfile } from '../shared/interfaces/profile.interface';
+import { NotificationItem } from '../shared/interfaces/settings.interface';
 
-import { ISchedule } from "../shared/interfaces/schedule.interface";
-import { handleError } from "./utility.service";
+import { ISchedule } from '../shared/interfaces/schedule.interface';
+import { handleError } from './utility.service';
 
-import { getGroupSchedule } from "./schedule-api.service";
-import { UniEndpoints } from "../shared/universities/uni-endpoints.enum";
+import { getGroupSchedule } from './schedule-api.service';
+import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
 import { getActiveProfile } from './local-storage.service';
 
 const BACKGROUND_TASK_NAME = 'scheduleUpdateTask';
@@ -23,7 +23,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
     try {
         const profile = await getActiveProfile();
         const data = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
-        
+
         if (data && data.length > 0 && profile.schedule != data) {
             Notifications.setNotificationHandler({
                 handleNotification: async () => ({
@@ -35,21 +35,20 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
 
             await Notifications.scheduleNotificationAsync({
                 content: {
-                  title: 'Розклад оновився!',
-                  body: 'Перевірьте ваш оновлений розклад!',
+                    title: 'Розклад оновився!',
+                    body: 'Перевірьте ваш оновлений розклад!',
                 },
-                trigger: null
+                trigger: null,
             });
 
             return BackgroundFetch.BackgroundFetchResult.NewData;
         }
-        
+
         return BackgroundFetch.BackgroundFetchResult.NoData;
     } catch (error) {
         return BackgroundFetch.BackgroundFetchResult.Failed;
     }
 });
-
 
 export async function handleNotificationUpdate(profile: IProfile) {
     await handleNotifyChanges(profile.settings.notification.notifyChanges);
@@ -91,14 +90,14 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
         const itemDate = new Date(item.d + 'T' + item.ls);
 
         if (itemDate >= currentDate) {
-            try {                    
+            try {
                 await Notifications.scheduleNotificationAsync({
                     content: {
                         title: 'Скоро ропочнеться заняття!',
                         body: `"${item.l}" розпочнеться о ${item.ls}.\n Не пропусти!`,
                     },
                     trigger: {
-                        date: itemDate.getTime() - (notifyBy * 60 * 1000),
+                        date: itemDate.getTime() - notifyBy * 60 * 1000,
                     },
                 });
             } catch (error) {
@@ -110,16 +109,20 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
 
 async function handleNotifyList(notificationList: NotificationItem[]) {
     await Notifications.cancelAllScheduledNotificationsAsync();
-    
-    notificationList.forEach(async (item) => {
-        await Notifications.scheduleNotificationAsync({
-            content: {
-                title: 'Нагадування!',
-                body: `Ти просив нагадати про ${item.subject.l} :)`,
-            },
-            trigger: {
-                date: item.date.getTime(),
-            } 
+
+    try {
+        notificationList.forEach(async (item) => {
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: 'Нагадування!',
+                    body: `Ти просив нагадати про ${item.subject.l} :)`,
+                },
+                trigger: {
+                    date: item.date.getTime(),
+                },
+            });
         });
-    });
+    } catch (error) {
+        handleError(error);
+    }
 }

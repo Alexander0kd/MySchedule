@@ -170,7 +170,7 @@ export async function updateProfileConfiguration(id: string, editedProfileData: 
 
         await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
         handleNotificationUpdate(profiles[profileIndex]);
-        
+
         return true;
     } catch (error) {
         handleError(error);
