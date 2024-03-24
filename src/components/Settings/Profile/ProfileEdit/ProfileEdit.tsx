@@ -1,4 +1,4 @@
-import { RouteProp, useNavigation } from '@react-navigation/native';
+import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { AvailableRoutes } from '../../../../shared/env/available-routes';
@@ -12,9 +12,12 @@ import { ThinButton } from '../../../../shared/components/ThinButton';
 import { RoundButton } from '../../../../shared/components/RoundButton';
 
 export const ProfileEdit: FunctionComponent<{
-    route: RouteProp<AvailableRoutes>;
+    route: RouteProp<AvailableRoutes, 'ProfileEdit'>;
 }> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
+    const { profileId } = props.route.params;
+
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(true);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [filledProfile, setFilledProfile] = useState<IProfile>(null);
@@ -27,7 +30,10 @@ export const ProfileEdit: FunctionComponent<{
             const profileUpdated = await updateProfileConfiguration(props.route.params.profileId, profileData);
             if (profileUpdated) {
                 await setActiveProfile(profileData.id);
-                navigation.push('AppNavbar');
+                setIsOpenModal(false);
+                setTimeout(() => {
+                    navigation.goBack();
+                }, 10);
             }
         } catch (error) {
             handleError(error);
@@ -35,20 +41,22 @@ export const ProfileEdit: FunctionComponent<{
     };
 
     useEffect(() => {
-        const loadData = async () => {
-            setIsLoading(true);
-            const profile = await getProfileById(props.route.params.profileId);
-            if (profile) {
-                setFilledProfile(profile);
-            } else {
-                navigation.push('ProfileAdd');
-            }
-            setIsLoading(false);
-        };
+        if (!isOpenModal) return;
 
-        loadData();
-
-        navigation.addListener('beforeRemove', async (e) => {
+        async function handleBeforeUnload(
+            e: EventArg<
+                'beforeRemove',
+                true,
+                {
+                    action: Readonly<{
+                        type: string;
+                        payload?: object;
+                        source?: string;
+                        target?: string;
+                    }>;
+                }
+            >
+        ) {
             e.preventDefault();
 
             const modal = await openModal('Бажаєте скасувати редагування?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
@@ -56,10 +64,31 @@ export const ProfileEdit: FunctionComponent<{
             if (modal) {
                 navigation.dispatch(e.data.action);
             }
-        });
+        }
+
+        navigation.addListener('beforeRemove', handleBeforeUnload);
+
+        return () => {
+            navigation.removeListener('beforeRemove', handleBeforeUnload);
+        };
+    }, [isOpenModal]);
+
+    useEffect(() => {
+        const loadData = async () => {
+            setIsLoading(true);
+            const profile = await getProfileById(profileId);
+            if (profile) {
+                setFilledProfile(profile);
+            } else {
+                navigation.navigate('ProfileAdd');
+            }
+            setIsLoading(false);
+        };
+
+        loadData();
     }, []);
 
-    if (isLoading || !props.route.params || !props.route.params.profileId) {
+    if (isLoading || !profileId) {
         return <LoadingScreen></LoadingScreen>;
     }
 

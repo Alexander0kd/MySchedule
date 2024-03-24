@@ -2,11 +2,11 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View } from 'react-native';
 import { Schedule } from '../Schedule/Schedule';
-import { NotesList } from '../Notes/NotesList';
 import { Settings } from '../Settings/Settings';
 import { Information } from '../Information/Information';
 import { ProfileMenu } from './ProfileMenu';
 import { MaterialIcons } from '@expo/vector-icons';
+import { NotesStack } from '../Notes/NotesStack';
 
 export const AppNavbar = () => {
     const Tab = createBottomTabNavigator();
@@ -51,12 +51,22 @@ export const AppNavbar = () => {
                 }}
             />
             <Tab.Screen
-                name="Notes"
-                component={NotesList}
+                name="NotesStack"
+                component={NotesStack}
                 options={{
+                    headerShown: false,
                     headerTitle: 'Нотатки',
                     ...getTabScreenOptions('Нотатки', 'sticky-note-2'),
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'NotesStack' }],
+                        });
+                    },
+                })}
             />
             <Tab.Screen
                 name="Settings"

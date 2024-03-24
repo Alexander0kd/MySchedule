@@ -1,11 +1,11 @@
 /**
  * Представляє групу нотаток користувача.
  * @param {string} subject - До якого предмету відносяться ці нотатки.
- * @param {INoteData[]} notes - Масив нотаток.
+ * @param {INoteData[]} data - Масив нотаток.
  */
 export interface INote {
     subject: string;
-    notes: INoteData[];
+    data: INoteData[];
 }
 
 /**
