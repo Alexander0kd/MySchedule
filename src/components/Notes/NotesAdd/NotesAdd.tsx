@@ -89,12 +89,12 @@ export const NotesAdd: FunctionComponent<{
                 <View style={styles.wrapper}>
                     <RoundButton
                         label="Скасувати"
-                        onPressFunc={() => {
+                        onPressFn={() => {
                             navigation.navigate('NotesList');
                         }}
-                        isThin ={true}
+                        isThin={true}
                     />
-                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleAddNote(noteGroup, inputText)} />
+                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFn={() => handleAddNote(noteGroup, inputText)} />
                 </View>
             </KeyboardAvoidingView>
         </View>

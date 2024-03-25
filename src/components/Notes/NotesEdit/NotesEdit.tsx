@@ -84,12 +84,12 @@ export const NotesEdit: FunctionComponent<{
                 <View style={styles.wrapper}>
                     <RoundButton
                         label="Скасувати"
-                        onPressFunc={() => {
+                        onPressFn={() => {
                             navigation.navigate('NotesList');
                         }}
                         isThin={true}
                     />
-                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleSaveChanges()} />
+                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFn={() => handleSaveChanges()} />
                 </View>
             </KeyboardAvoidingView>
         </View>

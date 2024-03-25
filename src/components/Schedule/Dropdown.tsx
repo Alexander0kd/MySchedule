@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, useWindowDimensions, Linking } from 'react-native';
+import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native';
 import Bell from '../../../assets/bell.png';
 import CrossedOutCall from '../../../assets/CrossedOutCall.png';
 import Arrow from '../../../assets/arrow_drop_down.png';
@@ -17,7 +17,6 @@ export const DropDown: FunctionComponent<{
     removeNotificationFn: (lesson: ISchedule) => void;
 }> = (props) => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();
-    const window = useWindowDimensions();
 
     const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
     const [arrowRotation, setArrowRotation] = useState<number>(0);
@@ -55,17 +54,14 @@ export const DropDown: FunctionComponent<{
         props.addNotificationFn(date, props.lesson);
     };
 
-    const maxCharacters = window.width < 450 ? 30 : props.lesson.l.length;
-
     return (
         <View style={styles.container}>
             <Pressable onPress={toggleDropdown}>
                 <View style={styles.title}>
-                    <View>
-                        <View style={{ borderColor: 'transparent', flexDirection: 'row' }}>
-                            <Text style={{ color: 'white', fontWeight: '500' }}>{props.lesson.li}. </Text>
-                            <Text style={{ color: 'white', fontWeight: '500' }}>{props.lesson.l}</Text>
-                        </View>
+                    <View style={{ marginRight: 16 }}>
+                        <Text style={{ color: 'white', fontWeight: '500' }}>
+                            {props.lesson.li}. {props.lesson.l}
+                        </Text>
                         <Text style={{ color: '#CAC4D0', fontSize: 12 }}>{getLessonType(props.lesson.lt)}</Text>
                     </View>
                     <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />

@@ -27,9 +27,10 @@ export const ProfileDropdown: FunctionComponent<{
         <ScrollView style={{ ...styles.container, backgroundColor: props.isProfileActive ? '#2e2447' : '#332D41' }}>
             <View>
                 <View style={styles.title}>
-                    <TouchableOpacity onPress={() => props.activeProfileFn(props.profile.id)}>
-                        <Text numberOfLines = {1} style={{ ...styles.buttonText, fontWeight: '500' }}>
-                            {AvailableUni[props.profile.university]}</Text>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => props.activeProfileFn(props.profile.id)}>
+                        <Text numberOfLines={1} style={{ ...styles.buttonText, fontWeight: '500' }}>
+                            {AvailableUni[props.profile.university]}
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.arrowWrapper} onPress={toggleDropdown}>
                         <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     title: {
         paddingVertical: 16,
         paddingHorizontal: 24,
-        paddingRight: 40,
+        paddingRight: 16,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -114,7 +115,6 @@ const styles = StyleSheet.create({
         width: 9,
         height: 5,
         justifyContent: 'flex-end',
-        
     },
 
     info: {
@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         textAlign: 'center',
-        marginRight: 10,
     },
 
     icon: {

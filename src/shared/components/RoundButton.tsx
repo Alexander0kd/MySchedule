@@ -5,10 +5,10 @@ import { FunctionComponent } from 'react';
 export const RoundButton: FunctionComponent<{
     icon?: keyof typeof MaterialIcons.glyphMap;
     label: string;
-    onPressFunc: () => void;
+    onPressFn: () => void;
     iconPosition?: 'left' | 'right' | 'center';
     disabled?: boolean;
-    isThin?: boolean
+    isThin?: boolean;
 }> = (props) => {
     let iconStyle: StyleProp<ViewStyle>;
 
@@ -26,13 +26,12 @@ export const RoundButton: FunctionComponent<{
             iconStyle = styles.contentLeft;
             break;
     }
+
     const containerStyle = props.isThin ? styles.thinButtonContainer : styles.roundButtonContainer;
-    const backgroundColor = props.isThin ? '' : (props.disabled ? 'rgba(202, 196, 208, 0.12)' : '#6750A4');
+    const backgroundColor = props.isThin ? '' : props.disabled ? 'rgba(202, 196, 208, 0.12)' : '#6750A4';
+
     return (
-        <TouchableOpacity
-            disabled={props.disabled}
-            style={[containerStyle, { backgroundColor }]}
-            onPress={props.onPressFunc}>
+        <TouchableOpacity disabled={props.disabled} style={[containerStyle, { backgroundColor }]} onPress={props.onPressFn}>
             <View style={[styles.buttonContent, iconStyle]}>
                 {props.icon && <MaterialIcons style={{ marginBottom: -3 }} name={props.icon} size={20} color="#CAC4D0" />}
                 <Text style={[styles.text, { color: props.disabled ? 'rgba(202, 196, 208, 0.38)' : '#FFF' }]}>{props.label}</Text>

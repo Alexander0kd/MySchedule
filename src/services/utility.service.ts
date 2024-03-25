@@ -61,7 +61,6 @@ export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     });
 }
 
-
 /**
  * Gets the lesson type based on the input string.
  * @param str - The input string representing the lesson type.

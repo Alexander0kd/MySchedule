@@ -75,14 +75,14 @@ export const ProfileAdd = () => {
             <View style={styles.wrapper}>
                 <RoundButton
                     label="Скасувати"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         navigation.goBack();
                     }}
-                    isThin = {true}
+                    isThin={true}
                 />
                 <RoundButton
                     label="Зберегти"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         handleSave(profileData);
                     }}
                     disabled={!isFormFilled}

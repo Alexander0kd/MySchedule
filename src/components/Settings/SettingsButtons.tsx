@@ -11,14 +11,14 @@ export const SettingsButtons = () => {
 
     return (
         <View style={styles.buttonsContainer}>
-            <IconButton iconPosition="left" icon="person" label="Налаштування профілів" onPressFunc={() => navigation.navigate('SettingsProfile')} />
+            <IconButton iconPosition="left" icon="person" label="Налаштування профілів" onPressFn={() => navigation.navigate('SettingsProfile')} />
             <IconButton
                 iconPosition="left"
                 icon="email"
                 label="Налаштування сповіщень"
-                onPressFunc={() => navigation.navigate('SettingsNotification')}
+                onPressFn={() => navigation.navigate('SettingsNotification')}
             />
-            <IconButton iconPosition="left" icon="today" label="Налаштування занять" onPressFunc={() => navigation.navigate('SettingsShedule')} />
+            <IconButton iconPosition="left" icon="today" label="Налаштування занять" onPressFn={() => navigation.navigate('SettingsShedule')} />
         </View>
     );
 };

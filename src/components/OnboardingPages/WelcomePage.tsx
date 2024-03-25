@@ -19,7 +19,7 @@ export const WelcomePage: FunctionComponent<{
                 </View>
             </View>
             <View>
-                <WideButton label="Продовжити" onPressFunc={props.buttonFunction} isDisabled={false} />
+                <WideButton label="Продовжити" onPressFn={props.buttonFunction} isDisabled={false} />
             </View>
         </View>
     );

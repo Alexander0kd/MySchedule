@@ -20,56 +20,62 @@ export const InformationButtons = () => {
                     icon="link"
                     iconPosition="right"
                     label="Технічна підтримка"
-                    onPressFunc={() => Linking.openURL(`mailto:autodot222@gmail.com?subject=${subject}&body=${message}`)}
+                    onPressFn={() => Linking.openURL(`mailto:autodot222@gmail.com?subject=${subject}&body=${message}`)}
                 />
-                <IconButton icon="link" iconPosition="right" label="Оновити застосунок" onPressFunc={() => Linking.openURL('#')} />
+                <IconButton icon="link" iconPosition="right" label="Оновити застосунок" onPressFn={() => Linking.openURL('#')} />
                 <IconButton
                     icon="arrow-forward"
                     iconPosition="right"
                     label="Поширені запитання (FAQ)"
-                    onPressFunc={() => navigation.navigate('FAQPage')}
+                    onPressFn={() => navigation.navigate('FAQPage')}
                 />
             </View>
 
             <Text style={styles.text}>Поділитися застосунком</Text>
             <View style={styles.buttonsContainer}>
-                <IconButton icon="share" iconPosition="right" label="Android" onPressFunc={() => Linking.openURL('#')} />
-                <IconButton icon="share" iconPosition="right" label="IOS" onPressFunc={() => Linking.openURL('#')} />
+                <IconButton icon="share" iconPosition="right" label="Android" onPressFn={() => Linking.openURL('#')} />
+                <IconButton icon="share" iconPosition="right" label="IOS" onPressFn={() => Linking.openURL('#')} />
             </View>
 
             <Text style={styles.text}>Розробники</Text>
             <View style={styles.buttonsContainer}>
-                <IconButton icon="link" iconPosition="right" label="ПНУ" onPressFunc={() => Linking.openURL('https://pnu.edu.ua')} />
-                <IconButton icon="link" iconPosition="right" label="КНІС" onPressFunc={() => Linking.openURL('https://comp-sc.pnu.edu.ua/')} />
+                <IconButton icon="link" iconPosition="right" label="ПНУ" onPressFn={() => Linking.openURL('https://pnu.edu.ua')} />
+                <IconButton icon="link" iconPosition="right" label="КНІС" onPressFn={() => Linking.openURL('https://comp-sc.pnu.edu.ua/')} />
                 <IconButton
                     icon="link"
                     iconPosition="right"
                     label="Бабала Вікторія"
-                    onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/victoria-babala-3198362a3/')}
+                    onPressFn={() => Linking.openURL('https://www.linkedin.com/in/victoria-babala-3198362a3/')}
+                />
+                <IconButton
+                    icon="link"
+                    iconPosition="right"
+                    label="Булавський Олег"
+                    onPressFn={() => Linking.openURL('https://www.linkedin.com/in/oleh-bulavskyi-534776300/')}
                 />
                 <IconButton
                     icon="link"
                     iconPosition="right"
                     label="Гречин Ірина"
-                    onPressFunc={() => Linking.openURL('www.linkedin.com/in/iryna-hrechyn-7754532b4')}
+                    onPressFn={() => Linking.openURL('www.linkedin.com/in/iryna-hrechyn-7754532b4')}
                 />
                 <IconButton
                     icon="link"
                     iconPosition="right"
                     label="Данюк Владислав"
-                    onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/vladdaniuk/')}
+                    onPressFn={() => Linking.openURL('https://www.linkedin.com/in/vladdaniuk/')}
                 />
                 <IconButton
                     icon="link"
                     iconPosition="right"
                     label="Запухляк Олег"
-                    onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/oleh-zapukhliak/')}
+                    onPressFn={() => Linking.openURL('https://www.linkedin.com/in/oleh-zapukhliak/')}
                 />
                 <IconButton
                     icon="link"
                     iconPosition="right"
                     label="Кадемський Олександр"
-                    onPressFunc={() => Linking.openURL('https://www.linkedin.com/in/alexander-kademskyi-8939522b4/')}
+                    onPressFn={() => Linking.openURL('https://www.linkedin.com/in/alexander-kademskyi-8939522b4/')}
                 />
             </View>
         </ScrollView>
