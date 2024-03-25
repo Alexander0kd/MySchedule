@@ -12,6 +12,7 @@ import { ISchedule } from '../../shared/interfaces/schedule.interface';
 import { filterSchedule, formatDateWithTime, handleError } from '../../services/utility.service';
 import { LoadingScreen } from '../../shared/components/LoadingScreen';
 import { useIsFocused } from '@react-navigation/native';
+import { handleNotifyList } from '../../services/notification.service';
 
 const { width, height } = Dimensions.get('window');
 
@@ -136,6 +137,7 @@ export const Schedule = () => {
                 subject: lesson,
             });
             await updateProfileData(activeProfile.id, activeProfile);
+            await handleNotifyList(activeProfile.settings.notification.notificationList);
         }
     };
 
@@ -152,6 +154,7 @@ export const Schedule = () => {
         if (index !== -1) {
             activeProfile.settings.notification.notificationList.splice(index, 1);
             await updateProfileData(activeProfile.id, activeProfile);
+            await handleNotifyList(activeProfile.settings.notification.notificationList);
         }
     };
 

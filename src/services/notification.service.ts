@@ -2,7 +2,6 @@ import * as Notifications from 'expo-notifications';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 
-import { IProfile } from '../shared/interfaces/profile.interface';
 import { NotificationItem } from '../shared/interfaces/settings.interface';
 
 import { ISchedule } from '../shared/interfaces/schedule.interface';
@@ -57,20 +56,10 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
 });
 
 /**
- * Handles updating notifications for a profile based on notification settings.
- * @param profile The profile for which notifications need to be handled.
- */
-export async function handleNotificationUpdate(profile: IProfile) {
-    await handleNotifyChanges(profile.settings.notification.notifyChanges);
-    await handleNotifyBy(profile.schedule, profile.settings.notification.notifyBy);
-    await handleNotifyList(profile.settings.notification.notificationList);
-}
-
-/**
  * Handles registration and unregistration of background task based on notification settings.
  * @param notifyChanges Flag indicating whether notifications for schedule changes are enabled.
  */
-async function handleNotifyChanges(notifyChanges: boolean) {
+export async function handleNotifyChanges(notifyChanges: boolean) {
     try {
         if (!notifyChanges) {
             const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_TASK_NAME);
@@ -95,7 +84,7 @@ async function handleNotifyChanges(notifyChanges: boolean) {
  * @param schedule The schedule of classes for the profile.
  * @param notifyBy The time in minutes before each class to notify the user.
  */
-async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
+export async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
     try {
         await Notifications.cancelAllScheduledNotificationsAsync();
 
@@ -134,7 +123,7 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
  * Handles scheduling notifications for items in the notification list based on their dates.
  * @param notificationList The list of items to notify about.
  */
-async function handleNotifyList(notificationList: NotificationItem[]) {
+export async function handleNotifyList(notificationList: NotificationItem[]) {
     try {
         Notifications.setNotificationHandler({
             handleNotification: async () => ({
