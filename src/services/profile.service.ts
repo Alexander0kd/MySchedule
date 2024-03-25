@@ -4,7 +4,6 @@ import { IProfile } from '../shared/interfaces/profile.interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../shared/env/available-routes';
 import { handleError } from './utility.service';
-import { handleNotificationUpdate } from './notification.service';
 
 enum STORAGE_KEYS {
     PROFILES = 'profiles',
@@ -20,8 +19,8 @@ export async function getAllProfiles(): Promise<IProfile[]> {
         const profiles = await AsyncStorage.getItem(STORAGE_KEYS.PROFILES);
         return JSON.parse(profiles) || [];
     } catch (error) {
-        handleError(error);
-        throw error;
+        handleError(error, 'Виникла помилка під час отримання списку профілів.');
+        return [];
     }
 }
 
@@ -34,7 +33,7 @@ export async function isLocalStorageEmpty(): Promise<boolean> {
         const profiles = await getAllProfiles();
         return !profiles || profiles.length < 1;
     } catch (error) {
-        handleError(error);
+        handleError(error, 'Виникла помилка під час отримання списку профілів.');
         return true;
     }
 }
@@ -57,7 +56,8 @@ export async function addProfile(profileData: IProfile): Promise<boolean> {
         );
 
         if (isProfileExist) {
-            throw new Error('Add Profile] Duplicate profile detected');
+            handleError(null, 'Виникла помилка під час створення профілю: У вас уже є такий профіль!');
+            return;
         }
 
         profiles.push(profileData);
@@ -70,7 +70,7 @@ export async function addProfile(profileData: IProfile): Promise<boolean> {
 
         return true;
     } catch (error) {
-        handleError(error);
+        handleError(error, 'Виникла помилка під час створення профілю.');
         return false;
     }
 }
@@ -85,7 +85,7 @@ export async function getProfileById(id: string): Promise<IProfile> {
         const profiles = await getAllProfiles();
         return profiles.find((user) => user.id === id) || null;
     } catch (error) {
-        handleError(error);
+        handleError(error, 'Виникла помилка під час отримання профілю.');
         return null;
     }
 }
@@ -102,7 +102,8 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
         const profileIndex = profiles.findIndex((user) => user.id === id);
 
         if (profileIndex === -1) {
-            throw new Error(`Profile ${id} not found`);
+            handleError(null, `Виникла помилка під час видалення профілю: Профіль ${id} не знайдений!`);
+            return;
         }
 
         profiles.splice(profileIndex, 1);
@@ -114,7 +115,7 @@ export async function deleteProfileById(id: string, navigation: StackNavigationP
 
         return true;
     } catch (error) {
-        handleError(error);
+        handleError(error, `Виникла помилка під час видалення профілю!`);
         return false;
     }
 }
@@ -138,12 +139,14 @@ export async function updateProfileConfiguration(id: string, editedProfileData: 
         );
 
         if (isProfileExist) {
-            throw new Error('[Update Profile] Duplicate profile detected');
+            handleError(null, `Виникла помилка під час редагування профілю: У вас уже є такий профіль!`);
+            return;
         }
 
         const profileIndex = profiles.findIndex((user) => user.id === id);
         if (profileIndex == -1) {
-            throw new Error('User with this ID not found');
+            handleError(null, `Виникла помилка під час редагування профілю: УПрофіль ${id} не знайдений!`);
+            return;
         }
 
         const newProfile: IProfile = {
@@ -169,11 +172,10 @@ export async function updateProfileConfiguration(id: string, editedProfileData: 
         profiles[profileIndex] = newProfile;
 
         await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
-        handleNotificationUpdate(profiles[profileIndex]);
 
         return true;
     } catch (error) {
-        handleError(error);
+        handleError(error, `Виникла помилка під час редагування профілю!`);
         return false;
     }
 }
@@ -190,7 +192,8 @@ export async function updateProfileData(id: string, editedProfileData: IProfile)
 
         const profileIndex = profiles.findIndex((user) => user.id === id);
         if (profileIndex == -1) {
-            throw new Error('User with this ID not found');
+            handleError(null, `Виникла помилка під час редагування профілю: УПрофіль ${id} не знайдений!`);
+            return;
         }
 
         profiles[profileIndex].id = editedProfileData.id;
@@ -200,11 +203,10 @@ export async function updateProfileData(id: string, editedProfileData: IProfile)
         profiles[profileIndex].lastUpdate = editedProfileData.lastUpdate;
 
         await AsyncStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
-        handleNotificationUpdate(profiles[profileIndex]);
 
         return true;
     } catch (error) {
-        handleError(error);
+        handleError(error, `Виникла помилка під час редагування профілю!`);
         return false;
     }
 }
@@ -230,7 +232,7 @@ export async function getActiveProfile(): Promise<IProfile> {
 
         return null;
     } catch (error) {
-        handleError(error);
+        handleError(error, `Виникла помилка під час отримання активного профілю!`);
         return null;
     }
 }
@@ -245,14 +247,15 @@ export async function setActiveProfile(id: string, navigation?: StackNavigationP
     try {
         const activeProfileId = JSON.parse(await AsyncStorage.getItem(STORAGE_KEYS.ACTIVE));
         if (id === activeProfileId) {
-            throw new Error('Profile already active');
+            return;
         }
 
         const profiles = await getAllProfiles();
         const isProfileExist = profiles.find((profile) => profile.id === id);
 
         if (!isProfileExist) {
-            throw new Error(`Cant find profile with id: ${id}.`);
+            handleError(null, `Виникла помилка під час зміни активного профілю: Профіль ${id} не знайдений`);
+            return;
         }
 
         await AsyncStorage.setItem(STORAGE_KEYS.ACTIVE, JSON.stringify(id));
@@ -262,7 +265,7 @@ export async function setActiveProfile(id: string, navigation?: StackNavigationP
 
         return true;
     } catch (error) {
-        handleError(error);
+        handleError(error, `Виникла помилка під час зміни активного профілю!`);
         return false;
     }
 }

@@ -52,7 +52,7 @@ export async function getGroupList(uni: UniEndpoints, facultyId: number, year: n
             return group.f === facultyId && year == groupFirstChar[0];
         });
     } catch (error) {
-        handleError(error);
+        handleError(error, 'Виникла помилка під час отримання списку груп. Перевірте підключення до Інтернету!');
         return [];
     }
 }
@@ -77,7 +77,7 @@ export async function getGroupSchedule(url: UniEndpoints, facultyId: string, gro
 
         return JSON.parse(data);
     } catch (error) {
-        handleError(error);
+        handleError(error, 'Виникла помилка під час отримання розкладу. Перевірте підключення до Інтернету!');
         return [];
     }
 }

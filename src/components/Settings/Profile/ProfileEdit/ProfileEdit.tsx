@@ -36,7 +36,7 @@ export const ProfileEdit: FunctionComponent<{
                 }, 10);
             }
         } catch (error) {
-            handleError(error);
+            handleError(error, `Виникла помилка під час оновлення профілю!`);
         }
     };
 

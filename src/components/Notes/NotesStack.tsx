@@ -5,6 +5,7 @@ import { NotesEdit } from './NotesEdit/NotesEdit';
 import { NotesAdd } from './NotesAdd/NotesAdd';
 import { RouteProp } from '@react-navigation/native';
 import { AvailableRoutes } from '../../shared/env/available-routes';
+import { ProfileMenu } from '../Navigation/ProfileMenu';
 
 export const NotesStack: React.FunctionComponent<{
     route: RouteProp<AvailableRoutes, 'NotesStack'>;
@@ -24,6 +25,7 @@ export const NotesStack: React.FunctionComponent<{
         headerStyle: { backgroundColor: '#4F378B' },
         headerTintColor: 'white',
         cardStyle: { backgroundColor: '#141218' },
+        headerRight: () => <ProfileMenu />,
     };
 
     const modalScreenOptions = {

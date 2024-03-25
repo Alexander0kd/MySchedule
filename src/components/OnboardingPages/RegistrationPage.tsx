@@ -24,7 +24,7 @@ export const RegistrationPage: FunctionComponent<{
                 props.buttonFunction();
             }
         } catch (error) {
-            handleError(error);
+            handleError(error, `Виникла помилка під створення профілю!`);
         }
     };
 

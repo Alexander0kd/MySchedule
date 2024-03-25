@@ -8,6 +8,7 @@ import { AppNavbar } from './src/components/Navigation/AppNavbar';
 import { OnboardingPage } from './src/components/OnboardingPages/OnboardingPage';
 import { isLocalStorageEmpty } from './src/services/profile.service';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import CustomisableAlert from 'react-native-customisable-alert';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,33 @@ export default function App() {
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <StatusBar backgroundColor="#381E72" />
+                <CustomisableAlert
+                    titleStyle={{
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textAlign: 'left',
+                    }}
+                    textStyle={{
+                        color: 'white',
+                        textAlign: 'left',
+                        paddingTop: 16,
+                        marginBottom: 0,
+                    }}
+                    alertContainerStyle={{
+                        backgroundColor: '#2B2930',
+                        padding: 24,
+                        borderRadius: 28,
+                    }}
+                    btnLabelStyle={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                    }}
+                    btnStyle={{
+                        backgroundColor: 'transparent',
+                        flex: 1,
+                    }}
+                />
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={isLocalStorageAvailable ? 'AppNavbar' : 'OnboardingPage'}>
                         <Stack.Screen name="OnboardingPage" component={OnboardingPage} options={{ headerShown: false, ...TransitionPresets.SlideFromRightIOS }} />

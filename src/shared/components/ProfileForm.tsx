@@ -83,7 +83,7 @@ const CustomDropdown: FunctionComponent<{
                     paddingVertical: 6,
                     paddingHorizontal: 16,
                     backgroundColor: 'rgba(202, 196, 208, 0.38)',
-                    borderColor: 'rgb(202, 196, 208)'
+                    borderColor: 'rgb(202, 196, 208)',
                 },
                 textInputContainerStyle: {
                     flex: 1,
