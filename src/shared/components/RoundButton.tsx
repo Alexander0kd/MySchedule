@@ -8,6 +8,7 @@ export const RoundButton: FunctionComponent<{
     onPressFunc: () => void;
     iconPosition?: 'left' | 'right' | 'center';
     disabled?: boolean;
+    isThin?: boolean
 }> = (props) => {
     let iconStyle: StyleProp<ViewStyle>;
 
@@ -25,11 +26,12 @@ export const RoundButton: FunctionComponent<{
             iconStyle = styles.contentLeft;
             break;
     }
-
+    const containerStyle = props.isThin ? styles.thinButtonContainer : styles.roundButtonContainer;
+    const backgroundColor = props.isThin ? '' : (props.disabled ? 'rgba(202, 196, 208, 0.12)' : '#6750A4');
     return (
         <TouchableOpacity
             disabled={props.disabled}
-            style={[styles.buttonContainer, { backgroundColor: props.disabled ? 'rgba(202, 196, 208, 0.12)' : '#6750A4' }]}
+            style={[containerStyle, { backgroundColor }]}
             onPress={props.onPressFunc}>
             <View style={[styles.buttonContent, iconStyle]}>
                 {props.icon && <MaterialIcons style={{ marginBottom: -3 }} name={props.icon} size={20} color="#CAC4D0" />}
@@ -40,10 +42,17 @@ export const RoundButton: FunctionComponent<{
 };
 
 const styles = StyleSheet.create({
-    buttonContainer: {
+    roundButtonContainer: {
         backgroundColor: '#6750A4',
         borderRadius: 100,
         paddingVertical: 14,
+        paddingHorizontal: 24,
+    },
+    thinButtonContainer: {
+        borderWidth: 1,
+        borderColor: '#E8DEF8',
+        borderRadius: 100,
+        paddingVertical: 12,
         paddingHorizontal: 24,
     },
     text: {
