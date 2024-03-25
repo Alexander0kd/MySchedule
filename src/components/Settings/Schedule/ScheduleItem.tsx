@@ -12,7 +12,7 @@ export const ScheduleItem: FunctionComponent<{
     const handleOpenModal = async (nameSubject: string) => {
         if (props.subject.isVisible) {
             const modal = await openModal(
-                'Бажаєте Приховати цей предмет?',
+                'Бажаєте приховати цей предмет?',
                 `"${nameSubject}" не буде відображатись у розкладі`,
                 'Скасувати',
                 'Приховати'
