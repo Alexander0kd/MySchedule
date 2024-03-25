@@ -3,7 +3,6 @@ import { AvailableRoutes } from '../../../shared/env/available-routes';
 import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TextInput, View, StyleSheet, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
-import { ThinButton } from '../../../shared/components/ThinButton';
 import { RoundButton } from '../../../shared/components/RoundButton';
 
 import { addNote } from '../../../services/notes.service';
@@ -88,11 +87,12 @@ export const NotesAdd: FunctionComponent<{
             </View>
             <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
                 <View style={styles.wrapper}>
-                    <ThinButton
+                    <RoundButton
                         label="Скасувати"
                         onPressFunc={() => {
                             navigation.navigate('NotesList');
                         }}
+                        isThin ={true}
                     />
                     <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleAddNote(noteGroup, inputText)} />
                 </View>
