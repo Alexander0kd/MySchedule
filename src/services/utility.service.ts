@@ -1,8 +1,8 @@
-import { Alert } from 'react-native';
 import { IProfile } from '../shared/interfaces/profile.interface';
 import { ISchedule } from '../shared/interfaces/schedule.interface';
 import { AvailableUni } from '../shared/universities/available-uni.enum';
 import { PnuFaculty } from '../shared/universities/faculty/pnu.faculty';
+import { closeAlert, showAlert } from 'react-native-customisable-alert';
 
 /**
  * Formats the last update date string.
@@ -132,25 +132,23 @@ export function getFacultyFullName(uni: AvailableUni, facultyId: string): string
  */
 export async function openModal(title: string, text: string, cancelText: string, continueText: string): Promise<boolean> {
     return new Promise((resolve) => {
-        Alert.alert(
-            title,
-            text,
-            [
-                {
-                    text: cancelText,
-                    onPress: () => resolve(false),
-                    style: 'cancel',
-                },
-                {
-                    text: continueText,
-                    onPress: () => resolve(true),
-                },
-            ],
-            {
-                cancelable: true,
-                userInterfaceStyle: 'dark',
-            }
-        );
+        showAlert({
+            customIcon: 'none',
+            dismissable: true,
+            title: title,
+            message: text,
+            leftBtnLabel: cancelText,
+            btnLabel: continueText,
+            alertType: 'warning',
+            onPress: () => {
+                closeAlert();
+                resolve(true);
+            },
+            onDismiss: () => {
+                closeAlert();
+                resolve(false);
+            },
+        });
     });
 }
 
@@ -175,7 +173,19 @@ export function getUniqueSchedule(schedule: ISchedule[]): string[] {
  * Handles errors by logging them to the console and display popups.
  * @param error - The error object to be handled.
  */
-export function handleError(error: Error): void {
-    // TODO: Implement more error handling mechanism (e.g., display error messages to the user)
-    console.error('Error:', error);
+export function handleError(error: Error, message?: string): void {
+    showAlert({
+        customIcon: 'none',
+        dismissable: false,
+        title: 'Упс... Виникла помилка',
+        message: `${message || error.message}`,
+        btnLabel: 'Ок',
+        alertType: 'error',
+        onPress: () => {
+            closeAlert();
+        },
+    });
+
+    // eslint-disable-next-line no-console
+    console.error('Error:', error || message);
 }

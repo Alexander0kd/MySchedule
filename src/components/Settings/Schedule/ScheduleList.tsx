@@ -33,7 +33,7 @@ export const ScheduleList = () => {
             setSubjects(scheduleSettings);
             setIsLoading(false);
         } catch (error) {
-            handleError(error);
+            handleError(error, `Виникла помилка під час отримання списку предметів!`);
         }
     };
 
@@ -54,7 +54,7 @@ export const ScheduleList = () => {
 
             await fetchData();
         } catch (error) {
-            handleError(error);
+            handleError(error, `Виникла помилка під час зміни видимості предмету!`);
         }
     };
 

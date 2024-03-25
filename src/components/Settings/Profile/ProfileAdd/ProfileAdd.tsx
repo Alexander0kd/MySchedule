@@ -29,7 +29,7 @@ export const ProfileAdd = () => {
                 }, 10);
             }
         } catch (error) {
-            handleError(error);
+            handleError(error, `Виникла помилка під час створення профілю!`);
         }
     };
 

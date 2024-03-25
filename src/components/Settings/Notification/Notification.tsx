@@ -7,6 +7,7 @@ import { IProfile } from '../../../shared/interfaces/profile.interface';
 import { getActiveProfile, updateProfileData } from '../../../services/profile.service';
 import { LoadingScreen } from '../../../shared/components/LoadingScreen';
 import { useIsFocused } from '@react-navigation/native';
+import { handleNotificationUpdate } from '../../../services/notification.service';
 
 export const Notification = () => {
     const isFocused = useIsFocused();
@@ -32,16 +33,19 @@ export const Notification = () => {
     const toggleNotify = async (state: boolean) => {
         profile.settings.notification.notifyChanges = state;
         await updateProfileData(profile.id, profile);
+        await handleNotificationUpdate(profile);
     };
 
     const changeNotifyBy = async (time: number) => {
         profile.settings.notification.notifyBy = time;
         await updateProfileData(profile.id, profile);
+        await handleNotificationUpdate(profile);
     };
 
     const deleteNotify = async (index: number) => {
         profile.settings.notification.notificationList.splice(index, 1);
         await updateProfileData(profile.id, profile);
+        await handleNotificationUpdate(profile);
     };
 
     if (isLoading) {

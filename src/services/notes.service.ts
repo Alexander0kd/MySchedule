@@ -44,7 +44,7 @@ export async function getAllSubjects(): Promise<INote[]> {
             return a.subject.localeCompare(b.subject);
         });
     } catch (error) {
-        handleError(error);
+        handleError(error, `Виникла помилка під час отримання списку нотаток!`);
         return []; // Return empty array in case of error
     }
 }
@@ -79,12 +79,12 @@ export async function deleteNoteById(noteGroup: INote, noteId: number) {
 
     const index = activeProfile.notes.findIndex((note) => note.subject === noteGroup.subject);
     if (index === -1) {
-        handleError(new Error('Subject not found'));
+        handleError(null, `Виникла помилка під час видалення нотатки: Предмет не знайдений!`);
         return;
     }
 
     if (!activeProfile.notes[index].data[noteId]) {
-        handleError(new Error('Note not found'));
+        handleError(null, `Виникла помилка під час видалення нотатки: Нотатка не знайдена!`);
         return;
     }
 
@@ -103,7 +103,7 @@ export async function updateNotesBySubject(editedNote: INote) {
 
     const index = activeProfile.notes.findIndex((note) => note.subject === editedNote.subject);
     if (index === -1) {
-        handleError(new Error('Subject not found'));
+        handleError(null, `Виникла помилка під час видалення нотатки: Предмет не знайдений!`);
         return;
     }
 
