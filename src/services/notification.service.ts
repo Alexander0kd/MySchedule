@@ -126,7 +126,7 @@ async function handleNotifyBy(schedule: ISchedule[], notifyBy: number) {
             }
         });
     } catch (error) {
-        handleError(error, `Виникла помилка під час створення сповіщення. Зверніться, будь ласка, у підтримку!`);
+        handleError(error, `Виникла помилка під час створення сповіщення. Будь ласка, зверніться у підтримку!`);
     }
 }
 
