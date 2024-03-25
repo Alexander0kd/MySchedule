@@ -61,15 +61,6 @@ export function filterSchedule(date: Date, profile: IProfile): ISchedule[] {
     });
 }
 
-/**
- * Truncates a string to the specified length.
- * @param str - The string to be truncated.
- * @param length - The maximum length of the truncated string.
- * @returns The truncated string.
- */
-export function truncateString(str: string, length: number): string {
-    return str.length > length ? str.slice(0, length) + '...' : str;
-}
 
 /**
  * Gets the lesson type based on the input string.

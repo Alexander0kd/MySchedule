@@ -5,7 +5,7 @@ import Arrow from './../../../../../assets/arrow_drop_down.png';
 import Edit from './../../../../../assets/edit.png';
 import Trash from './../../../../../assets/trashcan.png';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { getFacultyFullName, truncateString } from '../../../../services/utility.service';
+import { getFacultyFullName } from '../../../../services/utility.service';
 import { AvailableUni } from '../../../../shared/universities/available-uni.enum';
 
 export const ProfileDropdown: FunctionComponent<{
@@ -28,7 +28,8 @@ export const ProfileDropdown: FunctionComponent<{
             <View>
                 <View style={styles.title}>
                     <TouchableOpacity onPress={() => props.activeProfileFn(props.profile.id)}>
-                        <Text style={{ ...styles.buttonText, fontWeight: '500' }}>{truncateString(AvailableUni[props.profile.university], 30)}</Text>
+                        <Text numberOfLines = {1} style={{ ...styles.buttonText, fontWeight: '500' }}>
+                            {AvailableUni[props.profile.university]}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.arrowWrapper} onPress={toggleDropdown}>
                         <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     title: {
         paddingVertical: 16,
         paddingHorizontal: 24,
-        paddingRight: 16,
+        paddingRight: 40,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
         width: 9,
         height: 5,
         justifyContent: 'flex-end',
+        
     },
 
     info: {
@@ -174,6 +176,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         textAlign: 'center',
+        marginRight: 10,
     },
 
     icon: {

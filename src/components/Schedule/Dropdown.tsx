@@ -7,7 +7,7 @@ import { Reminder } from './Reminder';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableRoutes } from '../../shared/env/available-routes';
-import { getLessonType, truncateString } from '../../services/utility.service';
+import { getLessonType } from '../../services/utility.service';
 import { ISchedule } from '../../shared/interfaces/schedule.interface';
 
 export const DropDown: FunctionComponent<{
@@ -64,7 +64,7 @@ export const DropDown: FunctionComponent<{
                     <View>
                         <View style={{ borderColor: 'transparent', flexDirection: 'row' }}>
                             <Text style={{ color: 'white', fontWeight: '500' }}>{props.lesson.li}. </Text>
-                            <Text style={{ color: 'white', fontWeight: '500' }}>{truncateString(props.lesson.l, maxCharacters)}</Text>
+                            <Text style={{ color: 'white', fontWeight: '500' }}>{props.lesson.l}</Text>
                         </View>
                         <Text style={{ color: '#CAC4D0', fontSize: 12 }}>{getLessonType(props.lesson.lt)}</Text>
                     </View>
