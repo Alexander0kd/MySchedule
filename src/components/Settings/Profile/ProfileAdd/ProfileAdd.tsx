@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { ProfileForm } from '../../../../shared/components/ProfileForm';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';
 import { RoundButton } from '../../../../shared/components/RoundButton';
-import { ThinButton } from '../../../../shared/components/ThinButton';
+
 import { addProfile, setActiveProfile } from '../../../../services/profile.service';
 import { handleError, openModal } from '../../../../services/utility.service';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -73,15 +73,16 @@ export const ProfileAdd = () => {
                 <ProfileForm setIsFormFilled={setIsFormFilled} setProfileData={setProfileData} />
             </View>
             <View style={styles.wrapper}>
-                <ThinButton
+                <RoundButton
                     label="Скасувати"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         navigation.goBack();
                     }}
+                    isThin={true}
                 />
                 <RoundButton
                     label="Зберегти"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         handleSave(profileData);
                     }}
                     disabled={!isFormFilled}

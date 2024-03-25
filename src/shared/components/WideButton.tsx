@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 
 export const WideButton: FunctionComponent<{
     label: string;
-    onPressFunc: () => void;
+    onPressFn: () => void;
     isDisabled?: boolean;
 }> = (props) => {
     const { width } = Dimensions.get('window');
@@ -12,7 +12,7 @@ export const WideButton: FunctionComponent<{
         <TouchableOpacity
             disabled={props.isDisabled}
             style={[styles.WideButton, { width: width - 48, backgroundColor: props.isDisabled ? 'rgba(202, 196, 208, 0.12)' : '#6750A4' }]}
-            onPress={props.onPressFunc}>
+            onPress={props.onPressFn}>
             <Text style={[styles.ButtonText, { color: props.isDisabled ? 'rgba(202, 196, 208, 0.38)' : '#FFF' }]}>{props.label}</Text>
         </TouchableOpacity>
     );

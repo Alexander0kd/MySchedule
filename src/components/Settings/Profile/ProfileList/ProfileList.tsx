@@ -83,7 +83,7 @@ export const ProfileList = () => {
                     />
                 ))}
                 <View style={styles.wrapper}>
-                    <RoundButton iconPosition="center" icon="add" label="Додати профіль" onPressFunc={() => addProfile()} />
+                    <RoundButton iconPosition="center" icon="add" label="Додати профіль" onPressFn={() => addProfile()} />
                 </View>
             </ScrollView>
         </View>

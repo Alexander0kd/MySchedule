@@ -8,7 +8,6 @@ import { IProfile } from '../../shared/interfaces/profile.interface';
 import { AvailableRoutes } from '../../shared/env/available-routes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AvailableUni } from '../../shared/universities/available-uni.enum';
-import { truncateString } from '../../services/utility.service';
 import { LoadingScreen } from '../../shared/components/LoadingScreen';
 
 export const ProfileMenu = () => {
@@ -44,6 +43,10 @@ export const ProfileMenu = () => {
         await setActiveProfile(id, navigation);
     };
 
+    const truncateString = (str: string, length: number) => {
+        return str.length > length ? str.slice(0, length) + '...' : str;
+    };
+
     return (
         <View style={styles.container}>
             <Menu
@@ -66,7 +69,7 @@ export const ProfileMenu = () => {
                                 <MenuItem onPress={() => setActiveProfileHandler(profile.id)} pressColor="#332D41">
                                     <View style={styles.profileInfo}>
                                         <Text style={styles.profileText}>{profile.groupName}</Text>
-                                        <Text style={styles.profileText}>
+                                        <Text numberOfLines={1} style={styles.profileText}>
                                             {truncateString(
                                                 AvailableUni[profile.university],
                                                 window.width < 450 ? 20 : AvailableUni[profile.university].length

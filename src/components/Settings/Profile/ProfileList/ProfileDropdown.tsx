@@ -5,7 +5,7 @@ import Arrow from './../../../../../assets/arrow_drop_down.png';
 import Edit from './../../../../../assets/edit.png';
 import Trash from './../../../../../assets/trashcan.png';
 import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { getFacultyFullName, truncateString } from '../../../../services/utility.service';
+import { getFacultyFullName } from '../../../../services/utility.service';
 import { AvailableUni } from '../../../../shared/universities/available-uni.enum';
 
 export const ProfileDropdown: FunctionComponent<{
@@ -27,8 +27,10 @@ export const ProfileDropdown: FunctionComponent<{
         <ScrollView style={{ ...styles.container, backgroundColor: props.isProfileActive ? '#2e2447' : '#332D41' }}>
             <View>
                 <View style={styles.title}>
-                    <TouchableOpacity onPress={() => props.activeProfileFn(props.profile.id)}>
-                        <Text style={{ ...styles.buttonText, fontWeight: '500' }}>{truncateString(AvailableUni[props.profile.university], 30)}</Text>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => props.activeProfileFn(props.profile.id)}>
+                        <Text numberOfLines={1} style={{ ...styles.buttonText, fontWeight: '500' }}>
+                            {AvailableUni[props.profile.university]}
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.arrowWrapper} onPress={toggleDropdown}>
                         <Image source={Arrow} style={{ ...styles.arrow, transform: [{ rotate: `${arrowRotation}deg` }] }} />

@@ -5,7 +5,7 @@ import { FunctionComponent } from 'react';
 export const IconButton: FunctionComponent<{
     icon: keyof typeof MaterialIcons.glyphMap;
     label: string;
-    onPressFunc: () => void;
+    onPressFn: () => void;
     iconPosition: 'left' | 'right' | 'center';
 }> = (props) => {
     let iconStyle: StyleProp<ViewStyle>;
@@ -26,7 +26,7 @@ export const IconButton: FunctionComponent<{
     }
 
     return (
-        <TouchableOpacity style={styles.buttonContainer} onPress={props.onPressFunc}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={props.onPressFn}>
             <View style={[styles.buttonContent, iconStyle]}>
                 <MaterialIcons name={props.icon} size={24} color="#CAC4D0" />
                 <Text style={styles.text}>{props.label}</Text>

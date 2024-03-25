@@ -40,7 +40,7 @@ export const SuccessfulRegistrationPage: FunctionComponent<{
                 </View>
             </View>
             <View>
-                <WideButton label="Продовжити" onPressFunc={props.buttonFunction} />
+                <WideButton label="Продовжити" onPressFn={props.buttonFunction} />
             </View>
         </View>
     );

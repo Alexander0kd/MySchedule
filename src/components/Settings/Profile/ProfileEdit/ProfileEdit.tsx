@@ -8,7 +8,7 @@ import { IProfile } from '../../../../shared/interfaces/profile.interface';
 import { getProfileById, setActiveProfile, updateProfileConfiguration } from '../../../../services/profile.service';
 import { handleError, openModal } from '../../../../services/utility.service';
 import { ProfileForm } from '../../../../shared/components/ProfileForm';
-import { ThinButton } from '../../../../shared/components/ThinButton';
+
 import { RoundButton } from '../../../../shared/components/RoundButton';
 
 export const ProfileEdit: FunctionComponent<{
@@ -99,15 +99,16 @@ export const ProfileEdit: FunctionComponent<{
                 <ProfileForm setIsFormFilled={setIsFormFilled} setProfileData={setProfileData} filledProfile={filledProfile} />
             </View>
             <View style={styles.wrapper}>
-                <ThinButton
+                <RoundButton
                     label="Скасувати"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         navigation.goBack();
                     }}
+                    isThin={true}
                 />
                 <RoundButton
                     label="Зберегти"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         handleSave(profileData);
                     }}
                     disabled={!isFormFilled}

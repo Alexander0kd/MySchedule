@@ -44,7 +44,7 @@ export const RegistrationPage: FunctionComponent<{
             <View>
                 <WideButton
                     label="Продовжити"
-                    onPressFunc={() => {
+                    onPressFn={() => {
                         handleWideBtnClick(profileData);
                     }}
                     isDisabled={!isFormFilled}

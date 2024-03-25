@@ -121,7 +121,7 @@ export const Schedule = () => {
                     item.subject.ls === lesson.ls &&
                     item.subject.l === lesson.l
             );
-    
+
             return findProfile != undefined;
         } catch (e) {
             return false;

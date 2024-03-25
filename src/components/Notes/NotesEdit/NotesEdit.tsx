@@ -1,8 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { TextInput, View, StyleSheet, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
-import { ThinButton } from '../../../shared/components/ThinButton';
 import { RoundButton } from '../../../shared/components/RoundButton';
-
 import { AvailableRoutes } from '../../../shared/env/available-routes';
 import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -84,13 +82,14 @@ export const NotesEdit: FunctionComponent<{
             </View>
             <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
                 <View style={styles.wrapper}>
-                    <ThinButton
+                    <RoundButton
                         label="Скасувати"
-                        onPressFunc={() => {
+                        onPressFn={() => {
                             navigation.navigate('NotesList');
                         }}
+                        isThin={true}
                     />
-                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFunc={() => handleSaveChanges()} />
+                    <RoundButton label="Зберегти" disabled={!isInputFilled} onPressFn={() => handleSaveChanges()} />
                 </View>
             </KeyboardAvoidingView>
         </View>
