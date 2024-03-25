@@ -112,16 +112,20 @@ export const Schedule = () => {
     };
 
     const isHasNotificaton = (lesson: ISchedule) => {
-        const findProfile = activeProfile.settings.notification.notificationList.find(
-            (item) =>
-                item.subject.d === lesson.d &&
-                item.subject.li === lesson.li &&
-                item.subject.ld === lesson.ld &&
-                item.subject.ls === lesson.ls &&
-                item.subject.l === lesson.l
-        );
-
-        return findProfile != undefined;
+        try {
+            const findProfile = activeProfile.settings.notification.notificationList.find(
+                (item) =>
+                    item.subject.d === lesson.d &&
+                    item.subject.li === lesson.li &&
+                    item.subject.ld === lesson.ld &&
+                    item.subject.ls === lesson.ls &&
+                    item.subject.l === lesson.l
+            );
+    
+            return findProfile != undefined;
+        } catch (e) {
+            return false;
+        }
     };
 
     const addNotification = async (date: Date, lesson: ISchedule) => {
