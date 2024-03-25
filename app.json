@@ -21,13 +21,15 @@
           "fetch",
           "remote-notification"
         ]
-      }
+      },
+      "bundleIdentifier": "com.kademskyi.UniSchedule"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/favicon.png",
         "backgroundColor": "#141218"
-      }
+      },
+      "package": "com.kademskyi.UniSchedule"
     },
     "web": {
       "favicon": "./assets/favicon.png"
