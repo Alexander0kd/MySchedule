@@ -19,7 +19,7 @@ const BACKGROUND_TASK_NAME = 'scheduleUpdateTask';
  */
 TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
     const now = new Date();
-    if (now.getHours() < 12) {
+    if (now.getHours() < 16) {
         return BackgroundFetch.BackgroundFetchResult.NoData;
     }
 
@@ -27,7 +27,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
         const profile = await getActiveProfile();
         const data = await getGroupSchedule(UniEndpoints[profile.university], profile.faculty, profile.group);
 
-        if (data && data.length > 0 && profile.schedule != data) {
+        if (data && data.length > 0 && profile.schedule && profile.schedule.length > 0 && profile.schedule != data) {
             // Set notification handler to show notifications when the schedule updates
             Notifications.setNotificationHandler({
                 handleNotification: async () => ({
@@ -41,7 +41,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
             await Notifications.scheduleNotificationAsync({
                 content: {
                     title: 'Розклад оновився!',
-                    body: 'Перевірте ваш оновлений розклад!',
+                    body: 'Перевірте зміни у розкладі 😊',
                 },
                 trigger: null,
             });
@@ -70,7 +70,7 @@ export async function handleNotifyChanges(notifyChanges: boolean) {
         }
 
         await BackgroundFetch.registerTaskAsync(BACKGROUND_TASK_NAME, {
-            minimumInterval: 4 * 60 * 60, // 4 hours interval
+            minimumInterval: 6 * 60 * 60, // 6 hours interval
             stopOnTerminate: false,
             startOnBoot: true,
         });
