@@ -1,32 +1,42 @@
 {
-    "expo": {
-        "name": "Розклад Університетів",
-        "slug": "UniSchedule",
-        "owner": "PNUEdPro",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/favicon.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/favicon.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#141218"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "infoPlist": {
-                "UIBackgroundModes": ["fetch", "remote-notification"]
-            }
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/favicon.png",
-                "backgroundColor": "#141218"
-            }
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        }
-    }
+  "expo": {
+    "name": "Розклад Університетів",
+    "slug": "UniSchedule",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/favicon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/favicon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#141218"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/favicon.png",
+        "backgroundColor": "#141218"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0cd06119-05c6-4734-a43f-a40239f5ff3a"
+      }
+    },
+    "owner": "kademskyi"
+  }
 }
