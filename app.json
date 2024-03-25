@@ -1,7 +1,8 @@
 {
     "expo": {
-        "name": "MySchedule",
-        "slug": "MySchedule",
+        "name": "Розклад Університетів",
+        "slug": "UniSchedule",
+        "owner": "PNUEdPro",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/favicon.png",
@@ -22,8 +23,7 @@
             "adaptiveIcon": {
                 "foregroundImage": "./assets/favicon.png",
                 "backgroundColor": "#141218"
-            },
-            "persmissions": ["RECEIVE_BOOT_COMPLETED"]
+            }
         },
         "web": {
             "favicon": "./assets/favicon.png"
