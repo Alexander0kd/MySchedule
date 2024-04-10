@@ -1,7 +1,7 @@
 import { ISchedule } from './schedule.interface';
 import { INote } from './notes.interface';
 import { ISettings } from './settings.interface';
-import { AvailableUni } from '../universities/available-uni.enum';
+import { AvailableUni } from '../environment/universities/available-uni.enum';
 
 /**
  * Представляє профіль користувача.

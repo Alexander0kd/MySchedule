@@ -4,11 +4,11 @@ import { View, Text, ScrollView, StyleSheet, useWindowDimensions } from 'react-n
 import { Menu, MenuItem } from 'react-native-material-menu';
 import { MaterialIcons } from '@expo/vector-icons';
 import { setActiveProfile, getAllProfiles, getActiveProfile } from '../../services/profile.service';
-import { IProfile } from '../../shared/interfaces/profile.interface';
-import { AvailableRoutes } from '../../shared/env/available-routes';
+import { IProfile } from '../../interfaces/profile.interface';
+import { AvailableRoutes } from '../../environment/available-routes';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableUni } from '../../shared/universities/available-uni.enum';
-import { LoadingScreen } from '../../shared/components/LoadingScreen';
+import { AvailableUni } from '../../environment/universities/available-uni.enum';
+import { LoadingScreen } from '../../shared/LoadingScreen';
 
 export const ProfileMenu = () => {
     const window = useWindowDimensions();

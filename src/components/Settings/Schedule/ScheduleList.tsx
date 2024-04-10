@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { getActiveProfile, updateProfileData } from '../../../services/profile.service';
-import { getUniqueSchedule, handleError } from '../../../services/utility.service';
+import { getUniqueSchedule, handleError } from '../../../utils/utility.service';
 import { ScheduleItem } from './ScheduleItem';
-import { IHiddenItem } from '../../../shared/interfaces/settings.interface';
-import { LoadingScreen } from '../../../shared/components/LoadingScreen';
+import { IHiddenItem } from '../../../interfaces/settings.interface';
+import { LoadingScreen } from '../../../shared/LoadingScreen';
 
 export const ScheduleList = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);

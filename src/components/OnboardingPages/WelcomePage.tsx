@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import happyFace from './../../../assets/happy-face-1.png';
-import { WideButton } from '../../shared/components/WideButton';
+import { WideButton } from '../../shared/WideButton';
 import { FunctionComponent } from 'react';
 
 export const WelcomePage: FunctionComponent<{

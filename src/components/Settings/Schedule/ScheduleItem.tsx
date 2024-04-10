@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { openModal } from '../../../services/utility.service';
+import { openModal } from '../../../utils/utility.service';
 import Eye from '../../../../assets/eye-open.png';
 import EyeClosed from '../../../../assets/eye-closed.png';
-import { IHiddenItem } from '../../../shared/interfaces/settings.interface';
+import { IHiddenItem } from '../../../interfaces/settings.interface';
 
 export const ScheduleItem: FunctionComponent<{
     subject: IHiddenItem;

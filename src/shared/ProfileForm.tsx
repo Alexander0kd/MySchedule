@@ -5,9 +5,9 @@ import Dropdown from 'react-native-input-select';
 import uuid from 'react-native-uuid';
 import { IProfile } from '../interfaces/profile.interface';
 import { TFlatList } from 'react-native-input-select/lib/typescript/types/index.types';
-import { AvailableUni } from '../universities/available-uni.enum';
-import { getFacultyList, getGroupList } from '../../services/schedule-api.service';
-import { UniEndpoints } from '../universities/uni-endpoints.enum';
+import { AvailableUni } from '../environment/universities/available-uni.enum';
+import { getFacultyList, getGroupList } from '../services/schedule-api.service';
+import { UniEndpoints } from '../environment/universities/uni-endpoints.enum';
 import { IGroup } from '../interfaces/group.interface';
 import { IDropdown } from '../interfaces/dropdown.interface';
 

@@ -1,12 +1,12 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import React, { FunctionComponent, useState } from 'react';
-import { ProfileForm } from '../../shared/components/ProfileForm';
-import { WideButton } from '../../shared/components/WideButton';
+import { ProfileForm } from '../../shared/ProfileForm';
+import { WideButton } from '../../shared/WideButton';
 import { addProfile } from '../../services/profile.service';
 
 import okFace from '../../../assets/ok-face-1.png';
-import { IProfile } from '../../shared/interfaces/profile.interface';
-import { handleError } from '../../services/utility.service';
+import { IProfile } from '../../interfaces/profile.interface';
+import { handleError } from '../../utils/utility.service';
 
 const { height } = Dimensions.get('window');
 const paddingContainerTop = height < 800 ? height * 0.06 : height * 0.1;

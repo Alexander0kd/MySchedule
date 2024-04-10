@@ -1,13 +1,13 @@
 import React, { useState, FunctionComponent, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { INote, INoteData } from '../../../shared/interfaces/notes.interface';
+import { INote, INoteData } from '../../../interfaces/notes.interface';
 
 import Arrow from '../../../../assets/arrow_drop_down.png';
 import More from '../../../../assets/more_vert.png';
 import Plus from '../../../../assets/plus-icon.png';
 import Edit from '../../../../assets/edit.png';
 import Trash from '../../../../assets/trashcan.png';
-import { formatDateWithTime } from '../../../services/utility.service';
+import { formatDateWithTime } from '../../../utils/utility.service';
 
 export const NotesDropdown: FunctionComponent<{
     note: INote;

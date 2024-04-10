@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import coolFace from '../../../assets/cool-face-1.png';
-import { WideButton } from '../../shared/components/WideButton';
+import { WideButton } from '../../shared/WideButton';
 import { FunctionComponent } from 'react';
 
 const { height } = Dimensions.get('window');

@@ -1,15 +1,15 @@
 import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { AvailableRoutes } from '../../../../shared/env/available-routes';
-import { LoadingScreen } from '../../../../shared/components/LoadingScreen';
+import { AvailableRoutes } from '../../../../environment/available-routes';
+import { LoadingScreen } from '../../../../shared/LoadingScreen';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { IProfile } from '../../../../shared/interfaces/profile.interface';
+import { IProfile } from '../../../../interfaces/profile.interface';
 import { getProfileById, setActiveProfile, updateProfileConfiguration } from '../../../../services/profile.service';
-import { handleError, openModal } from '../../../../services/utility.service';
-import { ProfileForm } from '../../../../shared/components/ProfileForm';
+import { handleError, openModal } from '../../../../utils/utility.service';
+import { ProfileForm } from '../../../../shared/ProfileForm';
 
-import { RoundButton } from '../../../../shared/components/RoundButton';
+import { RoundButton } from '../../../../shared/RoundButton';
 
 export const ProfileEdit: FunctionComponent<{
     route: RouteProp<AvailableRoutes, 'ProfileEdit'>;

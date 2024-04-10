@@ -1,0 +1,22 @@
+export const DarkTheme = {
+    dark: true,
+    colors: {
+        white: '#fff',
+        black: '#000',
+        background: '#141218',
+        inversePrimary: '#6750a4',
+        surfaceVariant: '#49454f',
+        onPrimary: '#381e72',
+        primary: '#d0bcff',
+        onSurface: '#e6e0e9',
+        onSurfaceVariant: '#cac4d0',
+        onSecondary: '#332d41',
+        surfaceContainer: '#211f26',
+        primaryContainer: '#4f378b',
+        secondaryContainer: '#4a4458',
+        secondaryFixed: '#e8def8',
+        onSecondaryFixed: '#1d192b',
+        error50: '#dc362e',
+        primaryFixed: '#eaddff',
+    },
+};

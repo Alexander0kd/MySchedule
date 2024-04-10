@@ -2,9 +2,9 @@ import * as React from 'react';
 import { View, StyleSheet, Text, ScrollView, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { IconButton } from '../../shared/components/IconButton';
+import { IconButton } from '../../shared/IconButton';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../../shared/env/available-routes';
+import { AvailableRoutes } from '../../environment/available-routes';
 
 export const InformationButtons = () => {
     const navigation: StackNavigationProp<AvailableRoutes> = useNavigation();

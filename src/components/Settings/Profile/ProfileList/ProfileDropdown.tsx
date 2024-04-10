@@ -4,9 +4,9 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'rea
 import Arrow from './../../../../../assets/arrow_drop_down.png';
 import Edit from './../../../../../assets/edit.png';
 import Trash from './../../../../../assets/trashcan.png';
-import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { getFacultyFullName } from '../../../../services/utility.service';
-import { AvailableUni } from '../../../../shared/universities/available-uni.enum';
+import { IProfile } from '../../../../interfaces/profile.interface';
+import { getFacultyFullName } from '../../../../utils/utility.service';
+import { AvailableUni } from '../../../../environment/universities/available-uni.enum';
 
 export const ProfileDropdown: FunctionComponent<{
     profile: IProfile;

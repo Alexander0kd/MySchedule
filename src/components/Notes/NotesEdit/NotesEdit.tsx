@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { TextInput, View, StyleSheet, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
-import { RoundButton } from '../../../shared/components/RoundButton';
-import { AvailableRoutes } from '../../../shared/env/available-routes';
+import { RoundButton } from '../../../shared/RoundButton';
+import { AvailableRoutes } from '../../../environment/available-routes';
 import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { updateNotesBySubject } from '../../../services/notes.service';
-import { openModal } from '../../../services/utility.service';
+import { openModal } from '../../../utils/utility.service';
 
 const { width, height } = Dimensions.get('window');
 const inputWidth = width - 24 * 2;

@@ -4,7 +4,7 @@ import { NotesList } from './NotesList/NotesList';
 import { NotesEdit } from './NotesEdit/NotesEdit';
 import { NotesAdd } from './NotesAdd/NotesAdd';
 import { RouteProp } from '@react-navigation/native';
-import { AvailableRoutes } from '../../shared/env/available-routes';
+import { AvailableRoutes } from '../../environment/available-routes';
 import { ProfileMenu } from '../Navigation/ProfileMenu';
 
 export const NotesStack: React.FunctionComponent<{

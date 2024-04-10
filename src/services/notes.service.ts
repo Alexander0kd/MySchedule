@@ -1,5 +1,5 @@
-import { getUniqueSchedule, handleError } from './utility.service';
-import { INote, INoteData } from '../shared/interfaces/notes.interface';
+import { getUniqueSchedule, handleError } from '../utils/utility.service';
+import { INote, INoteData } from '../interfaces/notes.interface';
 import { getActiveProfile, updateProfileData } from './profile.service';
 
 /**

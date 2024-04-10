@@ -1,15 +1,15 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { NotesDropdown } from './NotesDropdown';
-import { INote } from '../../../shared/interfaces/notes.interface';
+import { INote } from '../../../interfaces/notes.interface';
 import { deleteNoteById, getAllSubjects } from '../../../services/notes.service';
 
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../../../shared/env/available-routes';
+import { AvailableRoutes } from '../../../environment/available-routes';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 
-import { openModal } from '../../../services/utility.service';
-import { LoadingScreen } from '../../../shared/components/LoadingScreen';
+import { openModal } from '../../../utils/utility.service';
+import { LoadingScreen } from '../../../shared/LoadingScreen';
 
 export const NotesList: FunctionComponent<{
     lesson: string;

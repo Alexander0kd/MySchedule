@@ -5,12 +5,12 @@ import { DropDown } from './Dropdown';
 import { DateBlock } from './DateBlock';
 import { DatePicker } from './DatePicker';
 import { getActiveProfile, updateProfileData } from '../../services/profile.service';
-import { IProfile } from '../../shared/interfaces/profile.interface';
+import { IProfile } from '../../interfaces/profile.interface';
 import { getGroupSchedule } from '../../services/schedule-api.service';
-import { UniEndpoints } from '../../shared/universities/uni-endpoints.enum';
-import { ISchedule } from '../../shared/interfaces/schedule.interface';
-import { filterSchedule, formatDateWithTime, handleError } from '../../services/utility.service';
-import { LoadingScreen } from '../../shared/components/LoadingScreen';
+import { UniEndpoints } from '../../environment/universities/uni-endpoints.enum';
+import { ISchedule } from '../../interfaces/schedule.interface';
+import { filterSchedule, formatDateWithTime, handleError } from '../../utils/utility.service';
+import { LoadingScreen } from '../../shared/LoadingScreen';
 import { useIsFocused } from '@react-navigation/native';
 import { handleNotifyList } from '../../services/notification.service';
 

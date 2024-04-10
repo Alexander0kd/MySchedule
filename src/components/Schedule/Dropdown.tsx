@@ -6,9 +6,9 @@ import Arrow from '../../../assets/arrow_drop_down.png';
 import { Reminder } from './Reminder';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../../shared/env/available-routes';
-import { getLessonType } from '../../services/utility.service';
-import { ISchedule } from '../../shared/interfaces/schedule.interface';
+import { AvailableRoutes } from '../../environment/available-routes';
+import { getLessonType } from '../../utils/utility.service';
+import { ISchedule } from '../../interfaces/schedule.interface';
 
 export const DropDown: FunctionComponent<{
     lesson: ISchedule;

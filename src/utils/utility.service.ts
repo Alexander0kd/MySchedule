@@ -1,7 +1,7 @@
-import { IProfile } from '../shared/interfaces/profile.interface';
-import { ISchedule } from '../shared/interfaces/schedule.interface';
-import { AvailableUni } from '../shared/universities/available-uni.enum';
-import { PnuFaculty } from '../shared/universities/faculty/pnu.faculty';
+import { IProfile } from '../interfaces/profile.interface';
+import { ISchedule } from '../interfaces/schedule.interface';
+import { AvailableUni } from '../environment/universities/available-uni.enum';
+import { PnuFaculty } from '../environment/faculty/pnu.faculty';
 import { closeAlert, showAlert } from 'react-native-customisable-alert';
 
 /**

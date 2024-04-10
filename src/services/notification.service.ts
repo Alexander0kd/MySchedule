@@ -2,13 +2,13 @@ import * as Notifications from 'expo-notifications';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 
-import { NotificationItem } from '../shared/interfaces/settings.interface';
+import { NotificationItem } from '../interfaces/settings.interface';
 
-import { ISchedule } from '../shared/interfaces/schedule.interface';
-import { handleError } from './utility.service';
+import { ISchedule } from '../interfaces/schedule.interface';
+import { handleError } from '../utils/utility.service';
 
 import { getGroupSchedule } from './schedule-api.service';
-import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
+import { UniEndpoints } from '../environment/universities/uni-endpoints.enum';
 import { getActiveProfile } from './profile.service';
 
 const BACKGROUND_TASK_NAME = 'scheduleUpdateTask';

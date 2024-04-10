@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { AvailableRoutes } from '../../../shared/env/available-routes';
+import { AvailableRoutes } from '../../../environment/available-routes';
 import { EventArg, RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TextInput, View, StyleSheet, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
-import { RoundButton } from '../../../shared/components/RoundButton';
+import { RoundButton } from '../../../shared/RoundButton';
 
 import { addNote } from '../../../services/notes.service';
-import { INote, INoteData } from '../../../shared/interfaces/notes.interface';
-import { openModal } from '../../../services/utility.service';
+import { INote, INoteData } from '../../../interfaces/notes.interface';
+import { openModal } from '../../../utils/utility.service';
 
 const { width, height } = Dimensions.get('window');
 const inputWidth = width;
@@ -41,7 +41,12 @@ export const NotesAdd: FunctionComponent<{
         ) {
             e.preventDefault();
 
-            const modal = await openModal('Бажаєте скасувати додавання?', 'Цю дію неможливо відмінити', 'Ні, залишитись', 'Так, скасувати');
+            const modal = await openModal(
+                'Бажаєте скасувати додавання?', 
+                'Цю дію неможливо відмінити', 
+                'Ні, залишитись', 
+                'Так, скасувати'
+            );
 
             if (modal) {
                 navigation.dispatch(e.data.action);

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Text, StyleSheet, ScrollView, View } from 'react-native';
 import { FAQDropdown } from './FAQDropdown';
-import { faqData } from '../../shared/env/faq-data';
-import { IFAQ, IFAQChild } from '../../shared/interfaces/faq.interface';
+import { faqData } from '../../environment/faq-data';
+import { IFAQ, IFAQChild } from '../../interfaces/faq.interface';
 
 export const FAQ = () => {
     return (

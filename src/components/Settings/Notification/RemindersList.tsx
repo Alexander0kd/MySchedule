@@ -2,8 +2,8 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native';
 import Arrow from './../../../../assets/arrow_drop_down.png';
 import Trash from '../../../../assets/trashcan.png';
-import { NotificationItem } from '../../../shared/interfaces/settings.interface';
-import { formatDateWithTime } from '../../../services/utility.service';
+import { NotificationItem } from '../../../interfaces/settings.interface';
+import { formatDateWithTime } from '../../../utils/utility.service';
 
 const RemindersList: FunctionComponent<{
     list: NotificationItem[];

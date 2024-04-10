@@ -4,11 +4,11 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { setActiveProfile, deleteProfileById, getAllProfiles, getActiveProfile } from '../../../../services/profile.service';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../../../../shared/env/available-routes';
-import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { LoadingScreen } from '../../../../shared/components/LoadingScreen';
-import { RoundButton } from '../../../../shared/components/RoundButton';
-import { openModal } from '../../../../services/utility.service';
+import { AvailableRoutes } from '../../../../environment/available-routes';
+import { IProfile } from '../../../../interfaces/profile.interface';
+import { LoadingScreen } from '../../../../shared/LoadingScreen';
+import { RoundButton } from '../../../../shared/RoundButton';
+import { openModal } from '../../../../utils/utility.service';
 import { ProfileDropdown } from './ProfileDropdown';
 
 export const ProfileList = () => {

@@ -3,9 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import { ScheduleChanges } from './ScheduleChanges';
 import { NotifyByDropdown } from './NotifyByDropdown';
 import RemindersList from './RemindersList';
-import { IProfile } from '../../../shared/interfaces/profile.interface';
+import { IProfile } from '../../../interfaces/profile.interface';
 import { getActiveProfile, updateProfileData } from '../../../services/profile.service';
-import { LoadingScreen } from '../../../shared/components/LoadingScreen';
+import { LoadingScreen } from '../../../shared/LoadingScreen';
 import { useIsFocused } from '@react-navigation/native';
 import { handleNotifyBy, handleNotifyChanges, handleNotifyList } from '../../../services/notification.service';
 

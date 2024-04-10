@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { PnuFaculty } from '../shared/universities/faculty/pnu.faculty';
-import { UniEndpoints } from '../shared/universities/uni-endpoints.enum';
-import { IGroup } from '../shared/interfaces/group.interface';
-import { AvailableUni } from '../shared/universities/available-uni.enum';
-import { getYearRequest, handleError } from './utility.service';
-import { ISchedule } from '../shared/interfaces/schedule.interface';
-import { IDropdown } from '../shared/interfaces/dropdown.interface';
+import { PnuFaculty } from '../environment/faculty/pnu.faculty';
+import { UniEndpoints } from '../environment/universities/uni-endpoints.enum';
+import { IGroup } from '../interfaces/group.interface';
+import { AvailableUni } from '../environment/universities/available-uni.enum';
+import { getYearRequest, handleError } from '../utils/utility.service';
+import { ISchedule } from '../interfaces/schedule.interface';
+import { IDropdown } from '../interfaces/dropdown.interface';
 
 /**
  * Retrieves the list of faculties for the specified university.

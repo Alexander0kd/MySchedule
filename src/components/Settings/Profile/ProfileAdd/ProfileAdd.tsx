@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { ProfileForm } from '../../../../shared/components/ProfileForm';
-import { IProfile } from '../../../../shared/interfaces/profile.interface';
-import { RoundButton } from '../../../../shared/components/RoundButton';
+import { ProfileForm } from '../../../../shared/ProfileForm';
+import { IProfile } from '../../../../interfaces/profile.interface';
+import { RoundButton } from '../../../../shared/RoundButton';
 
 import { addProfile, setActiveProfile } from '../../../../services/profile.service';
-import { handleError, openModal } from '../../../../services/utility.service';
+import { handleError, openModal } from '../../../../utils/utility.service';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../../../../shared/env/available-routes';
+import { AvailableRoutes } from '../../../../environment/available-routes';
 import { EventArg, useNavigation } from '@react-navigation/native';
 
 export const ProfileAdd = () => {

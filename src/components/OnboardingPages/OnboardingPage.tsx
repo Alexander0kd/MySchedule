@@ -6,7 +6,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 import { WelcomePage } from './WelcomePage';
 import { RegistrationPage } from './RegistrationPage';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../../shared/env/available-routes';
+import { AvailableRoutes } from '../../environment/available-routes';
 import { SuccessfulRegistrationPage } from './SuccessfulRegistrationScreen';
 
 const { width } = Dimensions.get('window');

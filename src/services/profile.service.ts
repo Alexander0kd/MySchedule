@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { IProfile } from '../shared/interfaces/profile.interface';
+import { IProfile } from '../interfaces/profile.interface';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AvailableRoutes } from '../shared/env/available-routes';
-import { handleError } from './utility.service';
+import { AvailableRoutes } from '../environment/available-routes';
+import { handleError } from '../utils/utility.service';
 
 enum STORAGE_KEYS {
     PROFILES = 'profiles',

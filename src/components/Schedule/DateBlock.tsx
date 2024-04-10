@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Arrow from '../../../assets/arrow-left.png';
-import { formatDate } from '../../services/utility.service';
+import { formatDate } from '../../utils/utility.service';
 
 export const DateBlock: FunctionComponent<{
     date: Date;
