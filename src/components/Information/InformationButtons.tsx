@@ -77,6 +77,12 @@ export const InformationButtons = () => {
                     label="Кадемський Олександр"
                     onPressFn={() => Linking.openURL('https://www.linkedin.com/in/alexander-kademskyi-8939522b4/')}
                 />
+                <IconButton
+                    icon="link"
+                    iconPosition="right"
+                    label="Семків Константин"
+                    onPressFn={() => Linking.openURL('https://www.linkedin.com/in/kostiasemkiv/')}
+                />
             </View>
         </ScrollView>
     );
